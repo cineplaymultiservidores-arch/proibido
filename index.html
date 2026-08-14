@@ -8,51 +8,35 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&display=swap');
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Rajdhani', sans-serif; background: #000 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><text x="0" y="10" font-size="10" fill="%23ff00ff" opacity="0.03">SECRET</text></svg>'); color:#fff; text-align:center; }
+body { font-family: 'Rajdhani', sans-serif; background: #000; color:#fff; text-align:center; }
 body.piscar { background: #1a001a; animation: glitch 0.3s; }
 @keyframes glitch { 0%{transform:translate(0)} 20%{transform:translate(-2px,2px)} 40%{transform:translate(2px,-2px)} 60%{transform:translate(-2px)} 80%{transform:translate(2px)} 100%{transform:translate(0)} }
-
 .container { padding:20px 15px; max-width:450px; margin:auto; }
-h1 { font-family: 'Orbitron', sans-serif; font-size:26px; color:#ff00ff; text-shadow: 0 0 5px #ff00ff, 0 0 20px #ff00ff; margin-bottom:15px; letter-spacing:4px; }
-.sub { font-size:12px; color:#aa00aa; letter-spacing:2px; margin-bottom:10px; }
-.caixa { background: linear-gradient(180deg, #0a0a0a, #000); padding:20px; border-radius:10px; border:1px solid #ff00ff; box-shadow: 0 0 30px rgba(255,0,255,0.4); }
-input, select { width:100%; padding:14px; margin:8px 0; background:#050505; border:1px solid #ff00ff; border-radius:5px; color:#ff00ff; font-size:16px; text-align:center; font-family: 'Rajdhani', sans-serif; font-weight:700; }
-input::placeholder{ color:#550055; }
-.btn { width:100%; padding:16px; background: linear-gradient(90deg, #ff00ff, #aa00aa); border:none; border-radius:5px; color:#fff; font-size:18px; font-weight:900; cursor:pointer; margin-top:10px; font-family: 'Orbitron', sans-serif; box-shadow: 0 0 15px rgba(255,0,255,0.6); }
-.btn:active { transform: scale(0.95); }
-.btn-gps { background: linear-gradient(90deg, #00ffff, #00aaaa); box-shadow: 0 0 15px rgba(0,255,255,0.6); color:#000; }
+h1 { font-family: 'Orbitron', sans-serif; font-size:26px; color:#ff00ff; text-shadow: 0 0 20px #ff00ff; margin-bottom:5px; }
+.sub { font-size:12px; color:#aa00aa; margin-bottom:20px; }
+.caixa { background: #0a0a0a; padding:20px; border-radius:10px; border:1px solid #ff00ff; box-shadow: 0 0 30px rgba(255,0,255,0.4); margin-bottom:20px; }
+input, select { width:100%; padding:14px; margin:8px 0; background:#050505; border:1px solid #ff00ff; border-radius:5px; color:#ff00ff; font-size:16px; text-align:center; font-weight:700; }
+.btn { width:100%; padding:16px; background: linear-gradient(90deg, #ff00ff, #aa00aa); border:none; border-radius:5px; color:#fff; font-size:18px; font-weight:900; cursor:pointer; margin-top:10px; font-family: 'Orbitron'; }
+.btn-gps { background: linear-gradient(90deg, #00ffff, #00aaaa); color:#000; }
 #cadastro, #formulario, #resultado { display:none; }
-.aviso-cadastro { font-size:11px; color:#999; margin:10px 0; }
-.termos { font-size:9px; color:#555; margin-top:10px; }
-
-/* CARROSSEL */
 .carousel { position:relative; width:100%; max-width:350px; margin:15px auto; }
 .carousel-container { overflow:hidden; border-radius:10px; border:2px solid #ff00ff; background:#000; touch-action: pan-y; }
 .carousel-track { display:flex; transition: transform 0.3s ease-out; }
 .carousel-item { min-width:100%; background:#050505; padding:20px; }
-.carousel-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,0,255,0.9); border:none; color:#fff; font-size:25px; width:35px; height:35px; border-radius:5px; cursor:pointer; z-index:10; }
-.prev { left:5px; }.next { right:5px; }
-.dots { display:flex; justify-content:center; gap:6px; margin-top:10px; }
-.dot { width:6px; height:6px; border-radius:50%; background:#330033; border:1px solid #ff00ff; }
-.dot.active { background:#ff00ff; box-shadow:0 0 10px #ff00ff; }
-.slide-counter { color:#00ffff; font-size:12px; font-weight:700; margin-bottom:5px; }
-
-.avatar { width:140px; height:140px; border-radius:10px; background-size:cover; background-position:center; border:2px solid #ff00ff; margin:0 auto 10px; position:relative; }
+.avatar { width:140px; height:140px; border-radius:10px; background-size:cover; background-position:center; border:2px solid #ff00ff; margin:0 auto 10px; }
 .borrado { filter: blur(20px); }
-.card { background: linear-gradient(180deg, #0a000a, #000); padding:20px; border-radius:10px; border:2px solid #ff00ff; animation: aparecer 0.5s; }
-@keyframes aparecer { from {opacity:0; transform:scale(0.9);} to {opacity:1; transform:scale(1);} }
-.status-traida { color:#ff00ff; font-size:18px; margin-bottom:10px; font-family: 'Orbitron'; }
+.card { background: #0a000a; padding:20px; border-radius:10px; border:2px solid #ff00ff; }
+.status-traida { color:#ff00ff; font-size:18px; font-family: 'Orbitron'; }
 .status-nao { color:#00ffff; font-size:22px; font-family: 'Orbitron'; }
-.contador { font-size:70px; color:#ff00ff; font-weight:900; font-family: 'Orbitron'; }
 .contador-conversas { color:#00ffff; font-size:20px; margin:10px 0; font-weight:700; }
-#mapa { height:180px; border-radius:5px; margin-top:15px; border:1px solid #ff00ff; display:none; }
+#mapa { height:220px; border-radius:10px; margin-top:15px; border:2px solid #ff00ff; display:none; }
 .loading-bar { background:#111; border-radius:5px; margin:15px 0; border:1px solid #ff00ff; }
 .progress { height:25px; background: linear-gradient(90deg, #ff00ff, #00ffff); width:0%; }
 .scan-text { color:#00ffff; font-size:12px; font-family: 'Orbitron'; }
-.online { position:absolute; bottom:8px; right:8px; width:15px; height:15px; background:#00ff00; border-radius:50%; border:3px solid #000; }
-.info-box { background:#0a0a0a; border:1px solid #333; border-radius:10px; padding:20px; margin-top:30px; text-align:left; }
+.info-box { background:#0a0a0a; border:1px solid #330033; border-radius:10px; padding:20px; margin-top:20px; text-align:left; }
 .info-title { color:#ff00ff; font-size:18px; font-family:'Orbitron'; margin-bottom:15px; text-align:center; }
-.loading { color:#00ffff; font-size:11px; }
+.etapa { display:flex; align-items:flex-start; margin:15px 0; font-size:14px; }
+.etapa-num { background:linear-gradient(135deg, #ff00ff, #aa00aa); color:#000; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:900; margin-right:12px; }
 </style>
 </head>
 <body>
@@ -60,26 +44,18 @@ input::placeholder{ color:#550055; }
     <h1>SECRETTO YOU</h1>
     <p class="sub">SISTEMA DE INTELIGÊNCIA</p>
 
-    <!-- TELA 1: CADASTRO -->
     <div class="caixa" id="cadastro">
-        <p style="color:#ff00ff; font-size:20px; font-weight:900; margin-bottom:10px;">ACESSO RESTRITO</p>
-        <p style="font-size:14px; margin-bottom:15px;">Ative seu acesso ao SECRETTO YOU</p>
+        <p style="color:#ff00ff; font-size:20px; font-weight:900;">ACESSO RESTRITO</p>
         <input type="text" id="cad_nome" placeholder=">> SEU PRIMEIRO NOME">
         <input type="number" id="cad_idade" placeholder=">> SUA IDADE" min="18" max="99">
-        <input type="tel" id="cad_tel" placeholder=">> SEU WHATSAPP COM DDD" maxlength="15">
-        <p class="aviso-cadastro">Seus dados são confidenciais e criptografados</p>
+        <input type="tel" id="cad_tel" placeholder=">> SEU WHATSAPP COM DDD">
         <button class="btn" onclick="salvarCadastro()">ATIVAR ACESSO</button>
-        <p class="termos">*Uso +18</p>
     </div>
 
-    <!-- TELA 2: SCAN -->
     <div class="caixa" id="formulario">
         <input type="text" id="nome" placeholder=">> NOME DO ALVO">
-        <div>
-            <input type="text" id="cidade" placeholder=">> LOCALIZAÇÃO">
-            <button class="btn btn-gps" onclick="pegarLocalizacao()">📡 RASTREAR GPS</button>
-            <p id="loading" class="loading" style="display:none;">BUSCANDO SINAL...</p>
-        </div>
+        <input type="text" id="cidade" placeholder=">> LOCALIZAÇÃO">
+        <button class="btn btn-gps" onclick="pegarLocalizacao()">📡 RASTREAR GPS</button>
         <input type="text" id="app" placeholder=">> REDE SOCIAL ALVO">
         <select id="sexo">
             <option value="mulher">ANALISAR MULHER</option>
@@ -92,103 +68,114 @@ input::placeholder{ color:#550055; }
 
     <div class="info-box">
         <p class="info-title">>> PROTOCOLO DE USO <<</p>
-        <p style="font-size:14px;">1. Ative seu acesso 2. Insira os dados 3. Inicie a Análise 4. Veja o resultado</p>
+        <div class="etapa"><div class="etapa-num">1</div><div>Ative seu acesso</div></div>
+        <div class="etapa"><div class="etapa-num">2</div><div>Insira os dados do alvo</div></div>
+        <div class="etapa"><div class="etapa-num">3</div><div>Inicie a Análise</div></div>
     </div>
 </div>
 
 <audio id="somAlerta" src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_d1716fce92.mp3"></audio>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-// VERIFICA CADASTRO AO ENTRAR
 window.onload = function(){
-    if(localStorage.getItem("secretto_user")){
-        document.getElementById("formulario").style.display = "block";
-    } else {
-        document.getElementById("cadastro").style.display = "block";
-    }
-    document.getElementById('cad_tel').addEventListener('input', function(e){
-        let v = e.target.value.replace(/\D/g, '');
-        if(v.length <= 11) v = v.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-        e.target.value = v;
-    });
+    if(localStorage.getItem("secretto_user")){ document.getElementById("formulario").style.display = "block"; }
+    else { document.getElementById("cadastro").style.display = "block"; }
 }
 
 function salvarCadastro(){
     var nome = document.getElementById("cad_nome").value.trim();
-    var tel = document.getElementById("cad_tel").value.replace(/\D/g, '');
-    var idade = document.getElementById("cad_idade").value;
-    if(nome == "" || tel.length < 10 || idade == "" || idade < 18){
-        alert("PREENCHA CORRETAMENTE. IDADE MINIMA 18 ANOS");
-        return;
-    }
-    var user = {nome: nome, telefone: tel, idade: idade, data: new Date().toLocaleString()};
-    localStorage.setItem("secretto_user", JSON.stringify(user));
-    console.log("NOVO ACESSO SECRETTO:", user);
+    if(nome == ""){ alert("DIGITE SEU NOME"); return; }
+    localStorage.setItem("secretto_user", "ok");
     document.getElementById("cadastro").style.display = "none";
     document.getElementById("formulario").style.display = "block";
 }
 
-// === CODIGO COMPLETO DO SCAN ===
-const nomesHomem = ["Carlos", "Pedro", "Lucas", "Rafael", "Bruno", "Matheus", "Gabriel", "Diego", "Thiago"];
-const nomesMulher = ["Ana", "Julia", "Beatriz", "Camila", "Mariana", "Larissa", "Amanda", "Fernanda", "Patricia"];
-const statusOnline = ["ONLINE", "ATIVO 2min atrás", "ATIVO 5min atrás", "ONLINE", "ATIVO 1h atrás"];
-var mapa; var currentSlide = 0; var totalSlides = 0; var startX = 0; var isDragging = false;
+const nomesHomem = ["Carlos", "Pedro", "Lucas", "Rafael", "Bruno"];
+const nomesMulher = ["Ana", "Julia", "Beatriz", "Camila", "Mariana"];
+var mapa; var currentSlide = 0; var totalSlides = 0;
 
 function iniciarMapa(lat, lon, cidade){
     document.getElementById("mapa").style.display = "block";
     if(mapa) mapa.remove();
-    mapa = L.map('mapa').setView([lat, lon], 13);
+    mapa = L.map('mapa').setView([lat, lon], 14);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapa);
-    L.circleMarker([lat, lon], {color: '#ff00ff', fillColor: '#ff00ff', fillOpacity: 0.9, radius: 12}).addTo(mapa).bindPopup(`<b>${cidade}</b>`).openPopup();
+    L.circleMarker([lat, lon], {color: '#ff0000', fillColor: '#ff0000', fillOpacity: 1, radius: 15}).addTo(mapa).openPopup();
 }
 function pegarLocalizacao(){
-    document.getElementById("loading").style.display = "block";
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(function(position){
             var lat = position.coords.latitude; var lon = position.coords.longitude;
             fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`).then(res => res.json()).then(data => {
-                var cidade = data.address.city || data.address.town || data.address.state;
+                var cidade = data.address.city || data.address.state;
                 document.getElementById("cidade").value = cidade.toUpperCase();
                 iniciarMapa(lat, lon, cidade.toUpperCase());
-                document.getElementById("loading").style.display = "none";
             });
-        }, function(){ alert("PERMISSÃO NEGADA"); document.getElementById("loading").style.display = "none"; });
+        });
     }
 }
 function resetar(){ location.reload(); }
+
 function criarCarousel(quantidade, sexoOposto){
-    totalSlides = quantidade; let items = ''; let dots = '';
-    let listaNomes = sexoOposto == "homem"? nomesHomem : nomesMulher; let nomesUsados = [];
+    totalSlides = quantidade; let items = '';
+    let listaNomes = sexoOposto == "homem"? nomesHomem : nomesMulher;
     for(let i = 0; i < quantidade; i++){
-        let nome; do { nome = listaNomes[Math.floor(Math.random()*listaNomes.length)]; } while(nomesUsados.includes(nome));
-        nomesUsados.push(nome); let idade = Math.floor(Math.random() * 15) + 20;
+        let nome = listaNomes[Math.floor(Math.random()*listaNomes.length)];
+        let idade = Math.floor(Math.random() * 15) + 20;
         let avatarId = sexoOposto == "homem"? Math.floor(Math.random()*35) + 1 : Math.floor(Math.random()*35) + 36;
-        let avatar = "https://i.pravatar.cc/300?img=" + avatarId; let status = statusOnline[Math.floor(Math.random()*statusOnline.length)];
-        let hora = Math.floor(Math.random()*24).toString().padStart(2,'0'); let min = Math.floor(Math.random()*60).toString().padStart(2,'0');
-        items += `<div class="carousel-item"><p class="slide-counter">${i+1}/${quantidade}</p><div style="position:relative;"><div class="avatar borrado" style="background-image:url(${avatar})"></div><div class="online"></div></div><p style="font-size:22px; color:#ff00ff; font-weight:900;">${nome}</p><p>${idade} ANOS</p><p style="color:#00ffff;">● ${status}</p><p style="color:#00ffff;">ÚLTIMA MSG: ${hora}:${min}</p></div>`;
-        dots += `<div class="dot ${i==0?'active':''}"></div>`;
+        let avatar = "https://i.pravatar.cc/300?img=" + avatarId;
+        items += `<div class="carousel-item"><p>${i+1}/${quantidade}</p><div class="avatar borrado" style="background-image:url(${avatar})"></div><p style="font-size:22px; color:#ff00ff;">${nome}</p><p>${idade} ANOS</p></div>`;
     }
-    setTimeout(() => { let container = document.getElementById("carouselContainer"); container.addEventListener('touchstart', e => { startX = e.touches[0].clientX; isDragging = true; }); container.addEventListener('touchend', e => { if(!isDragging) return; let diff = startX - e.changedTouches[0].clientX; if(Math.abs(diff) > 50){ if(diff > 0) moverSlide(1); else moverSlide(-1); } isDragging = false; }); }, 100);
-    return `<div class="carousel"><button class="carousel-btn prev" onclick="moverSlide(-1)">‹</button><div class="carousel-container" id="carouselContainer"><div class="carousel-track" id="track">${items}</div></div><button class="carousel-btn next" onclick="moverSlide(1)">›</button><div class="dots">${dots}</div></div>`;
+    return `<div class="carousel"><div class="carousel-container"><div class="carousel-track" id="track">${items}</div></div></div>`;
 }
-function moverSlide(dir){ currentSlide = (currentSlide + dir + totalSlides) % totalSlides; document.getElementById("track").style.transform = `translateX(-${currentSlide * 100}%)`; document.querySelectorAll(".dot").forEach((d,i)=> d.classList.toggle("active", i==currentSlide)); }
-function barraCarregamento(callback){ let progress = document.getElementById("progress"); let scanText = document.getElementById("scanText"); let apps = ["TINDER_DB", "INSTAGRAM_API", "WHATSAPP_LOG"]; let i = 0; let width = 0; let intervalo = setInterval(() => { width += 2; progress.style.width = width + "%"; scanText.innerHTML = `INVADINDO ${apps[i % apps.length]}... ${width}%`; if(width % 33 == 0) i++; if(width >= 100){ clearInterval(intervalo); callback(); } }, 70); }
+
+function barraCarregamento(callback){
+    let progress = document.getElementById("progress");
+    let width = 0;
+    let intervalo = setInterval(() => {
+        width += 3;
+        progress.style.width = width + "%";
+        if(width >= 100){ clearInterval(intervalo); callback(); }
+    }, 50);
+}
+
 function detectar(){
-    var nomeDigitado = document.getElementById("nome").value.toUpperCase(); var cidadeDigitada = document.getElementById("cidade").value.toUpperCase(); var app = document.getElementById("app").value || "REDE SOCIAL"; var sexo = document.getElementById("sexo").value; var res = document.getElementById("resultado"); var form = document.getElementById("formulario"); var som = document.getElementById("somAlerta"); var body = document.body;
+    var nomeDigitado = document.getElementById("nome").value.toUpperCase();
+    var cidadeDigitada = document.getElementById("cidade").value.toUpperCase();
+    var sexo = document.getElementById("sexo").value;
+    var res = document.getElementById("resultado");
+    var form = document.getElementById("formulario");
+    var som = document.getElementById("somAlerta");
+    var body = document.body;
+
     if(nomeDigitado == "" || cidadeDigitada == ""){ alert("PREENCHA TODOS OS CAMPOS"); return; }
-    form.style.display = "none"; res.style.display = "block";
-    res.innerHTML = `<div class="loading-bar"><div class="progress" id="progress"></div></div><p class="scan-text" id="scanText">INICIANDO PROTOCOLO...</p><div class="contador" id="count">3</div>`;
+
+    form.style.display = "none";
+    res.style.display = "block";
+    res.innerHTML = `<div class="loading-bar"><div class="progress" id="progress"></div></div><p class="scan-text">INVADINDO SERVIDORES...</p>`;
+
     barraCarregamento(() => {
-        let i = 3; let cont = setInterval(() => { i--; document.getElementById("count").innerHTML = i > 0? i : "DECRYPTANDO DADOS..."; if(i == 0) clearInterval(cont); }, 1000);
         setTimeout(function(){
-            var traida = Math.random() > 0.5;
+            // LOGICA NOVA: 70% DE CHANCE DE TRAIR
+            // SE FOR MULHER A CHANCE SOBE PRA 85%
+            var chanceTrair = sexo == "mulher"? 0.85 : 0.70;
+            var traida = Math.random() < chanceTrair;
+
             if(traida){
-                var quantidade = Math.floor(Math.random() * 6) + 1; var conversas = Math.floor(Math.random() * 75) + 15; var sexoAmante = sexo == "homem"? "mulher" : "homem"; currentSlide = 0;
-                som.play().catch(()=>{}); body.classList.add("piscar"); setTimeout(()=> body.classList.remove("piscar"), 500);
-                res.innerHTML = `<div class="card"><p class="status-traida">⚠ ALERTA SECRETTO: ${nomeDigitado} ⚠</p><p class="contador-conversas">${quantidade} CONTATOS SECRETOS + ${conversas} MENSAGENS</p>${criarCarousel(quantidade, sexoAmante)}<p>LOCAL: ${cidadeDigitada} | REDE: ${app.toUpperCase()}</p><div id="mapa"></div><button class="btn" onclick="resetar()">NOVA ANÁLISE</button></div>`;
+                var quantidade = Math.floor(Math.random() * 5) + 2; // 2 a 6 pessoas
+                var conversas = Math.floor(Math.random() * 60) + 20;
+                var sexoAmante = sexo == "homem"? "mulher" : "homem";
+                currentSlide = 0;
+                som.play().catch(()=>{});
+                body.classList.add("piscar");
+                setTimeout(()=> body.classList.remove("piscar"), 500);
+
+                res.innerHTML = `<div class="card"><p class="status-traida">⚠ ALERTA SECRETTO: ${nomeDigitado} TRAIU ⚠</p><p class="contador-conversas">${quantidade} CONTATOS + ${conversas} MENSAGENS</p>${criarCarousel(quantidade, sexoAmante)}<p>LOCAL: ${cidadeDigitada}</p><div id="mapa"></div><button class="btn" onclick="resetar()">NOVA ANÁLISE</button></div>`;
+
                 fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${cidadeDigitada}`).then(res => res.json()).then(data => { if(data[0]){ iniciarMapa(parseFloat(data[0].lat), parseFloat(data[0].lon), cidadeDigitada); } });
-            } else { res.innerHTML = `<div class="card"><p class="status-nao">✓ ALVO SEGURO ✓</p><p>NENHUMA ATIVIDADE SECRETTO</p><button class="btn" onclick="resetar()">NOVA ANÁLISE</button></div>`; }
-        }, 1000);
+            } else {
+                res.innerHTML = `<div class="card"><p class="status-nao">✓ ALVO SEGURO ✓</p><p>NENHUMA ATIVIDADE SECRETTO ENCONTRADA</p><button class="btn" onclick="resetar()">NOVA ANÁLISE</button></div>`;
+            }
+        }, 500);
     });
 }
 </script>
