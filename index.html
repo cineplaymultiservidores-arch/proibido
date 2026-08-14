@@ -11,22 +11,41 @@
 body { font-family: 'Rajdhani', sans-serif; background: #000; color:#fff; text-align:center; }
 body.piscar { background: #1a001a; animation: glitch 0.3s; }
 @keyframes glitch { 0%{transform:translate(0)} 20%{transform:translate(-2px,2px)} 40%{transform:translate(2px,-2px)} 60%{transform:translate(-2px)} 80%{transform:translate(2px)} 100%{transform:translate(0)} }
+
 .container { padding:20px 15px; max-width:450px; margin:auto; }
-h1 { font-family: 'Orbitron', sans-serif; font-size:26px; color:#ff00ff; text-shadow: 0 0 20px #ff00ff; margin-bottom:5px; }
-.sub { font-size:12px; color:#aa00aa; margin-bottom:20px; }
-.caixa { background: #0a0a0a; padding:20px; border-radius:10px; border:1px solid #ff00ff; box-shadow: 0 0 30px rgba(255,0,255,0.4); margin-bottom:20px; }
+h1 { font-family: 'Orbitron', sans-serif; font-size:26px; color:#ff00ff; text-shadow: 0 0 20px #ff00ff; margin-bottom:5px; letter-spacing:3px; }
+.sub { font-size:12px; color:#aa00aa; letter-spacing:2px; margin-bottom:20px; }
+.caixa { background: linear-gradient(180deg, #0a0a0a, #000); padding:20px; border-radius:10px; border:1px solid #ff00ff; box-shadow: 0 0 30px rgba(255,0,255,0.4); margin-bottom:20px; }
 input, select { width:100%; padding:14px; margin:8px 0; background:#050505; border:1px solid #ff00ff; border-radius:5px; color:#ff00ff; font-size:16px; text-align:center; font-weight:700; }
-.btn { width:100%; padding:16px; background: linear-gradient(90deg, #ff00ff, #aa00aa); border:none; border-radius:5px; color:#fff; font-size:18px; font-weight:900; cursor:pointer; margin-top:10px; font-family: 'Orbitron'; }
-.btn-gps { background: linear-gradient(90deg, #00ffff, #00aaaa); color:#000; }
+input::placeholder{ color:#550055; }
+.btn { width:100%; padding:16px; background: linear-gradient(90deg, #ff00ff, #aa00aa); border:none; border-radius:5px; color:#fff; font-size:18px; font-weight:900; cursor:pointer; margin-top:10px; font-family: 'Orbitron'; box-shadow: 0 0 15px rgba(255,0,255,0.6); }
+.btn:active { transform: scale(0.95); }
+.btn-gps { background: linear-gradient(90deg, #00ffff, #00aaaa); color:#000; box-shadow: 0 0 15px rgba(0,255,255,0.6); }
 #cadastro, #formulario, #resultado { display:none; }
+
+/* CARROSSEL */
 .carousel { position:relative; width:100%; max-width:350px; margin:15px auto; }
 .carousel-container { overflow:hidden; border-radius:10px; border:2px solid #ff00ff; background:#000; touch-action: pan-y; }
 .carousel-track { display:flex; transition: transform 0.3s ease-out; }
-.carousel-item { min-width:100%; background:#050505; padding:20px; }
-.avatar { width:140px; height:140px; border-radius:10px; background-size:cover; background-position:center; border:2px solid #ff00ff; margin:0 auto 10px; }
+.carousel-item { min-width:100%; background:#050505; padding:20px 20px 10px 20px; }
+.carousel-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,0,255,0.9); border:none; color:#fff; font-size:25px; width:35px; height:35px; border-radius:5px; cursor:pointer; z-index:10; }
+.prev { left:5px; }.next { right:5px; }
+.dots { display:flex; justify-content:center; gap:6px; margin-top:10px; }
+.dot { width:6px; height:6px; border-radius:50%; background:#330033; border:1px solid #ff00ff; }
+.dot.active { background:#ff00ff; box-shadow:0 0 10px #ff00ff; }
+.slide-counter { color:#00ffff; font-size:12px; font-weight:700; margin-bottom:5px; }
+
+/* RODAPÉ DAS FOTOS */
+.carousel-footer { font-size:10px; color:#666; margin-top:8px; border-top:1px solid #220022; padding-top:8px; }
+.carousel-footer b { color:#ff00ff; }
+
+.avatar { width:140px; height:140px; border-radius:10px; background-size:cover; background-position:center; border:2px solid #ff00ff; margin:0 auto 10px; position:relative; }
 .borrado { filter: blur(20px); }
-.card { background: #0a000a; padding:20px; border-radius:10px; border:2px solid #ff00ff; }
-.status-traida { color:#ff00ff; font-size:18px; font-family: 'Orbitron'; }
+.online { position:absolute; bottom:8px; right:8px; width:15px; height:15px; background:#00ff00; border-radius:50%; border:3px solid #000; }
+
+.card { background: linear-gradient(180deg, #0a000a, #000); padding:20px; border-radius:10px; border:2px solid #ff00ff; animation: aparecer 0.5s; }
+@keyframes aparecer { from {opacity:0; transform:scale(0.9);} to {opacity:1; transform:scale(1);} }
+.status-traida { color:#ff00ff; font-size:18px; margin-bottom:10px; font-family: 'Orbitron'; }
 .status-nao { color:#00ffff; font-size:22px; font-family: 'Orbitron'; }
 .contador-conversas { color:#00ffff; font-size:20px; margin:10px 0; font-weight:700; }
 #mapa { height:220px; border-radius:10px; margin-top:15px; border:2px solid #ff00ff; display:none; }
@@ -36,7 +55,8 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#050505; bord
 .info-box { background:#0a0a0a; border:1px solid #330033; border-radius:10px; padding:20px; margin-top:20px; text-align:left; }
 .info-title { color:#ff00ff; font-size:18px; font-family:'Orbitron'; margin-bottom:15px; text-align:center; }
 .etapa { display:flex; align-items:flex-start; margin:15px 0; font-size:14px; }
-.etapa-num { background:linear-gradient(135deg, #ff00ff, #aa00aa); color:#000; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:900; margin-right:12px; }
+.etapa-num { background:linear-gradient(135deg, #ff00ff, #aa00aa); color:#000; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:900; margin-right:12px; flex-shrink:0; }
+.rodape { font-size:9px; color:#333; margin-top:20px; text-align:center; }
 </style>
 </head>
 <body>
@@ -44,18 +64,24 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#050505; bord
     <h1>SECRETTO YOU</h1>
     <p class="sub">SISTEMA DE INTELIGÊNCIA</p>
 
+    <!-- TELA 1: CADASTRO NO INICIO -->
     <div class="caixa" id="cadastro">
-        <p style="color:#ff00ff; font-size:20px; font-weight:900;">ACESSO RESTRITO</p>
+        <p style="color:#ff00ff; font-size:20px; font-weight:900; margin-bottom:10px;">ACESSO RESTRITO</p>
+        <p style="font-size:14px; margin-bottom:15px;">Ative seu acesso para continuar</p>
         <input type="text" id="cad_nome" placeholder=">> SEU PRIMEIRO NOME">
         <input type="number" id="cad_idade" placeholder=">> SUA IDADE" min="18" max="99">
-        <input type="tel" id="cad_tel" placeholder=">> SEU WHATSAPP COM DDD">
+        <input type="tel" id="cad_tel" placeholder=">> SEU WHATSAPP COM DDD" maxlength="15">
+        <p style="font-size:10px; color:#999; margin:10px 0;">Dados criptografados. Uso +18</p>
         <button class="btn" onclick="salvarCadastro()">ATIVAR ACESSO</button>
     </div>
 
+    <!-- TELA 2: SCAN -->
     <div class="caixa" id="formulario">
         <input type="text" id="nome" placeholder=">> NOME DO ALVO">
-        <input type="text" id="cidade" placeholder=">> LOCALIZAÇÃO">
-        <button class="btn btn-gps" onclick="pegarLocalizacao()">📡 RASTREAR GPS</button>
+        <div>
+            <input type="text" id="cidade" placeholder=">> LOCALIZAÇÃO">
+            <button class="btn btn-gps" onclick="pegarLocalizacao()">📡 RASTREAR GPS</button>
+        </div>
         <input type="text" id="app" placeholder=">> REDE SOCIAL ALVO">
         <select id="sexo">
             <option value="mulher">ANALISAR MULHER</option>
@@ -71,20 +97,38 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#050505; bord
         <div class="etapa"><div class="etapa-num">1</div><div>Ative seu acesso</div></div>
         <div class="etapa"><div class="etapa-num">2</div><div>Insira os dados do alvo</div></div>
         <div class="etapa"><div class="etapa-num">3</div><div>Inicie a Análise</div></div>
+        <div class="etapa"><div class="etapa-num">4</div><div>Arraste para ver os contatos</div></div>
     </div>
+
+    <p class="rodape">SECRETTO YOU v3.0</p>
 </div>
 
 <audio id="somAlerta" src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_d1716fce92.mp3"></audio>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+// CADASTRO NO INICIO
 window.onload = function(){
-    if(localStorage.getItem("secretto_user")){ document.getElementById("formulario").style.display = "block"; }
-    else { document.getElementById("cadastro").style.display = "block"; }
+    if(localStorage.getItem("secretto_user")){
+        document.getElementById("formulario").style.display = "block";
+    } else {
+        document.getElementById("cadastro").style.display = "block";
+    }
+    // Mascara telefone
+    document.getElementById('cad_tel').addEventListener('input', function(e){
+        let v = e.target.value.replace(/\D/g, '');
+        if(v.length <= 11) v = v.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        e.target.value = v;
+    });
 }
 
 function salvarCadastro(){
     var nome = document.getElementById("cad_nome").value.trim();
-    if(nome == ""){ alert("DIGITE SEU NOME"); return; }
+    var tel = document.getElementById("cad_tel").value.replace(/\D/g, '');
+    var idade = document.getElementById("cad_idade").value;
+    if(nome == "" || tel.length < 10 || idade == "" || idade < 18){
+        alert("PREENCHA CORRETAMENTE. IDADE MINIMA 18 ANOS");
+        return;
+    }
     localStorage.setItem("secretto_user", "ok");
     document.getElementById("cadastro").style.display = "none";
     document.getElementById("formulario").style.display = "block";
@@ -92,7 +136,7 @@ function salvarCadastro(){
 
 const nomesHomem = ["Carlos", "Pedro", "Lucas", "Rafael", "Bruno"];
 const nomesMulher = ["Ana", "Julia", "Beatriz", "Camila", "Mariana"];
-var mapa; var currentSlide = 0; var totalSlides = 0;
+var mapa; var currentSlide = 0; var totalSlides = 0; var startX = 0; var isDragging = false;
 
 function iniciarMapa(lat, lon, cidade){
     document.getElementById("mapa").style.display = "block";
@@ -116,16 +160,53 @@ function pegarLocalizacao(){
 function resetar(){ location.reload(); }
 
 function criarCarousel(quantidade, sexoOposto){
-    totalSlides = quantidade; let items = '';
+    totalSlides = quantidade; let items = ''; let dots = '';
     let listaNomes = sexoOposto == "homem"? nomesHomem : nomesMulher;
     for(let i = 0; i < quantidade; i++){
         let nome = listaNomes[Math.floor(Math.random()*listaNomes.length)];
         let idade = Math.floor(Math.random() * 15) + 20;
         let avatarId = sexoOposto == "homem"? Math.floor(Math.random()*35) + 1 : Math.floor(Math.random()*35) + 36;
         let avatar = "https://i.pravatar.cc/300?img=" + avatarId;
-        items += `<div class="carousel-item"><p>${i+1}/${quantidade}</p><div class="avatar borrado" style="background-image:url(${avatar})"></div><p style="font-size:22px; color:#ff00ff;">${nome}</p><p>${idade} ANOS</p></div>`;
+
+        items += `
+        <div class="carousel-item">
+            <p class="slide-counter">${i+1}/${quantidade}</p>
+            <div style="position:relative;">
+                <div class="avatar borrado" style="background-image:url(${avatar})"></div>
+                <div class="online"></div>
+            </div>
+            <p style="font-size:22px; color:#ff00ff; font-weight:900;">${nome}</p>
+            <p>${idade} ANOS</p>
+            <p style="color:#00ffff; font-size:14px;">● ONLINE</p>
+            <!-- RODAPÉ EMBAIXO DA FOTO -->
+            <div class="carousel-footer">
+                Arraste para o lado <b>→</b> | @secretto.you
+            </div>
+        </div>`;
+        dots += `<div class="dot ${i==0?'active':''}"></div>`;
     }
-    return `<div class="carousel"><div class="carousel-container"><div class="carousel-track" id="track">${items}</div></div></div>`;
+
+    // Ativa touch
+    setTimeout(() => {
+        let container = document.getElementById("carouselContainer");
+        if(container){
+            container.addEventListener('touchstart', e => { startX = e.touches[0].clientX; isDragging = true; });
+            container.addEventListener('touchend', e => {
+                if(!isDragging) return;
+                let diff = startX - e.changedTouches[0].clientX;
+                if(Math.abs(diff) > 50){ if(diff > 0) moverSlide(1); else moverSlide(-1); }
+                isDragging = false;
+            });
+        }
+    }, 100);
+
+    return `<div class="carousel"><button class="carousel-btn prev" onclick="moverSlide(-1)">‹</button><div class="carousel-container" id="carouselContainer"><div class="carousel-track" id="track">${items}</div></div><button class="carousel-btn next" onclick="moverSlide(1)">›</button><div class="dots" id="dots">${dots}</div></div>`;
+}
+
+function moverSlide(dir){
+    currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
+    document.getElementById("track").style.transform = `translateX(-${currentSlide * 100}%)`;
+    document.querySelectorAll(".dot").forEach((d,i)=> d.classList.toggle("active", i==currentSlide));
 }
 
 function barraCarregamento(callback){
@@ -155,13 +236,11 @@ function detectar(){
 
     barraCarregamento(() => {
         setTimeout(function(){
-            // LOGICA NOVA: 70% DE CHANCE DE TRAIR
-            // SE FOR MULHER A CHANCE SOBE PRA 85%
-            var chanceTrair = sexo == "mulher"? 0.85 : 0.70;
-            var traida = Math.random() < chanceTrair;
+            // 75% DE CHANCE DE TRAIR
+            var traida = Math.random() < 0.75;
 
             if(traida){
-                var quantidade = Math.floor(Math.random() * 5) + 2; // 2 a 6 pessoas
+                var quantidade = Math.floor(Math.random() * 4) + 2; // 2 a 5 pessoas
                 var conversas = Math.floor(Math.random() * 60) + 20;
                 var sexoAmante = sexo == "homem"? "mulher" : "homem";
                 currentSlide = 0;
