@@ -6,86 +6,63 @@
 <title>Detector de Traição</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Arial Black', Arial; background: #000; color:#fff; text-align:center; min-height:100vh; }
+body { font-family: 'Arial Black', Arial; background:#000; color:#fff; text-align:center; }
 .container { padding:40px 20px; max-width:600px; margin:auto; }
-h1 { font-size:38px; color:#ff0033; margin-bottom:8px; text-shadow: 0 0 10px red; }
-.sub { color:#aaa; margin-bottom:30px; font-size:16px; }
-.caixa { background:#0d0d0d; padding:30px; border-radius:20px; border:2px solid #ff0033; box-shadow: 0 0 20px rgba(255,0,51,0.3); }
-input { width:100%; padding:18px; margin:12px 0; background:#000; border:2px solid #333; border-radius:12px; color:#fff; font-size:18px; text-align:center; }
-input:focus { border-color:#ff0033; outline:none; }
-.btn { width:100%; padding:20px; background: linear-gradient(90deg, #ff0033, #ff0044); border:none; border-radius:12px; color:#fff; font-size:22px; font-weight:bold; cursor:pointer; margin-top:15px; transition:0.2s; }
+h1 { font-size:35px; color:#ff0033; text-shadow: 0 0 10px red; }
+.caixa { background:#0d0d0d; padding:25px; border-radius:20px; border:2px solid #ff0033; margin-top:20px; box-shadow: 0 0 20px rgba(255,0,51,0.3); }
+input, select { width:100%; padding:16px; margin:10px 0; background:#000; border:2px solid #333; border-radius:12px; color:#fff; font-size:16px; text-align:center; }
+.btn { width:100%; padding:18px; background: linear-gradient(90deg, #ff0033, #ff0044); border:none; border-radius:12px; color:#fff; font-size:20px; font-weight:bold; cursor:pointer; }
 .btn:active { transform: scale(0.97); }
-#resultado { margin-top:30px; display:none; }
-.card { background:#110000; padding:25px; border-radius:15px; border:2px solid #ff0033; animation: aparecer 0.5s; }
+#resultado { margin-top:25px; display:none; }
+.avatar { width:130px; height:130px; border-radius:50%; margin:15px auto; background-size:cover; border:4px solid #fff; transition: 0.5s; }
+.borrado { filter: blur(10px); border-color:red; animation: tremer 0.1s infinite; }
+@keyframes tremer { 0%{transform:translate(1px)} 50%{transform:translate(-1px)} 100%{transform:translate(1px)} }
+.card { background:#110000; padding:20px; border-radius:15px; border:2px solid #ff0033; animation: aparecer 0.5s; }
 @keyframes aparecer { from {opacity:0; transform:scale(0.9);} to {opacity:1; transform:scale(1);} }
-.status-traida { color:#ff0033; font-size:28px; font-weight:bold; margin:10px 0; }
-.status-nao { color:#00ff88; font-size:28px; font-weight:bold; margin:10px 0; }
-.percent { font-size:55px; font-weight:bold; }
-.nome-resultado { font-size:24px; color:#fff; margin-bottom:10px; }
-.loading { color:#ff0033; font-size:20px; }
-.rodape { font-size:9px; color:#333; margin-top:40px; }
+.status-traida { color:red; font-size:26px; }
+.status-nao { color:#00ff88; font-size:26px; }
+.loading { color:red; font-size:18px; }
+.rodape { font-size:9px; color:#333; margin-top:30px; }
 </style>
 </head>
 <body>
-
 <div class="container">
     <h1>DETECTOR DE TRAIÇÃO</h1>
-    <p class="sub">Descubra em 3 segundos</p>
 
     <div class="caixa">
-        <input type="text" id="nome" placeholder="DIGITE O NOME AQUI">
-        <input type="text" id="app" placeholder="APP: Tinder, Instagram...">
+        <input type="text" id="nome" placeholder="NOME DA PESSOA">
+        <input type="number" id="idade" placeholder="IDADE">
+        <input type="text" id="cidade" placeholder="CIDADE">
+        <select id="sexo">
+            <option value="homem">HOMEM</option>
+            <option value="mulher">MULHER</option>
+        </select>
         <button class="btn" onclick="detectar()">ANALISAR AGORA</button>
         
         <div id="resultado"></div>
     </div>
-    
-    <p class="rodape">*</p>
+    <p class="rodape"></p>
 </div>
+
+<!-- SOM DE ALERTA -->
+<audio id="somAlerta" src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_d1716fce92.mp3"></audio>
 
 <script>
 function detectar(){
-    var nome = document.getElementById("nome").value;
-    var app = document.getElementById("app").value || "apps de relacionamento";
+    var nome = document.getElementById("nome").value.toUpperCase();
+    var idade = document.getElementById("idade").value;
+    var cidade = document.getElementById("cidade").value.toUpperCase();
+    var sexo = document.getElementById("sexo").value;
     var res = document.getElementById("resultado");
+    var som = document.getElementById("somAlerta");
 
-    if(nome.trim() == ""){
-        alert("DIGITA O NOME!");
-        return;
-    }
-
-    var nomeMaiusculo = nome.toUpperCase();
+    if(nome == ""){ alert("DIGITA O NOME"); return; }
 
     res.style.display = "block";
-    res.innerHTML = `<div class="loading">⏳ ESCANEANDO ${app.toUpperCase()}...<br>ANALISANDO ${nomeMaiusculo}...</div>`;
+    res.innerHTML = `<div class="loading">⏳ ESCANEANDO...<br>ANALISANDO ${nome}...</div>`;
 
     setTimeout(function(){
-        var sorte = Math.random();
-        var traida = sorte > 0.5;
-        var percent = Math.floor(Math.random() * 100) + 1;
-        
-        if(traida){
-            res.innerHTML = `
-                <div class="card">
-                    <div class="nome-resultado">${nomeMaiusculo}</div>
-                    <p class="status-traida">🚨 ESTÁ TE TRAINDO 🚨</p>
-                    <div class="percent">${percent}%</div>
-                    <p>Atividade detectada no ${app}</p>
-                </div>
-            `;
-        } else {
-            res.innerHTML = `
-                <div class="card">
-                    <div class="nome-resultado">${nomeMaiusculo}</div>
-                    <p class="status-nao">✅ NÃO ESTÁ TE TRAINDO ✅</p>
-                    <div class="percent">${100-percent}%</div>
-                    <p>Sem atividade no ${app}</p>
-                </div>
-            `;
-        }
-    }, 3000);
-}
-</script>
-
-</body>
-</html>
+        var traida = Math.random() > 0.5;
+        var avatar = sexo == "homem" 
+            ? "https://i.pravatar.cc/300?img=12" 
+            : "https://i.pravatar.cc/300?
