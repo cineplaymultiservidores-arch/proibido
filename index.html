@@ -6,7 +6,7 @@
 <title>Detector de Traição</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Arial Black', Arial; background:#000; color:#fff; text-align:center; transition: background 0.2s; }
+body { font-family: 'Arial Black', Arial; background:#000; color:#fff; text-align:center; transition: background 0.3s; }
 body.piscar { background: #330000; }
 .container { padding:40px 20px; max-width:600px; margin:auto; }
 h1 { font-size:35px; color:#ff0033; text-shadow: 0 0 10px red; margin-bottom:10px; }
@@ -16,8 +16,12 @@ input, select { width:100%; padding:16px; margin:10px 0; background:#000; border
 .btn:active { transform: scale(0.97); }
 .btn-reset { background: linear-gradient(90deg, #333, #555); font-size:16px; }
 #resultado { margin-top:25px; display:none; }
-.avatar { width:130px; height:130px; border-radius:50%; margin:15px auto; background-size:cover; background-position:center; border:4px solid #fff; }
-.borrado { filter: blur(14px); border-color:red; box-shadow: 0 0 20px rgba(255,0,0,0.6); }
+.avatar { width:140px; height:140px; border-radius:50%; margin:15px auto; background-size:cover; background-position:center; border:4px solid #fff; }
+.borrado { 
+  filter: blur(20px); /* ROSTO TOTALMENTE IMPOSSÍVEL DE VER */
+  border-color:red; 
+  box-shadow: 0 0 25px rgba(255,0,0,0.8);
+}
 .card { background:#110000; padding:20px; border-radius:15px; border:2px solid #ff0033; animation: aparecer 0.5s; }
 @keyframes aparecer { from {opacity:0; transform:scale(0.9);} to {opacity:1; transform:scale(1);} }
 .status-traida { color:red; font-size:22px; margin-bottom:10px; }
@@ -51,8 +55,8 @@ input, select { width:100%; padding:16px; margin:10px 0; background:#000; border
 </audio>
 
 <script>
-const nomesHomem = ["Carlos Silva", "Pedro Santos", "Lucas Oliveira", "Rafael Costa", "Bruno Almeida"];
-const nomesMulher = ["Ana Souza", "Julia Costa", "Beatriz Lima", "Camila Rocha", "Mariana Alves"];
+const nomesHomem = ["Carlos Silva", "Pedro Santos", "Lucas Oliveira", "Rafael Costa", "Bruno Almeida", "Matheus Lima"];
+const nomesMulher = ["Ana Souza", "Julia Costa", "Beatriz Lima", "Camila Rocha", "Mariana Alves", "Larissa Gomes"];
 
 function resetar(){
     document.getElementById("resultado").style.display = "none";
@@ -93,7 +97,6 @@ function detectar(){
         var traida = Math.random() > 0.5;
         
         if(traida){
-            // Gera SEMPRE o sexo oposto
             var sexoAmante = sexo == "homem" ? "mulher" : "homem";
             var nomeAmante = sexoAmante == "homem" ? nomesHomem[Math.floor(Math.random()*nomesHomem.length)] : nomesMulher[Math.floor(Math.random()*nomesMulher.length)];
             var idadeAmante = Math.floor(Math.random() * 15) + 20;
