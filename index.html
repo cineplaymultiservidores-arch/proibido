@@ -6,9 +6,10 @@
 <title>Detector de Traição</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Arial Black', Arial; background:#000; color:#fff; text-align:center; }
+body { font-family: 'Arial Black', Arial; background:#000; color:#fff; text-align:center; transition: background 0.2s; }
+body.piscar { background: #330000; }
 .container { padding:40px 20px; max-width:600px; margin:auto; }
-h1 { font-size:35px; color:#ff0033; text-shadow: 0 0 10px red; }
+h1 { font-size:35px; color:#ff0033; text-shadow: 0 0 10px red; margin-bottom:10px; }
 .caixa { background:#0d0d0d; padding:25px; border-radius:20px; border:2px solid #ff0033; margin-top:20px; box-shadow: 0 0 20px rgba(255,0,51,0.3); }
 input, select { width:100%; padding:16px; margin:10px 0; background:#000; border:2px solid #333; border-radius:12px; color:#fff; font-size:16px; text-align:center; }
 .btn { width:100%; padding:18px; background: linear-gradient(90deg, #ff0033, #ff0044); border:none; border-radius:12px; color:#fff; font-size:20px; font-weight:bold; cursor:pointer; }
@@ -19,9 +20,10 @@ input, select { width:100%; padding:16px; margin:10px 0; background:#000; border
 @keyframes tremer { 0%{transform:translate(1px)} 50%{transform:translate(-1px)} 100%{transform:translate(1px)} }
 .card { background:#110000; padding:20px; border-radius:15px; border:2px solid #ff0033; animation: aparecer 0.5s; }
 @keyframes aparecer { from {opacity:0; transform:scale(0.9);} to {opacity:1; transform:scale(1);} }
-.status-traida { color:red; font-size:26px; }
-.status-nao { color:#00ff88; font-size:26px; }
+.status-traida { color:red; font-size:26px; margin-top:10px; }
+.status-nao { color:#00ff88; font-size:26px; margin-top:10px; }
 .loading { color:red; font-size:18px; }
+.contador { font-size:60px; color:red; }
 .rodape { font-size:9px; color:#333; margin-top:30px; }
 </style>
 </head>
@@ -33,6 +35,7 @@ input, select { width:100%; padding:16px; margin:10px 0; background:#000; border
         <input type="text" id="nome" placeholder="NOME DA PESSOA">
         <input type="number" id="idade" placeholder="IDADE">
         <input type="text" id="cidade" placeholder="CIDADE">
+        <input type="text" id="app" placeholder="APP: Tinder, Instagram...">
         <select id="sexo">
             <option value="homem">HOMEM</option>
             <option value="mulher">MULHER</option>
@@ -41,28 +44,71 @@ input, select { width:100%; padding:16px; margin:10px 0; background:#000; border
         
         <div id="resultado"></div>
     </div>
-    <p class="rodape"></p>
+    <p class="rodape"> </p>
 </div>
 
-<!-- SOM DE ALERTA -->
-<audio id="somAlerta" src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_d1716fce92.mp3"></audio>
+<audio id="somAlerta" preload="auto">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_d1716fce92.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 function detectar(){
     var nome = document.getElementById("nome").value.toUpperCase();
     var idade = document.getElementById("idade").value;
     var cidade = document.getElementById("cidade").value.toUpperCase();
+    var app = document.getElementById("app").value || "APPS DE NAMORO";
     var sexo = document.getElementById("sexo").value;
     var res = document.getElementById("resultado");
     var som = document.getElementById("somAlerta");
+    var body = document.body;
 
-    if(nome == ""){ alert("DIGITA O NOME"); return; }
+    if(nome == ""){ 
+        alert("DIGITA O NOME"); 
+        return; 
+    }
 
     res.style.display = "block";
-    res.innerHTML = `<div class="loading">⏳ ESCANEANDO...<br>ANALISANDO ${nome}...</div>`;
+    res.innerHTML = `<div class="contador" id="count">3</div>`;
+
+    let i = 3;
+    let cont = setInterval(() => {
+        i--;
+        document.getElementById("count").innerHTML = i > 0 ? i : "ANALISANDO...";
+        if(i == 0) clearInterval(cont);
+    }, 1000);
 
     setTimeout(function(){
         var traida = Math.random() > 0.5;
         var avatar = sexo == "homem" 
-            ? "https://i.pravatar.cc/300?img=12" 
-            : "https://i.pravatar.cc/300?
+            ? "https://i.pravatar.cc/300?img=" + Math.floor(Math.random()*70)
+            : "https://i.pravatar.cc/300?img=" + (Math.floor(Math.random()*70)+1);
+
+        if(traida){
+            som.currentTime = 0;
+            som.play().catch(()=>{});
+            body.classList.add("piscar"); // EFEITO PISCAR VERMELHO
+            setTimeout(()=> body.classList.remove("piscar"), 1000);
+            
+            res.innerHTML = `
+            <div class="card">
+                <div class="avatar borrado" style="background-image:url(${avatar})"></div>
+                <h2>${nome}</h2>
+                <p>${idade} ANOS - ${cidade}</p>
+                <p>Atividade no: ${app.toUpperCase()}</p>
+                <p class="status-traida">🚨 ESTÁ TE TRAINDO 🚨</p>
+            </div>`;
+        } else {
+            res.innerHTML = `
+            <div class="card">
+                <div class="avatar" style="background-image:url(${avatar})"></div>
+                <h2>${nome}</h2>
+                <p>${idade} ANOS - ${cidade}</p>
+                <p>Sem atividade no: ${app.toUpperCase()}</p>
+                <p class="status-nao">✅ FIEL ✅</p>
+            </div>`;
+        }
+    }, 4000);
+}
+</script>
+</body>
+</html>
