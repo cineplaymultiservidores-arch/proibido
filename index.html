@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detector de Traição</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Arial Black', Arial; background: #000; color:#fff; text-align:center; min-height:100vh; }
+.container { padding:40px 20px; max-width:600px; margin:auto; }
+h1 { font-size:38px; color:#ff0033; margin-bottom:8px; text-shadow: 0 0 10px red; }
+.sub { color:#aaa; margin-bottom:30px; font-size:16px; }
+.caixa { background:#0d0d0d; padding:30px; border-radius:20px; border:2px solid #ff0033; box-shadow: 0 0 20px rgba(255,0,51,0.3); }
+input { width:100%; padding:18px; margin:12px 0; background:#000; border:2px solid #333; border-radius:12px; color:#fff; font-size:18px; text-align:center; }
+input:focus { border-color:#ff0033; outline:none; }
+.btn { width:100%; padding:20px; background: linear-gradient(90deg, #ff0033, #ff0044); border:none; border-radius:12px; color:#fff; font-size:22px; font-weight:bold; cursor:pointer; margin-top:15px; transition:0.2s; }
+.btn:active { transform: scale(0.97); }
+#resultado { margin-top:30px; display:none; }
+.card { background:#110000; padding:25px; border-radius:15px; border:2px solid #ff0033; animation: aparecer 0.5s; }
+@keyframes aparecer { from {opacity:0; transform:scale(0.9);} to {opacity:1; transform:scale(1);} }
+.status-traida { color:#ff0033; font-size:28px; font-weight:bold; margin:10px 0; }
+.status-nao { color:#00ff88; font-size:28px; font-weight:bold; margin:10px 0; }
+.percent { font-size:55px; font-weight:bold; }
+.nome-resultado { font-size:24px; color:#fff; margin-bottom:10px; }
+.loading { color:#ff0033; font-size:20px; }
+.rodape { font-size:9px; color:#333; margin-top:40px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>DETECTOR DE TRAIÇÃO</h1>
+    <p class="sub">Descubra em 3 segundos</p>
+
+    <div class="caixa">
+        <input type="text" id="nome" placeholder="DIGITE O NOME AQUI">
+        <input type="text" id="app" placeholder="APP: Tinder, Instagram...">
+        <button class="btn" onclick="detectar()">ANALISAR AGORA</button>
+        
+        <div id="resultado"></div>
+    </div>
+    
+    <p class="rodape">*Conteúdo de entretenimento</p>
+</div>
+
+<script>
+function detectar(){
+    var nome = document.getElementById("nome").value;
+    var app = document.getElementById("app").value || "apps de relacionamento";
+    var res = document.getElementById("resultado");
+
+    if(nome.trim() == ""){
+        alert("DIGITA O NOME!");
+        return;
+    }
+
+    var nomeMaiusculo = nome.toUpperCase();
+
+    res.style.display = "block";
+    res.innerHTML = `<div class="loading">⏳ ESCANEANDO ${app.toUpperCase()}...<br>ANALISANDO ${nomeMaiusculo}...</div>`;
+
+    setTimeout(function(){
+        var sorte = Math.random();
+        var traida = sorte > 0.5;
+        var percent = Math.floor(Math.random() * 100) + 1;
+        
+        if(traida){
+            res.innerHTML = `
+                <div class="card">
+                    <div class="nome-resultado">${nomeMaiusculo}</div>
+                    <p class="status-traida">🚨 ESTÁ TE TRAINDO 🚨</p>
+                    <div class="percent">${percent}%</div>
+                    <p>Atividade detectada no ${app}</p>
+                </div>
+            `;
+        } else {
+            res.innerHTML = `
+                <div class="card">
+                    <div class="nome-resultado">${nomeMaiusculo}</div>
+                    <p class="status-nao">✅ NÃO ESTÁ TE TRAINDO ✅</p>
+                    <div class="percent">${100-percent}%</div>
+                    <p>Sem atividade no ${app}</p>
+                </div>
+            `;
+        }
+    }, 3000);
+}
+</script>
+
+</body>
+</html>
