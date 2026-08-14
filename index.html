@@ -18,7 +18,6 @@ body { font-family: 'Montserrat', sans-serif; background: #000 url('https://i.im
 .caixa { background: rgba(10,10,10,0.8); padding:25px; border-radius:15px; border:1px solid #ff0040; box-shadow: 0 0 30px rgba(255,0,64,0.3); margin-bottom:20px; backdrop-filter: blur(5px); }
 input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:1px solid #333; border-radius:8px; color:#fff; font-size:15px; text-align:center; font-weight:600; }
 .btn { width:100%; padding:16px; background: linear-gradient(90deg, #ff0040, #cc0033); border:none; border-radius:10px; color:#fff; font-size:16px; font-weight:900; cursor:pointer; margin-top:10px; text-transform:uppercase; }
-.btn-download { background: linear-gradient(90deg, #00cc66, #00a652); margin:20px 0; }
 .btn-insta { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); border: none; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration:none; }
 .btn-insta svg { width:20px; height:20px; fill:#fff; }
 #cadastro, #formulario, #resultado { display:none; }
@@ -43,12 +42,12 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
 .com-item { display:flex; gap:10px; padding:12px; background:#0a0a0a; border-radius:10px; margin-bottom:8px; }
 .com-avatar { width:35px; height:35px; border-radius:50%; background:#222; background-size:cover; }
 
-/* CARD TINDER COM ARRASTAR */
+/* CARD TINDER */
 .cidade-titulo { color:#ff0040; font-size:14px; font-weight:900; margin:15px 0 10px; }
 .tinder-area { position:relative; width:100%; height:420px; margin-bottom:15px; touch-action: none; }
 .tinder-card { position:absolute; width:100%; height:100%; background:#111; border-radius:15px; border:2px solid #ff0040; overflow:hidden; cursor: grab; }
 .tinder-card.dragging { cursor: grabbing; transition: none; }
-.tinder-foto { width:100%; height:100%; background-size:cover; background-position:center; filter: blur(6px); pointer-events: none; }
+.tinder-foto { width:100%; height:100%; background-size:cover; background-position:center; pointer-events: none; }
 .tinder-info { position:absolute; bottom:0; left:0; right:0; padding:20px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); text-align:left; pointer-events: none; }
 .tinder-nome { font-size:22px; font-weight:900; }
 .tinder-cidade { font-size:14px; color:#00aaff; margin-top:5px; }
@@ -59,8 +58,8 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
 .tinder-nope { position:absolute; top:20px; left:20px; color:#ff0040; font-size:40px; font-weight:900; transform: rotate(-20deg); opacity:0; }
 
 .card { background: rgba(10,0,10,0.9); padding:20px; border-radius:15px; border:2px solid #ff0040; }
-.status-traida { color:#ff0040; font-size:18px; margin-bottom:10px; font-weight:900; }
-.contador-conversas { color:#00aaff; font-size:18px; margin:10px 0; font-weight:700; }
+.status-ok { color:#00ff88; font-size:18px; margin-bottom:10px; font-weight:900; }
+.contador { color:#00aaff; font-size:18px; margin:10px 0; font-weight:700; }
 .loading-bar { background:#111; border-radius:10px; margin:15px 0; border:1px solid #ff0040; }
 .progress { height:25px; background: linear-gradient(90deg, #ff0040, #00aaff); width:0%; border-radius:10px; }
 .classificacao { display:inline-block; background:#ff0040; color:#000; padding:3px 8px; border-radius:5px; font-size:10px; font-weight:900; }
@@ -73,58 +72,53 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
     <div class="logo">
         <svg viewBox="0 0 24 24"><path fill="#ff0040" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
         <h1>SECRETTO<span>.YOU</span></h1>
-        <p class="sub">SISTEMA DE INTELIGÊNCIA</p>
+        <p class="sub"> </p>
     </div>
 
     <div class="play-info">
-        <div><div class="stars">★★★★★ 4.8</div><div style="font-size:9px; color:#aaa;">1.2M Avaliações</div></div>
-        <div><div class="play-num">1B+</div><div style="font-size:9px; color:#aaa;">Downloads</div></div>
+        <div><div class="stars">★★★ 4.8</div><div style="font-size:9px; color:#aaa;">1.2M Avaliações</div></div>
+        <div><div class="play-num">1B+</div><div style="font-size:9px; color:#aaa;">Usuários</div></div>
         <div><div class="classificacao">+16</div><div style="font-size:9px; color:#aaa;">Classificação</div></div>
     </div>
 
     <div class="caixa" id="cadastro">
-        <p style="color:#ff0040; font-size:20px; font-weight:900;">ACESSO RESTRITO</p>
+        <p style="color:#ff0040; font-size:20px; font-weight:900;">CRIAR PERFIL</p>
         <input type="text" id="cad_nome" placeholder="SEU PRIMEIRO NOME">
         <input type="number" id="cad_idade" placeholder="SUA IDADE" min="16" max="99">
-        <input type="tel" id="cad_tel" placeholder="SEU WHATSAPP COM DDD">
-        <button class="btn" onclick="salvarCadastro()">ATIVAR ACESSO</button>
+        <button class="btn" onclick="salvarCadastro()">COMEÇAR TESTE</button>
     </div>
 
     <div class="caixa" id="formulario">
-        <input type="text" id="nome" placeholder="NOME DO ALVO">
-        <input type="text" id="cidade" placeholder="CIDADE DO ALVO - Ex: Rio de Janeiro"> <!-- VOLTOU -->
-        <p style="margin:15px 0 5px; font-size:12px; color:#aaa;">SELECIONE A REDE SOCIAL</p>
+        <input type="text" id="nome" placeholder="NOME DA PESSOA">
+        <input type="text" id="cidade" placeholder="CIDADE - Ex: Rio de Janeiro">
+        <p style="margin:15px 0 5px; font-size:12px; color:#aaa;">ESCOLHA A REDE SOCIAL</p>
         <div class="app-selector">
-            <div class="app-item" onclick="selecionarApp(this, 'WhatsApp')"><img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png"><p>WhatsApp</p></div>
             <div class="app-item" onclick="selecionarApp(this, 'Instagram')"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"><p>Instagram</p></div>
+            <div class="app-item" onclick="selecionarApp(this, 'WhatsApp')"><img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png"><p>WhatsApp</p></div>
             <div class="app-item" onclick="selecionarApp(this, 'Facebook')"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png"><p>Facebook</p></div>
             <div class="app-item" onclick="selecionarApp(this, 'X')"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968830.png"><p>X</p></div>
             <div class="app-item" onclick="selecionarApp(this, 'Snapchat')"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png"><p>Snapchat</p></div>
             <div class="app-item" onclick="selecionarApp(this, 'Kwai')"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png"><p>Kwai</p></div>
         </div>
         <select id="sexo">
-            <option value="mulher">ANALISAR MULHER</option>
-            <option value="homem">ANALISAR HOMEM</option>
+            <option value="mulher">BUSCAR MULHERES</option>
+            <option value="homem">BUSCAR HOMENS</option>
         </select>
-        <button class="btn" onclick="detectar()">[ INICIAR ANÁLISE ]</button>
+        <button class="btn" onclick="detectar()">[ INICIAR BUSCA ]</button>
     </div>
 
     <div id="resultado"></div>
 
-    <!-- COMENTÁRIOS SÓ NA PRIMEIRA PÁGINA -->
     <div class="comentarios-box" id="comentariosBox">
         <p class="com-titulo">Avaliações e comentários</p>
         <div class="com-lista" id="listaComentarios"></div>
     </div>
 
-    <!-- BOTÃO DOWNLOAD LÁ EMBAIXO -->
-    <a href="#" class="btn btn-download" onclick="alert('Download iniciado')">⬇️ BAIXAR APP AGORA</a>
-
     <a href="https://www.instagram.com/secretto.yo?igsh=bzRpYWwwbGo2cDRl&utm_source=qr" target="_blank" class="btn btn-insta">
         <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 9.2v5.6c0 4.6-2.6 7.2-6.8 7.2H7.8C4.6 22 2 19.4 2 14.8V9.2C2 4.6 4.6 2 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 20.39 5.61 22 7.6 22h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
         NOSSO INSTAGRAM
     </a>
-    <p class="rodape">SECRETTO.YOU v3.10</p>
+    <p class="rodape">SECRETTO.YOU v4.0</p>
 </div>
 </div>
 
@@ -137,12 +131,11 @@ let isDragging = false;
 let startX = 0;
 let currentX = 0;
 
-// NOMES REAIS + COMENTÁRIOS DIFERENTES
 const nomesReais = ["Mariana Silva","Pedro Santos","Julia Costa","Lucas Oliveira","Amanda Rocha","Rafael Lima","Beatriz Almeida","Gustavo Pereira","Camila Souza","Felipe Rodrigues"];
 const comentariosReais = [
-    "Me ajudou a descobrir a verdade, muito obrigado!", "Interface muito boa e fácil de usar", "Funciona de verdade, recomendo pra todo mundo",
-    "Em 5 minutos já tinha todas as informações", "App mais preciso que já usei", "Suporte respondeu super rápido",
-    "Vale cada centavo, mudou minha vida", "Anônimo e seguro, adorei", "Melhor que os outros apps do tipo", "Resultados em tempo real, muito top"
+    "App muito divertido pra conhecer gente nova!", "Interface muito boa e fácil de usar", "Achei várias pessoas da minha cidade",
+    "Em 5 minutos já tinha 3 matches", "App mais preciso que já usei", "Suporte respondeu super rápido",
+    "Vale a pena testar", "Anônimo e seguro, adorei", "Melhor que os outros apps do tipo", "Resultados em tempo real, muito top"
 ];
 
 function gerarComentarios(){
@@ -174,11 +167,11 @@ function detectar(){
     cidadeAlvo = document.getElementById('cidade').value || 'Sua Cidade';
     gerarPerfis();
     document.getElementById('formulario').style.display='none';
-    document.getElementById('comentariosBox').style.display='none'; // ESCONDE COMENTÁRIOS NO RESULTADO
+    document.getElementById('comentariosBox').style.display='none';
     document.getElementById('resultado').style.display='block';
     document.getElementById('resultado').innerHTML = `
     <div class="caixa">
-        <p style="color:#00aaff; font-size:12px; font-weight:700;">ESCANEANDO ${appSelecionado} EM ${cidadeAlvo}...</p>
+        <p style="color:#00aaff; font-size:12px; font-weight:700;">BUSCANDO EM ${appSelecionado} - ${cidadeAlvo}...</p>
         <div class="radar-box"><div class="radar-line"></div></div>
         <div class="loading-bar"><div class="progress" id="progress"></div></div>
         <button class="btn" onclick="mostrarResultado()">VER RESULTADO</button>
@@ -198,14 +191,14 @@ function gerarPerfis(){
         if(sexo === 'mulher'){
             perfis.push({
                 nome: nomesReais[Math.floor(Math.random() * 10)],
-                idade: Math.floor(Math.random() * 12) + 18, // 18 a 29
-                foto: Math.floor(Math.random()*35) + 1 // Fotos de 1 a 35 = mulheres jovens
+                idade: Math.floor(Math.random() * 12) + 18,
+                foto: Math.floor(Math.random()*35) + 1
             });
         } else {
             perfis.push({
                 nome: nomesReais[Math.floor(Math.random() * 10)],
-                idade: Math.floor(Math.random() * 12) + 18, // 18 a 29
-                foto: Math.floor(Math.random()*35) + 36 // Fotos de 36 a 70 = homens jovens
+                idade: Math.floor(Math.random() * 12) + 18,
+                foto: Math.floor(Math.random()*35) + 36
             });
         }
     }
@@ -213,31 +206,21 @@ function gerarPerfis(){
 
 function mostrarResultado(){
     perfilAtual = 0;
-    let risco = Math.random() > 0.4;
-
-    if(risco){
-        document.getElementById('resultado').innerHTML = `
-        <div class="card">
-            <p class="status-traida">⚠️ ALTO RISCO DETECTADO</p>
-            <p class="contador-conversas">${Math.floor(Math.random() * 200) + 50} Conversas Suspeitas em ${appSelecionado}</p>
-            <p class="cidade-titulo">${Math.floor(Math.random() * 50) + 20} PESSOAS DE ${cidadeAlvo.toUpperCase()} USARAM O SITE</p>
-            <div class="tinder-contador" id="contador">Perfil 1 de 5</div>
-            <div class="tinder-area" id="tinderArea"></div>
-            <div class="tinder-btns">
-                <button class="tinder-btn" onclick="swipeCard('left')">❌ PASSAR</button>
-                <button class="tinder-btn" style="background:#ff0040; color:#fff;" onclick="swipeCard('right')">✅ VER MAIS</button>
-            </div>
-            <button class="btn" style="margin-top:15px;" onclick="alert('Dados liberados')">ACESSAR DADOS</button>
-        </div>`;
-        mostrarPerfil();
-        adicionarEventosDrag();
-    } else {
-        document.getElementById('resultado').innerHTML = `
-        <div class="card">
-            <p style="color:#00aaff; font-size:16px; font-weight:900;">✅ PERFIL SEM ATIVIDADE SUSPEITA</p>
-            <button class="btn" style="background:transparent; border:1px solid #ff0040; color:#ff0040;" onclick="detectar()">FAZER NOVA ANÁLISE</button>
-        </div>`;
-    }
+    document.getElementById('resultado').innerHTML = `
+    <div class="card">
+        <p class="status-ok">✅ PERFIS ENCONTRADOS EM ${cidadeAlvo.toUpperCase()}</p>
+        <p class="contador">${Math.floor(Math.random() * 200) + 50} Pessoas compatíveis no ${appSelecionado}</p>
+        <p class="cidade-titulo">${Math.floor(Math.random() * 50) + 20} PESSOAS DE ${cidadeAlvo.toUpperCase()} USARAM O APP</p>
+        <div class="tinder-contador" id="contador">Perfil 1 de 5</div>
+        <div class="tinder-area" id="tinderArea"></div>
+        <div class="tinder-btns">
+            <button class="tinder-btn" onclick="swipeCard('left')">❌ PASSAR</button>
+            <button class="tinder-btn" style="background:#ff0040; color:#fff;" onclick="swipeCard('right')">✅ CURTIR</button>
+        </div>
+        <button class="btn" style="margin-top:15px;" onclick="alert('Conectando...')">VER PERFIL COMPLETO</button>
+    </div>`;
+    mostrarPerfil();
+    adicionarEventosDrag();
 }
 
 function mostrarPerfil(){
@@ -306,7 +289,7 @@ function swipeCard(dir){
         perfilAtual++;
         if(perfilAtual >= perfis.length){
             perfilAtual = 0;
-            alert('Você viu todos os perfis. Clique em ACESSAR DADOS');
+            alert('Você viu todos os perfis!');
         }
         mostrarPerfil();
         adicionarEventosDrag();
