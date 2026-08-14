@@ -10,20 +10,18 @@ body { font-family: 'Arial Black', Arial; background:#000; color:#fff; text-alig
 body.piscar { background: #330000; }
 .container { padding:40px 20px; max-width:600px; margin:auto; }
 h1 { font-size:35px; color:#ff0033; text-shadow: 0 0 10px red; margin-bottom:10px; }
-.caixa { background:#0d0d0d; padding:25px; border-radius:20px; border:2px solid #ff0033; margin-top:20px; box-shadow: 0 0 20px rgba(255,0,51,0.3); }
+.caixa { background:#0d0d0d; padding:25px; border-radius:20px; border:2px solid #ff0033; margin-top:20px; }
 input, select { width:100%; padding:16px; margin:10px 0; background:#000; border:2px solid #333; border-radius:12px; color:#fff; font-size:16px; text-align:center; }
 .btn { width:100%; padding:18px; background: linear-gradient(90deg, #ff0033, #ff0044); border:none; border-radius:12px; color:#fff; font-size:20px; font-weight:bold; cursor:pointer; margin-top:10px; }
 .btn:active { transform: scale(0.97); }
 .btn-reset { background: linear-gradient(90deg, #333, #555); font-size:16px; }
 #resultado { margin-top:25px; display:none; }
-.avatar { width:130px; height:130px; border-radius:50%; margin:15px auto; background-size:cover; border:4px solid #fff; transition: 0.5s; }
-.borrado { filter: blur(10px); border-color:red; animation: tremer 0.1s infinite; }
+.avatar { width:130px; height:130px; border-radius:50%; margin:15px auto; background-size:cover; border:4px solid red; animation: tremer 0.1s infinite; }
 @keyframes tremer { 0%{transform:translate(1px)} 50%{transform:translate(-1px)} 100%{transform:translate(1px)} }
 .card { background:#110000; padding:20px; border-radius:15px; border:2px solid #ff0033; animation: aparecer 0.5s; }
 @keyframes aparecer { from {opacity:0; transform:scale(0.9);} to {opacity:1; transform:scale(1);} }
-.status-traida { color:red; font-size:26px; margin-top:10px; }
-.status-nao { color:#00ff88; font-size:26px; margin-top:10px; }
-.loading { color:red; font-size:18px; }
+.status-traida { color:red; font-size:22px; margin-bottom:10px; }
+.status-nao { color:#00ff88; font-size:26px; }
 .contador { font-size:60px; color:red; }
 .rodape { font-size:9px; color:#333; margin-top:30px; }
 </style>
@@ -34,12 +32,11 @@ input, select { width:100%; padding:16px; margin:10px 0; background:#000; border
 
     <div class="caixa" id="formulario">
         <input type="text" id="nome" placeholder="NOME DA PESSOA">
-        <input type="number" id="idade" placeholder="IDADE">
         <input type="text" id="cidade" placeholder="CIDADE">
         <input type="text" id="app" placeholder="APP: Tinder, Instagram...">
         <select id="sexo">
-            <option value="homem">HOMEM</option>
-            <option value="mulher">MULHER</option>
+            <option value="mulher">TESTAR MULHER</option>
+            <option value="homem">TESTAR HOMEM</option>
         </select>
         <button class="btn" onclick="detectar()">ANALISAR AGORA</button>
     </div>
@@ -57,33 +54,19 @@ input, select { width:100%; padding:16px; margin:10px 0; background:#000; border
 const nomesHomem = ["Carlos Silva", "Pedro Santos", "Lucas Oliveira", "Rafael Costa", "Bruno Almeida"];
 const nomesMulher = ["Ana Souza", "Julia Costa", "Beatriz Lima", "Camila Rocha", "Mariana Alves"];
 
-function nomeAleatorio(sexo){
-    if(sexo == "homem"){
-        return nomesHomem[Math.floor(Math.random()*nomesHomem.length)];
-    } else {
-        return nomesMulher[Math.floor(Math.random()*nomesMulher.length)];
-    }
-}
-
-function idadeAleatoria(){
-    return Math.floor(Math.random() * 15) + 20;
-}
-
 function resetar(){
     document.getElementById("resultado").style.display = "none";
     document.getElementById("formulario").style.display = "block";
     document.getElementById("nome").value = "";
-    document.getElementById("idade").value = "";
     document.getElementById("cidade").value = "";
     document.getElementById("app").value = "";
 }
 
 function detectar(){
     var nomeDigitado = document.getElementById("nome").value.toUpperCase();
-    var idadeDigitada = document.getElementById("idade").value;
     var cidadeDigitada = document.getElementById("cidade").value.toUpperCase();
     var app = document.getElementById("app").value || "APPS DE NAMORO";
-    var sexo = document.getElementById("sexo").value;
+    var sexo = document.getElementById("sexo").value; // sexo da pessoa que está testando
     var res = document.getElementById("resultado");
     var form = document.getElementById("formulario");
     var som = document.getElementById("somAlerta");
@@ -94,7 +77,7 @@ function detectar(){
         return; 
     }
 
-    form.style.display = "none"; // esconde o form
+    form.style.display = "none";
     res.style.display = "block";
     res.innerHTML = `<div class="contador" id="count">3</div>`;
 
@@ -108,12 +91,14 @@ function detectar(){
     setTimeout(function(){
         var traida = Math.random() > 0.5;
         
-        var nomeFake = nomeAleatorio(sexo);
-        var idadeFake = idadeAleatoria();
-        var avatarId = Math.floor(Math.random()*70) + 1;
-        var avatar = "https://i.pravatar.cc/300?img=" + avatarId;
-
         if(traida){
+            // Gera SEMPRE o sexo oposto
+            var sexoAmante = sexo == "homem" ? "mulher" : "homem";
+            var nomeAmante = sexoAmante == "homem" ? nomesHomem[Math.floor(Math.random()*nomesHomem.length)] : nomesMulher[Math.floor(Math.random()*nomesMulher.length)];
+            var idadeAmante = Math.floor(Math.random() * 15) + 20;
+            var avatarId = sexoAmante == "homem" ? Math.floor(Math.random()*35) + 1 : Math.floor(Math.random()*35) + 36;
+            var avatar = "https://i.pravatar.cc/300?img=" + avatarId;
+
             som.currentTime = 0;
             som.play().catch(()=>{});
             body.classList.add("piscar");
@@ -121,21 +106,18 @@ function detectar(){
             
             res.innerHTML = `
             <div class="card">
-                <div class="avatar borrado" style="background-image:url(${avatar})"></div>
-                <h2>${nomeFake}</h2>
-                <p>${idadeFake} ANOS - ${cidadeDigitada}</p>
-                <p>Atividade no: ${app.toUpperCase()}</p>
-                <p class="status-traida">🚨 ESTÁ TE TRAINDO 🚨</p>
+                <p class="status-traida">🚨 ${nomeDigitado} ESTÁ TE TRAINDO COM: 🚨</p>
+                <div class="avatar" style="background-image:url(${avatar})"></div>
+                <h2>${nomeAmante}</h2>
+                <p>${idadeAmante} ANOS - ${cidadeDigitada}</p>
+                <p>Ativo no: ${app.toUpperCase()}</p>
                 <button class="btn btn-reset" onclick="resetar()">TESTAR NOVAMENTE</button>
             </div>`;
         } else {
             res.innerHTML = `
             <div class="card">
-                <div class="avatar" style="background-image:url(${avatar})"></div>
-                <h2>${nomeFake}</h2>
-                <p>${idadeFake} ANOS - ${cidadeDigitada}</p>
-                <p>Sem atividade no: ${app.toUpperCase()}</p>
-                <p class="status-nao">✅ FIEL ✅</p>
+                <p class="status-nao">✅ ${nomeDigitado} É FIEL ✅</p>
+                <p>Sem atividade suspeita em ${app.toUpperCase()}</p>
                 <button class="btn btn-reset" onclick="resetar()">TESTAR NOVAMENTE</button>
             </div>`;
         }
