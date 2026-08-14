@@ -18,7 +18,7 @@ input, select { width:100%; padding:16px; margin:10px 0; background:#000; border
 .btn-reset { background: linear-gradient(90deg, #333, #555); font-size:16px; }
 .btn-gps { background: linear-gradient(90deg, #00ff88, #00cc66); font-size:14px; padding:12px; }
 #resultado { margin-top:25px; display:none; }
-.avatar { width:90px; height:90px; border-radius:50%; background-size:cover; background-position:center; border:3px solid #fff; display:inline-block; margin:6px; }
+.avatar { width:90px; height:90px; border-radius:50%; background-size:cover; background-position:center; border:3px solid #fff; display:inline-block; margin:6px; position:relative; }
 .borrado { filter: blur(22px); border-color:red; box-shadow: 0 0 20px rgba(255,0,0,0.8); }
 .card { background:#110000; padding:20px; border-radius:15px; border:2px solid #ff0033; animation: aparecer 0.5s; }
 @keyframes aparecer { from {opacity:0; transform:scale(0.9);} to {opacity:1; transform:scale(1);} }
@@ -28,6 +28,10 @@ input, select { width:100%; padding:16px; margin:10px 0; background:#000; border
 .contador-conversas { color:#ffaa00; font-size:28px; margin:10px 0; }
 .avatars-box { margin:15px 0; display:flex; flex-wrap:wrap; justify-content:center; }
 #mapa { height:200px; border-radius:15px; margin-top:15px; border:2px solid #ff0033; display:none; }
+.loading-bar { background:#222; border-radius:10px; margin:15px 0; overflow:hidden; }
+.progress { height:20px; background: linear-gradient(90deg, #ff0033, #ffaa00); width:0%; transition: width 0.3s; }
+.scan-text { color:#00ff88; font-size:14px; margin:10px 0; }
+.online { position:absolute; bottom:5px; right:5px; width:12px; height:12px; background:#00ff00; border-radius:50%; border:2px solid #000; }
 .rodape { font-size:9px; color:#333; margin-top:30px; }
 .loading { color:#00ff88; font-size:12px; }
 </style>
@@ -62,101 +66,93 @@ input, select { width:100%; padding:16px; margin:10px 0; background:#000; border
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-const nomesHomem = ["Carlos Silva", "Pedro Santos", "Lucas Oliveira", "Rafael Costa", "Bruno Almeida", "Matheus Lima", "Gabriel Souza", "Diego Rocha", "Thiago Martins"];
-const nomesMulher = ["Ana Souza", "Julia Costa", "Beatriz Lima", "Camila Rocha", "Mariana Alves", "Larissa Gomes", "Amanda Silva", "Fernanda Dias", "Patricia Ribeiro"];
+const nomesHomem = ["Carlos", "Pedro", "Lucas", "Rafael", "Bruno", "Matheus", "Gabriel", "Diego", "Thiago"];
+const nomesMulher = ["Ana", "Julia", "Beatriz", "Camila", "Mariana", "Larissa", "Amanda", "Fernanda", "Patricia"];
+const statusOnline = ["Online agora", "Visto por último: 2 min", "Visto por último: 5 min", "Online agora", "Visto por último: 1h"];
 
 var mapa;
 var marcador;
 
-// INICIA O MAPA
 function iniciarMapa(lat, lon, cidade){
     document.getElementById("mapa").style.display = "block";
-
     if(mapa) mapa.remove();
-
     mapa = L.map('mapa').setView([lat, lon], 13);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: ''
-    }).addTo(mapa);
-
-    // PONTO VERMELHO
-    marcador = L.circleMarker([lat, lon], {
-        color: 'red',
-        fillColor: '#ff0033',
-        fillOpacity: 0.8,
-        radius: 10
-    }).addTo(mapa);
-
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapa);
+    marcador = L.circleMarker([lat, lon], {color: 'red', fillColor: '#ff0033', fillOpacity: 0.8, radius: 10}).addTo(mapa);
     marcador.bindPopup(`<b>${cidade}</b>`).openPopup();
 }
 
-// PUXA CIDADE PELO GPS
 function pegarLocalizacao(){
     var loading = document.getElementById("loading");
     loading.style.display = "block";
-
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(function(position){
-            var lat = position.coords.latitude;
-            var lon = position.coords.longitude;
-
+            var lat = position.coords.latitude; var lon = position.coords.longitude;
             fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
            .then(res => res.json())
            .then(data => {
-                var cidade = data.address.city || data.address.town || data.address.village || data.address.state;
+                var cidade = data.address.city || data.address.town || data.address.state;
                 document.getElementById("cidade").value = cidade.toUpperCase();
                 iniciarMapa(lat, lon, cidade.toUpperCase());
                 loading.style.display = "none";
-            })
-           .catch(() => {
-                alert("Não consegui pegar a cidade. Digita manual.");
-                loading.style.display = "none";
-            });
-        }, function(){
-            alert("Permite o acesso a localização aí");
-            loading.style.display = "none";
-        });
-    } else {
-        alert("Seu navegador não suporta GPS");
-        loading.style.display = "none";
+            }).catch(() => { alert("Não consegui"); loading.style.display = "none"; });
+        }, function(){ alert("Permite o acesso"); loading.style.display = "none"; });
     }
 }
 
 function resetar(){
     document.getElementById("resultado").style.display = "none";
     document.getElementById("formulario").style.display = "block";
-    document.getElementById("nome").value = "";
-    document.getElementById("cidade").value = "";
-    document.getElementById("app").value = "";
-    document.getElementById("mapa").style.display = "none";
-    document.body.classList.remove("piscar");
+    document.getElementById("nome").value = ""; document.getElementById("cidade").value = ""; document.getElementById("app").value = "";
+    document.getElementById("mapa").style.display = "none"; document.body.classList.remove("piscar");
 }
 
 function gerarPessoas(quantidade, sexoOposto){
     let html = '';
     let listaNomes = sexoOposto == "homem"? nomesHomem : nomesMulher;
     let nomesUsados = [];
-
     for(let i = 0; i < quantidade; i++){
         let nome;
-        do {
-            nome = listaNomes[Math.floor(Math.random()*listaNomes.length)];
-        } while(nomesUsados.includes(nome) && nomesUsados.length < listaNomes.length);
+        do { nome = listaNomes[Math.floor(Math.random()*listaNomes.length)]; } while(nomesUsados.includes(nome));
         nomesUsados.push(nome);
-
         let idade = Math.floor(Math.random() * 15) + 20;
         let avatarId = sexoOposto == "homem"? Math.floor(Math.random()*35) + 1 : Math.floor(Math.random()*35) + 36;
         let avatar = "https://i.pravatar.cc/300?img=" + avatarId;
-
+        let status = statusOnline[Math.floor(Math.random()*statusOnline.length)];
+        let hora = Math.floor(Math.random()*24).toString().padStart(2,'0');
+        let min = Math.floor(Math.random()*60).toString().padStart(2,'0');
+        
         html += `
         <div style="display:inline-block; margin:8px; text-align:center;">
-            <div class="avatar borrado" style="background-image:url(${avatar})"></div>
-            <p style="font-size:12px; margin-top:4px;">${nome.split(' ')[0]}</p>
+            <div style="position:relative; display:inline-block;">
+                <div class="avatar borrado" style="background-image:url(${avatar})"></div>
+                <div class="online"></div>
+            </div>
+            <p style="font-size:12px; margin-top:4px;">${nome}</p>
             <p style="font-size:10px; color:#999;">${idade} ANOS</p>
+            <p style="font-size:9px; color:#00ff88;">${status}</p>
+            <p style="font-size:9px; color:#ffaa00;">Última msg: ${hora}:${min}</p>
         </div>`;
     }
     return html;
+}
+
+function barraCarregamento(callback){
+    let progress = document.getElementById("progress");
+    let scanText = document.getElementById("scanText");
+    let apps = ["TINDER", "INSTAGRAM", "WHATSAPP", "TELEGRAM", "BADOo"];
+    let i = 0; let width = 0;
+    
+    let intervalo = setInterval(() => {
+        width += 2;
+        progress.style.width = width + "%";
+        scanText.innerHTML = `ESCANEANDO ${apps[i % apps.length]}... ${width}%`;
+        if(width % 20 == 0) i++;
+        if(width >= 100){
+            clearInterval(intervalo);
+            callback();
+        }
+    }, 80);
 }
 
 function detectar(){
@@ -169,64 +165,51 @@ function detectar(){
     var som = document.getElementById("somAlerta");
     var body = document.body;
 
-    if(nomeDigitado == "" || cidadeDigitada == ""){
-        alert("DIGITA O NOME E A CIDADE");
-        return;
-    }
+    if(nomeDigitado == "" || cidadeDigitada == ""){ alert("DIGITA O NOME E A CIDADE"); return; }
 
     form.style.display = "none";
     res.style.display = "block";
-    res.innerHTML = `<div class="contador" id="count">3</div>`;
+    res.innerHTML = `
+    <div class="loading-bar"><div class="progress" id="progress"></div></div>
+    <p class="scan-text" id="scanText">INICIANDO ESCANEAMENTO...</p>
+    <div class="contador" id="count">3</div>`;
 
-    let i = 3;
-    let cont = setInterval(() => {
-        i--;
-        document.getElementById("count").innerHTML = i > 0? i : "ANALISANDO...";
-        if(i == 0) clearInterval(cont);
-    }, 1000);
+    barraCarregamento(() => {
+        let i = 3;
+        let cont = setInterval(() => {
+            i--;
+            document.getElementById("count").innerHTML = i > 0? i : "ANALISANDO...";
+            if(i == 0) clearInterval(cont);
+        }, 1000);
 
-    setTimeout(function(){
-        var traida = Math.random() > 0.5;
+        setTimeout(function(){
+            var traida = Math.random() > 0.5;
+            if(traida){
+                var quantidade = Math.floor(Math.random() * 6) + 1;
+                var conversas = Math.floor(Math.random() * 75) + 15;
+                var sexoAmante = sexo == "homem"? "mulher" : "homem";
+                var pessoasHtml = gerarPessoas(quantidade, sexoAmante);
 
-        if(traida){
-            var quantidade = Math.floor(Math.random() * 6) + 1;
-            var conversas = Math.floor(Math.random() * 75) + 15;
-            var sexoAmante = sexo == "homem"? "mulher" : "homem";
-            var pessoasHtml = gerarPessoas(quantidade, sexoAmante);
+                som.currentTime = 0; som.play().catch(()=>{});
+                body.classList.add("piscar"); setTimeout(()=> body.classList.remove("piscar"), 1000);
 
-            som.currentTime = 0;
-            som.play().catch(()=>{});
-            body.classList.add("piscar");
-            setTimeout(()=> body.classList.remove("piscar"), 1000);
-
-            res.innerHTML = `
-            <div class="card">
-                <p class="status-traida">🚨 ${nomeDigitado} ESTÁ TE TRAINDO COM ${quantidade} PESSOA${quantidade > 1? 'S' : ''}! 🚨</p>
-                <p class="contador-conversas">📱 ${conversas} CONVERSAS ENCONTRADAS</p>
-                <div class="avatars-box">${pessoasHtml}</div>
-                <p style="margin-top:10px;">📍 ${cidadeDigitada} - Ativo no: ${app.toUpperCase()}</p>
-                <div id="mapa"></div>
-                <button class="btn btn-reset" onclick="resetar()">TESTAR NOVAMENTE</button>
-            </div>`;
-
-            // Busca coordenadas da cidade digitada e mostra no mapa
-            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${cidadeDigitada}`)
-           .then(res => res.json())
-           .then(data => {
-                if(data[0]){
-                    iniciarMapa(parseFloat(data[0].lat), parseFloat(data[0].lon), cidadeDigitada);
-                }
-            });
-
-        } else {
-            res.innerHTML = `
-            <div class="card">
-                <p class="status-nao">✅ ${nomeDigitado} É FIEL ✅</p>
-                <p>Sem atividade suspeita em ${app.toUpperCase()}</p>
-                <button class="btn btn-reset" onclick="resetar()">TESTAR NOVAMENTE</button>
-            </div>`;
-        }
-    }, 4000);
+                res.innerHTML = `
+                <div class="card" id="cardResultado">
+                    <p class="status-traida">🚨 ${nomeDigitado} ESTÁ TE TRAINDO COM ${quantidade} PESSOA${quantidade > 1? 'S' : ''}! 🚨</p>
+                    <p class="contador-conversas">📱 ${conversas} CONVERSAS ENCONTRADAS</p>
+                    <div class="avatars-box">${pessoasHtml}</div>
+                    <p style="margin-top:10px;">📍 ${cidadeDigitada} - Ativo no: ${app.toUpperCase()}</p>
+                    <div id="mapa"></div>
+                    <button class="btn btn-reset" onclick="resetar()">TESTAR NOVAMENTE</button>
+                </div>`;
+                
+                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${cidadeDigitada}`)
+               .then(res => res.json()).then(data => { if(data[0]){ iniciarMapa(parseFloat(data[0].lat), parseFloat(data[0].lon), cidadeDigitada); } });
+            } else {
+                res.innerHTML = `<div class="card"><p class="status-nao">✅ ${nomeDigitado} É FIEL ✅</p><p>Sem atividade suspeita em ${app.toUpperCase()}</p><button class="btn btn-reset" onclick="resetar()">TESTAR NOVAMENTE</button></div>`;
+            }
+        }, 1000);
+    });
 }
 </script>
 </body>
