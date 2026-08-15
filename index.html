@@ -18,6 +18,7 @@ body { font-family: 'Montserrat', sans-serif; background: #000 url('https://i.im
 .caixa { background: rgba(10,10,10,0.8); padding:25px; border-radius:15px; border:1px solid #ff0040; box-shadow: 0 0 30px rgba(255,0,64,0.3); margin-bottom:20px; backdrop-filter: blur(5px); }
 input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:1px solid #333; border-radius:8px; color:#fff; font-size:15px; text-align:center; font-weight:600; appearance: none; }
 .btn { width:100%; padding:16px; background: linear-gradient(90deg, #ff0040, #cc0033); border:none; border-radius:10px; color:#fff; font-size:16px; font-weight:900; cursor:pointer; margin-top:10px; text-transform:uppercase; }
+.btn-secundario { background: transparent; border:2px solid #ff0040; color:#ff0040; }
 .btn-insta { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); border: none; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration:none; }
 .btn-insta svg { width:20px; height:20px; fill:#fff; }
 #cadastro, #formulario, #resultado { display:none; }
@@ -43,18 +44,13 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
 .etapa-txt { font-size:12px; color:#ccc; line-height:1.4; }
 
 .cidade-titulo { color:#ff0040; font-size:14px; font-weight:900; margin:15px 0 10px; }
-.tinder-area { position:relative; width:100%; height:420px; margin-bottom:15px; touch-action: none; }
-.tinder-card { position:absolute; width:100%; height:100%; background:#111; border-radius:15px; border:2px solid #ff0040; overflow:hidden; cursor: grab; }
-.tinder-card.dragging { cursor: grabbing; transition: none; }
-.tinder-foto { width:100%; height:100%; background-size:cover; background-position:center; filter: blur(12px); pointer-events: none; }
-.tinder-info { position:absolute; bottom:0; left:0; right:0; padding:20px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); text-align:left; pointer-events: none; }
+.tinder-area { position:relative; width:100%; height:420px; margin-bottom:15px; }
+.tinder-card { position:absolute; width:100%; height:100%; background:#111; border-radius:15px; border:2px solid #ff0040; overflow:hidden; }
+.tinder-foto { width:100%; height:100%; background-size:cover; background-position:center; filter: blur(12px); }
+.tinder-info { position:absolute; bottom:0; left:0; right:0; padding:20px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); text-align:left; }
 .tinder-nome { font-size:22px; font-weight:900; }
 .tinder-cidade { font-size:14px; color:#00aaff; margin-top:5px; }
 .tinder-contador { font-size:10px; color:#aaa; text-align:center; margin-bottom:10px; }
-.tinder-btns { display:flex; gap:10px; }
-.tinder-btn { flex:1; padding:14px; border-radius:10px; border:2px solid #ff0040; background:transparent; color:#ff0040; font-weight:900; font-size:14px; }
-.tinder-like { position:absolute; top:20px; right:20px; color:#00ff88; font-size:40px; font-weight:900; transform: rotate(20deg); opacity:0; }
-.tinder-nope { position:absolute; top:20px; left:20px; color:#ff0040; font-size:40px; font-weight:900; transform: rotate(-20deg); opacity:0; }
 
 .card { background: rgba(10,0,10,0.9); padding:20px; border-radius:15px; border:2px solid #ff0040; }
 .status-ok { color:#00ff88; font-size:18px; margin-bottom:10px; font-weight:900; }
@@ -95,6 +91,7 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
         <p style="margin:15px 0 5px; font-size:12px; color:#aaa;">ESCOLHA A REDE SOCIAL</p>
         <select id="app">
             <option value="">SELECIONE O APP</option>
+            <option value="Tinder">Tinder</option> <!-- TINDER PRIMEIRO -->
             <option value="WhatsApp">WhatsApp</option>
             <option value="Instagram">Instagram</option>
             <option value="Facebook">Facebook</option>
@@ -122,7 +119,6 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
             <option value="Amino">Amino</option>
             <option value="Meetup">Meetup</option>
             <option value="Nextdoor">Nextdoor</option>
-            <option value="Tinder">Tinder</option> <!-- TINDER ADICIONADO -->
         </select>
 
         <select id="sexo">
@@ -150,15 +146,15 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
         </div>
         <div class="etapa">
             <div class="etapa-num">4</div>
-            <div class="etapa-txt"><b>Arraste os cards:</b> Passe pro lado pra ver mais perfis compatíveis</div>
+            <div class="etapa-txt"><b>Nova Consulta:</b> Clique no botão pra buscar outra pessoa</div>
         </div>
     </div>
 
     <a href="https://www.instagram.com/secretto.yo?igsh=bzRpYWwwbGo2cDRl&utm_source=qr" target="_blank" class="btn btn-insta">
-        <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 9.2v5.6c0 4.6-2.6 7.2-6.8 7.2H7.8C4.6 22 2 19.4 2 14.8V9.2C2 4.6 4.6 2 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 20.39 5.61 22 7.6 22h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0-3-3z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 9.2v5.6c0 4.6-2.6 7.2-6.8 7.2H7.8C4.6 22 2 19.4 2 14.8V9.2C2 4.6 4.6 2 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 20.39 5.61 22 7.6 22h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
         NOSSO INSTAGRAM
     </a>
-    <p class="rodape">SECRETTO.YOU v4.4</p>
+    <p class="rodape">SECRETTO.YOU v4.9</p>
 </div>
 </div>
 
@@ -166,9 +162,6 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
 let cidadeAlvo = '';
 let perfilAtual = 0;
 let perfis = [];
-let isDragging = false;
-let startX = 0;
-let currentX = 0;
 
 const nomesHomem = ["Pedro Santos","Lucas Oliveira","Rafael Lima","Gustavo Pereira","Felipe Rodrigues","Bruno Costa","Matheus Almeida","Gabriel Souza","Daniel Rocha","Thiago Ferreira"];
 const nomesMulher = ["Mariana Silva","Julia Costa","Amanda Rocha","Beatriz Almeida","Camila Souza","Larissa Pereira","Fernanda Lima","Juliana Rocha","Patricia Santos","Aline Oliveira"];
@@ -218,110 +211,50 @@ function gerarPerfis(){
     for(let i=0; i<5; i++){
         if(sexo === 'mulher'){
             perfis.push({
-                nome: nomesMulher[Math.floor(Math.random() * nomesMulher.length)], // REGRA: SÓ MULHER
+                nome: nomesMulher[Math.floor(Math.random() * nomesMulher.length)],
                 idade: idade,
-                foto: Math.floor(Math.random()*35) + 1 // REGRA: SÓ FOTO FEMININA 1-35
+                foto: Math.floor(Math.random()*35) + 1
             });
         } else {
             perfis.push({
-                nome: nomesHomem[Math.floor(Math.random() * nomesHomem.length)], // REGRA: SÓ HOMEM
+                nome: nomesHomem[Math.floor(Math.random() * nomesHomem.length)],
                 idade: idade,
-                foto: Math.floor(Math.random()*35) + 36 // REGRA: SÓ FOTO MASCULINA 36-70
+                foto: Math.floor(Math.random()*35) + 36
             });
         }
     }
 }
 
 function mostrarResultado(){
-    perfilAtual = 0;
+    perfilAtual = Math.floor(Math.random() * 5); // mostra 1 aleatório dos 5
     let app = document.getElementById('app').value;
     document.getElementById('resultado').innerHTML = `
     <div class="card">
         <p class="status-ok">✅ PERFIS ENCONTRADOS EM ${cidadeAlvo.toUpperCase()}</p>
         <p class="contador">${Math.floor(Math.random() * 200) + 50} Pessoas compatíveis no ${app}</p>
         <p class="cidade-titulo">${Math.floor(Math.random() * 50) + 20} PESSOAS DE ${cidadeAlvo.toUpperCase()} USARAM O APP</p>
-        <div class="tinder-contador" id="contador">Perfil 1 de 5</div>
         <div class="tinder-area" id="tinderArea"></div>
-        <div class="tinder-btns">
-            <button class="tinder-btn" onclick="swipeCard('left')">❌ PASSAR</button>
-            <button class="tinder-btn" style="background:#ff0040; color:#fff;" onclick="swipeCard('right')">✅ CURTIR</button>
-        </div>
+        <button class="btn btn-secundario" onclick="novaConsulta()">🔄 NOVA CONSULTA</button>
     </div>`;
     mostrarPerfil();
-    adicionarEventosDrag();
 }
 
 function mostrarPerfil(){
     let p = perfis[perfilAtual];
     document.getElementById('tinderArea').innerHTML = `
-    <div class="tinder-card" id="cardAtual">
-        <div class="tinder-like">LIKE</div>
-        <div class="tinder-nope">NOPE</div>
+    <div class="tinder-card">
         <div class="tinder-foto" style="background-image:url(https://i.pravatar.cc/400?img=${p.foto})"></div>
         <div class="tinder-info">
             <div class="tinder-nome">${p.nome}, ${p.idade}</div>
             <div class="tinder-cidade">📍 ${cidadeAlvo}</div>
         </div>
     </div>`;
-    document.getElementById('contador').innerText = `Perfil ${perfilAtual + 1} de 5`;
 }
 
-function adicionarEventosDrag(){
-    let card = document.getElementById('cardAtual');
-    card.addEventListener('mousedown', dragStart);
-    card.addEventListener('mousemove', dragging);
-    card.addEventListener('mouseup', dragEnd);
-    card.addEventListener('touchstart', dragStart);
-    card.addEventListener('touchmove', dragging);
-    card.addEventListener('touchend', dragEnd);
-}
-
-function dragStart(e){
-    isDragging = true;
-    startX = e.type.includes('mouse')? e.pageX : e.touches[0].pageX;
-    document.getElementById('cardAtual').classList.add('dragging');
-}
-
-function dragging(e){
-    if(!isDragging) return;
-    currentX = e.type.includes('mouse')? e.pageX : e.touches[0].pageX;
-    let diff = currentX - startX;
-    let card = document.getElementById('cardAtual');
-    card.style.transform = `translateX(${diff}px) rotate(${diff/20}deg)`;
-    if(diff > 50) document.querySelector('.tinder-like').style.opacity = 1;
-    else document.querySelector('.tinder-like').style.opacity = 0;
-    if(diff < -50) document.querySelector('.tinder-nope').style.opacity = 1;
-    else document.querySelector('.tinder-nope').style.opacity = 0;
-}
-
-function dragEnd(e){
-    if(!isDragging) return;
-    isDragging = false;
-    let diff = currentX - startX;
-    let card = document.getElementById('cardAtual');
-    card.classList.remove('dragging');
-    if(diff > 100) swipeCard('right');
-    else if(diff < -100) swipeCard('left');
-    else {
-        card.style.transform = 'translateX(0) rotate(0)';
-        document.querySelector('.tinder-like').style.opacity = 0;
-        document.querySelector('.tinder-nope').style.opacity = 0;
-    }
-}
-
-function swipeCard(dir){
-    let card = document.getElementById('cardAtual');
-    card.style.transition = 'transform 0.3s';
-    card.style.transform = dir === 'right'? 'translateX(500px) rotate(30deg)' : 'translateX(-500px) rotate(-30deg)';
-    setTimeout(()=>{
-        perfilAtual++;
-        if(perfilAtual >= perfis.length){
-            perfilAtual = 0;
-            alert('Você viu todos os perfis!');
-        }
-        mostrarPerfil();
-        adicionarEventosDrag();
-    }, 300);
+function novaConsulta(){
+    document.getElementById('resultado').style.display='none';
+    document.getElementById('formulario').style.display='block';
+    document.getElementById('comoUsar').style.display='block';
 }
 
 window.onload = () => {
@@ -330,4 +263,4 @@ window.onload = () => {
 }
 </script>
 </body>
-    </html>
+                </html>
