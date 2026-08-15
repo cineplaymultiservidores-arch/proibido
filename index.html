@@ -16,22 +16,22 @@ body { font-family: 'Montserrat', sans-serif; background: #000 url('https://i.im
 .logo h1 span { color:#ff0040; }
 .sub { font-size:12px; color:#ff0040; letter-spacing:3px; margin-bottom:25px; }
 .caixa { background: rgba(10,10,10,0.8); padding:25px; border-radius:15px; border:1px solid #ff0040; box-shadow: 0 0 30px rgba(255,0,64,0.3); margin-bottom:20px; backdrop-filter: blur(5px); }
-input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:1px solid #333; border-radius:8px; color:#fff; font-size:15px; text-align:center; font-weight:600; }
+input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:1px solid #333; border-radius:8px; color:#fff; font-size:15px; text-align:center; font-weight:600; appearance: none; }
 .btn { width:100%; padding:16px; background: linear-gradient(90deg, #ff0040, #cc0033); border:none; border-radius:10px; color:#fff; font-size:16px; font-weight:900; cursor:pointer; margin-top:10px; text-transform:uppercase; }
 .btn-insta { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); border: none; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration:none; }
 .btn-insta svg { width:20px; height:20px; fill:#fff; }
 #cadastro, #formulario, #resultado { display:none; }
 
-/* GRID DE APPS */
-.app-selector { display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; margin:15px 0; max-height:400px; overflow-y:auto; padding:5px; }
-.app-item { padding:10px 5px; background:#111; border:2px solid #333; border-radius:10px; cursor:pointer; }
-.app-item.active { border-color:#ff0040; background:#1a0008; }
-.app-item img { width:32px; height:32px; margin-bottom:5px; }
-.app-item p { font-size:8px; color:#aaa; line-height:1.1; }
-
-.radar-box { width:200px; height:200px; margin:20px auto; position:relative; border:2px solid #ff0040; border-radius:50%; background: radial-gradient(circle, rgba(255,0,64,0.1) 0%, transparent 70%); }
-.radar-line { position:absolute; top:50%; left:50%; width:2px; height:100px; background: linear-gradient(transparent, #ff0040); transform-origin: bottom center; animation: scan 2s linear infinite; }
+/* RADAR REALISTA */
+.radar-box { width:220px; height:220px; margin:20px auto; position:relative; border-radius:50%; background: radial-gradient(circle, rgba(255,0,64,0.15) 0%, transparent 60%); }
+.radar-circle { position:absolute; top:50%; left:50%; border:1px solid rgba(255,0,64,0.3); border-radius:50%; transform:translate(-50%,-50%); }
+.radar-circle.c1 { width:220px; height:220px; }
+.radar-circle.c2 { width:160px; height:160px; }
+.radar-circle.c3 { width:100px; height:100px; }
+.radar-line { position:absolute; top:50%; left:50%; width:2px; height:110px; background: linear-gradient(transparent, #ff0040); transform-origin: bottom center; animation: scan 3s linear infinite; }
+.radar-dot { position:absolute; width:6px; height:6px; background:#00ff88; border-radius:50%; box-shadow:0 0 10px #00ff88; animation: blink 1.5s infinite; }
 @keyframes scan { from {transform: translateX(-50%) rotate(0deg);} to {transform: translateX(-50%) rotate(360deg);} }
+@keyframes blink { 0%,100%{opacity:0;} 50%{opacity:1;} }
 
 .play-info { display:flex; justify-content:space-around; margin:20px 0; padding:15px; background:rgba(0,0,0,0.5); border-radius:10px; border:1px solid #333; }
 .play-num { font-size:18px; font-weight:900; color:#ff0040; }
@@ -49,7 +49,7 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
 .tinder-area { position:relative; width:100%; height:420px; margin-bottom:15px; touch-action: none; }
 .tinder-card { position:absolute; width:100%; height:100%; background:#111; border-radius:15px; border:2px solid #ff0040; overflow:hidden; cursor: grab; }
 .tinder-card.dragging { cursor: grabbing; transition: none; }
-.tinder-foto { width:100%; height:100%; background-size:cover; background-position:center; pointer-events: none; }
+.tinder-foto { width:100%; height:100%; background-size:cover; background-position:center; filter: blur(12px); pointer-events: none; }
 .tinder-info { position:absolute; bottom:0; left:0; right:0; padding:20px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); text-align:left; pointer-events: none; }
 .tinder-nome { font-size:22px; font-weight:900; }
 .tinder-cidade { font-size:14px; color:#00aaff; margin-top:5px; }
@@ -92,10 +92,42 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
 
     <div class="caixa" id="formulario">
         <input type="text" id="nome" placeholder="NOME DA PESSOA">
-        <input type="number" id="idade" placeholder="IDADE DA PESSOA" min="16" max="99"> <!-- IDADE ADICIONADA -->
+        <input type="number" id="idade" placeholder="IDADE DA PESSOA" min="16" max="99">
         <input type="text" id="cidade" placeholder="CIDADE - Ex: Rio de Janeiro">
+
         <p style="margin:15px 0 5px; font-size:12px; color:#aaa;">ESCOLHA A REDE SOCIAL</p>
-        <div class="app-selector" id="appSelector"></div>
+        <!-- ABA SUSPENSA NO LUGAR DAS IMAGENS -->
+        <select id="app">
+            <option value="">SELECIONE O APP</option>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Instagram">Instagram</option>
+            <option value="Facebook">Facebook</option>
+            <option value="Facebook Messenger">Facebook Messenger</option>
+            <option value="Telegram">Telegram</option>
+            <option value="TikTok">TikTok</option>
+            <option value="X">X (Twitter)</option>
+            <option value="LinkedIn">LinkedIn</option>
+            <option value="Snapchat">Snapchat</option>
+            <option value="Discord">Discord</option>
+            <option value="Reddit">Reddit</option>
+            <option value="Threads">Threads</option>
+            <option value="Kwai">Kwai</option>
+            <option value="Pinterest">Pinterest</option>
+            <option value="Signal">Signal</option>
+            <option value="Skype">Skype</option>
+            <option value="WeChat">WeChat</option>
+            <option value="Viber">Viber</option>
+            <option value="LINE">LINE</option>
+            <option value="Bluesky">Bluesky</option>
+            <option value="Mastodon">Mastodon</option>
+            <option value="Tumblr">Tumblr</option>
+            <option value="Twitch">Twitch</option>
+            <option value="Steam">Steam</option>
+            <option value="Amino">Amino</option>
+            <option value="Meetup">Meetup</option>
+            <option value="Nextdoor">Nextdoor</option>
+        </select>
+
         <select id="sexo">
             <option value="mulher">BUSCAR MULHERES</option>
             <option value="homem">BUSCAR HOMENS</option>
@@ -105,27 +137,22 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
 
     <div id="resultado"></div>
 
-    <!-- COMO USAR -->
     <div class="como-usar" id="comoUsar">
         <p class="como-titulo">COMO USAR O SITE</p>
         <div class="etapa">
             <div class="etapa-num">1</div>
-            <div class="etapa-txt"><b>Crie seu perfil:</b> Coloque seu nome e idade para começar</div>
-        </div>
-        <div class="etapa">
-            <div class="etapa-num">2</div>
             <div class="etapa-txt"><b>Preencha os dados:</b> Nome, idade e cidade da pessoa que você quer buscar</div>
         </div>
         <div class="etapa">
-            <div class="etapa-num">3</div>
-            <div class="etapa-txt"><b>Escolha a rede social:</b> Selecione entre as 27 opções disponíveis</div>
+            <div class="etapa-num">2</div>
+            <div class="etapa-txt"><b>Escolha a rede social:</b> Selecione na aba qual app você quer</div>
         </div>
         <div class="etapa">
-            <div class="etapa-num">4</div>
+            <div class="etapa-num">3</div>
             <div class="etapa-txt"><b>Escolha o sexo:</b> Buscar por homens ou mulheres</div>
         </div>
         <div class="etapa">
-            <div class="etapa-num">5</div>
+            <div class="etapa-num">4</div>
             <div class="etapa-txt"><b>Arraste os cards:</b> Passe pro lado pra ver mais perfis compatíveis</div>
         </div>
     </div>
@@ -134,12 +161,11 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
         <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 9.2v5.6c0 4.6-2.6 7.2-6.8 7.2H7.8C4.6 22 2 19.4 2 14.8V9.2C2 4.6 4.6 2 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 20.39 5.61 22 7.6 22h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
         NOSSO INSTAGRAM
     </a>
-    <p class="rodape">SECRETTO.YOU v4.1</p>
+    <p class="rodape">SECRETTO.YOU v4.3</p>
 </div>
 </div>
 
 <script>
-let appSelecionado = '';
 let cidadeAlvo = '';
 let perfilAtual = 0;
 let perfis = [];
@@ -147,51 +173,8 @@ let isDragging = false;
 let startX = 0;
 let currentX = 0;
 
-const nomesReais = ["Mariana Silva","Pedro Santos","Julia Costa","Lucas Oliveira","Amanda Rocha","Rafael Lima","Beatriz Almeida","Gustavo Pereira","Camila Souza","Felipe Rodrigues"];
-
-// LISTA DE 27 APPS COM ÍCONE
-const apps = [
-    {nome:"WhatsApp", icon:"https://cdn-icons-png.flaticon.com/512/3670/3670051.png"},
-    {nome:"Instagram", icon:"https://cdn-icons-png.flaticon.com/512/2111/2111463.png"},
-    {nome:"Facebook", icon:"https://cdn-icons-png.flaticon.com/512/733/733547.png"},
-    {nome:"Messenger", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968795.png"},
-    {nome:"Telegram", icon:"https://cdn-icons-png.flaticon.com/512/2111/2111646.png"},
-    {nome:"TikTok", icon:"https://cdn-icons-png.flaticon.com/512/3046/3046122.png"},
-    {nome:"X", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968830.png"},
-    {nome:"LinkedIn", icon:"https://cdn-icons-png.flaticon.com/512/174/174857.png"},
-    {nome:"Snapchat", icon:"https://cdn-icons-png.flaticon.com/512/733585.png"},
-    {nome:"Discord", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968752.png"},
-    {nome:"Reddit", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968752.png"},
-    {nome:"Threads", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968830.png"},
-    {nome:"Kwai", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968705.png"},
-    {nome:"Pinterest", icon:"https://cdn-icons-png.flaticon.com/512/174/174863.png"},
-    {nome:"Signal", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968778.png"},
-    {nome:"Skype", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968779.png"},
-    {nome:"WeChat", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968786.png"},
-    {nome:"Viber", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968788.png"},
-    {nome:"LINE", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968789.png"},
-    {nome:"Bluesky", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968830.png"},
-    {nome:"Mastodon", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968790.png"},
-    {nome:"Tumblr", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968791.png"},
-    {nome:"Twitch", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968819.png"},
-    {nome:"Steam", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968823.png"},
-    {nome:"Amino", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968830.png"},
-    {nome:"Meetup", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968830.png"},
-    {nome:"Nextdoor", icon:"https://cdn-icons-png.flaticon.com/512/5968/5968830.png"}
-];
-
-function carregarApps(){
-    let box = document.getElementById('appSelector');
-    apps.forEach(app=>{
-        box.innerHTML += `<div class="app-item" onclick="selecionarApp(this, '${app.nome}')"><img src="${app.icon}"><p>${app.nome}</p></div>`;
-    });
-}
-
-function selecionarApp(el, app){
-    document.querySelectorAll('.app-item').forEach(i=>i.classList.remove('active'));
-    el.classList.add('active');
-    appSelecionado = app;
-}
+const nomesHomem = ["Pedro Santos","Lucas Oliveira","Rafael Lima","Gustavo Pereira","Felipe Rodrigues","Bruno Costa","Matheus Almeida","Gabriel Souza","Daniel Rocha","Thiago Ferreira"];
+const nomesMulher = ["Mariana Silva","Julia Costa","Amanda Rocha","Beatriz Almeida","Camila Souza","Larissa Pereira","Fernanda Lima","Juliana Rocha","Patricia Santos","Aline Oliveira"];
 
 function salvarCadastro(){
     let nome = document.getElementById('cad_nome').value;
@@ -202,7 +185,8 @@ function salvarCadastro(){
 }
 
 function detectar(){
-    if(!appSelecionado){ alert('Selecione uma rede social'); return; }
+    let app = document.getElementById('app').value;
+    if(app === ''){ alert('Selecione uma rede social'); return; }
     cidadeAlvo = document.getElementById('cidade').value || 'Sua Cidade';
     gerarPerfis();
     document.getElementById('formulario').style.display='none';
@@ -210,8 +194,15 @@ function detectar(){
     document.getElementById('resultado').style.display='block';
     document.getElementById('resultado').innerHTML = `
     <div class="caixa">
-        <p style="color:#00aaff; font-size:12px; font-weight:700;">BUSCANDO EM ${appSelecionado} - ${cidadeAlvo}...</p>
-        <div class="radar-box"><div class="radar-line"></div></div>
+        <p style="color:#00aaff; font-size:12px; font-weight:700;">BUSCANDO EM ${app} - ${cidadeAlvo}...</p>
+        <div class="radar-box">
+            <div class="radar-circle c1"></div>
+            <div class="radar-circle c2"></div>
+            <div class="radar-circle c3"></div>
+            <div class="radar-line"></div>
+            <div class="radar-dot" style="top:30%; left:60%;"></div>
+            <div class="radar-dot" style="top:70%; left:40%;"></div>
+        </div>
         <div class="loading-bar"><div class="progress" id="progress"></div></div>
         <button class="btn" onclick="mostrarResultado()">VER RESULTADO</button>
     </div>`;
@@ -230,13 +221,13 @@ function gerarPerfis(){
     for(let i=0; i<5; i++){
         if(sexo === 'mulher'){
             perfis.push({
-                nome: nomesReais[Math.floor(Math.random() * 10)],
+                nome: nomesMulher[Math.floor(Math.random() * nomesMulher.length)],
                 idade: idade,
                 foto: Math.floor(Math.random()*35) + 1
             });
         } else {
             perfis.push({
-                nome: nomesReais[Math.floor(Math.random() * 10)],
+                nome: nomesHomem[Math.floor(Math.random() * nomesHomem.length)],
                 idade: idade,
                 foto: Math.floor(Math.random()*35) + 36
             });
@@ -246,10 +237,11 @@ function gerarPerfis(){
 
 function mostrarResultado(){
     perfilAtual = 0;
+    let app = document.getElementById('app').value;
     document.getElementById('resultado').innerHTML = `
     <div class="card">
         <p class="status-ok">✅ PERFIS ENCONTRADOS EM ${cidadeAlvo.toUpperCase()}</p>
-        <p class="contador">${Math.floor(Math.random() * 200) + 50} Pessoas compatíveis no ${appSelecionado}</p>
+        <p class="contador">${Math.floor(Math.random() * 200) + 50} Pessoas compatíveis no ${app}</p>
         <p class="cidade-titulo">${Math.floor(Math.random() * 50) + 20} PESSOAS DE ${cidadeAlvo.toUpperCase()} USARAM O APP</p>
         <div class="tinder-contador" id="contador">Perfil 1 de 5</div>
         <div class="tinder-area" id="tinderArea"></div>
@@ -336,7 +328,6 @@ function swipeCard(dir){
 }
 
 window.onload = () => {
-    carregarApps();
     if(localStorage.getItem('secretto_user')){ document.getElementById('formulario').style.display='block'; }
     else{ document.getElementById('cadastro').style.display='block'; }
 }
