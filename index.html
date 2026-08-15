@@ -220,26 +220,36 @@ function simularProgresso(){
 function gerarPerfis(){
     let sexo = document.getElementById('sexo').value;
     let idadeBase = parseInt(document.getElementById('idade').value) || 20;
-    let qtdPerfis = Math.floor(Math.random() * 9) + 2; 
+    let qtdPerfis = Math.floor(Math.random() * 9) + 4; // 4 a 12 perfis
     perfis = [];
     
-    // Pega uma lista embaralhada pra não repetir nome
-    let listaNomes = sexo === 'mulher' ? [...nomesMulher] : [...nomesHomem];
-    listaNomes.sort(() => 0.5 - Math.random()); // embaralha
+    // Lista embaralhada pra não repetir nome
+    let listaNomes = sexo === 'mulher'? [...nomesMulher] : [...nomesHomem];
+    listaNomes.sort(() => 0.5 - Math.random());
+
+    // Lista de fotos pra não repetir foto
+    let fotosUsadas = [];
 
     for(let i=0; i<qtdPerfis; i++){
-        // IDADE VARIA: +/- 5 anos da idade base
-        let idadeVariada = idadeBase + Math.floor(Math.random() * 11) - 5;
-        if(idadeVariada < 16) idadeVariada = 16;
-        if(idadeVariada > 99) idadeVariada = 99;
+        // IDADE VARIA: +/- 6 anos da idade base
+        let idadeVariada = idadeBase + Math.floor(Math.random() * 13) - 6;
+        if(idadeVariada < 18) idadeVariada = 18;
+        if(idadeVariada > 55) idadeVariada = 55;
+
+        // FOTO SEM REPETIR
+        let foto;
+        do {
+            foto = Math.floor(Math.random()*70) + 1; // agora de 1 a 70
+        } while(fotosUsadas.includes(foto));
+        fotosUsadas.push(foto);
 
         perfis.push({
-            nome: listaNomes[i], // pega nome diferente da lista embaralhada
-            idade: idadeVariada, // idade diferente pra cada um
-            foto: Math.floor(Math.random()*70) + 1 // foto aleatória tbm
+            nome: listaNomes[i], 
+            idade: idadeVariada, 
+            foto: foto
         });
     }
-}
+    }
 
 function mostrarResultado(){
     let app = document.getElementById('app').value;
