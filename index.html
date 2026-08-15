@@ -45,7 +45,6 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
 
 .cidade-titulo { color:#ff0040; font-size:14px; font-weight:900; margin:15px 0 10px; }
 
-/* CARROSSEL NOVO */
 .carrossel-container { position:relative; margin:15px 0; }
 .carrossel { display:flex; gap:12px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom:10px; }
 .carrossel::-webkit-scrollbar { height:6px; }
@@ -165,7 +164,7 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
         <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 9.2v5.6c0 4.6-2.6 7.2-6.8 7.2H7.8C4.6 22 2 19.4 2 14.8V9.2C2 4.6 4.6 2 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 20.39 5.61 22 7.6 22h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
         NOSSO INSTAGRAM
     </a>
-    <p class="rodape">SECRETTO.YOU v5.3</p>
+    <p class="rodape">SECRETTO.YOU v5.8 - <a href="https://secrettoyou.shop" style="color:#444; text-decoration:none;">secrettoyou.shop</a></p>
 </div>
 </div>
 
@@ -216,30 +215,25 @@ function simularProgresso(){
     let i = setInterval(()=>{ p+=5; el.style.width=p+'%'; if(p>=100) clearInterval(i); }, 120);
 }
 
-// FUNÇÃO NOVA - NOME E IDADE DIFERENTES
 function gerarPerfis(){
     let sexo = document.getElementById('sexo').value;
     let idadeBase = parseInt(document.getElementById('idade').value) || 20;
-    let qtdPerfis = Math.floor(Math.random() * 9) + 4; // 4 a 12 perfis
+    let qtdPerfis = Math.floor(Math.random() * 9) + 4; 
     perfis = [];
     
-    // Lista embaralhada pra não repetir nome
     let listaNomes = sexo === 'mulher'? [...nomesMulher] : [...nomesHomem];
     listaNomes.sort(() => 0.5 - Math.random());
 
-    // Lista de fotos pra não repetir foto
     let fotosUsadas = [];
 
     for(let i=0; i<qtdPerfis; i++){
-        // IDADE VARIA: +/- 6 anos da idade base
         let idadeVariada = idadeBase + Math.floor(Math.random() * 13) - 6;
         if(idadeVariada < 18) idadeVariada = 18;
         if(idadeVariada > 55) idadeVariada = 55;
 
-        // FOTO SEM REPETIR
         let foto;
         do {
-            foto = Math.floor(Math.random()*70) + 1; // agora de 1 a 70
+            foto = Math.floor(Math.random()*70) + 1; 
         } while(fotosUsadas.includes(foto));
         fotosUsadas.push(foto);
 
@@ -249,7 +243,7 @@ function gerarPerfis(){
             foto: foto
         });
     }
-    }
+}
 
 function mostrarResultado(){
     let app = document.getElementById('app').value;
@@ -301,4 +295,6 @@ window.onload = () => {
     if(localStorage.getItem('secretto_user')){ document.getElementById('formulario').style.display='block'; }
     else{ document.getElementById('cadastro').style.display='block'; }
 }
-                    </script>
+</script>
+</body>
+                                         </html>
