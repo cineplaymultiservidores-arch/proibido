@@ -7,200 +7,100 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Montserrat', sans-serif; background: #000; color:#fff; text-align:center; min-height:100vh; }
+body { font-family: 'Montserrat', sans-serif; background: #000 url('https://i.imgur.com/8Qm9QZq.jpg') no-repeat center top; background-size: cover; color:#fff; text-align:center; min-height:100vh; }
 .overlay { background: rgba(0,0,0,0.85); min-height:100vh; padding:20px 15px; }
 .container { padding:20px 15px; max-width:420px; margin:auto; }
+.logo { margin:10px 0 20px; }
+.logo svg { width:60px; height:60px; }
 .logo h1 { font-size:28px; font-weight:900; letter-spacing:2px; }
 .logo h1 span { color:#ff0040; }
-.sub { font-size:12px; color:#ff0040; letter-spacing:3px; margin-bottom:15px; }
-
-/* RADAR VOLTOU */
-.radar { width:120px; height:120px; border:2px solid #ff0040; border-radius:50%; margin:15px auto; position:relative; }
-.radar::before { content:''; position:absolute; width:100%; height:100%; border-radius:50%; border:2px solid #ff0040; animation:pulse 2s infinite; }
-@keyframes pulse { 0% {transform:scale(0.8); opacity:1;} 100% {transform:scale(1.4); opacity:0;} }
-
-.caixa { background: rgba(10,10,10,0.8); padding:25px; border-radius:15px; border:1px solid #ff0040; margin-bottom:20px; }
-input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:1px solid #333; border-radius:8px; color:#fff; font-size:15px; text-align:center; font-weight:600; }
-.btn { width:100%; padding:16px; background: linear-gradient(90deg, #ff0040, #cc0033); border:none; border-radius:10px; color:#fff; font-size:16px; font-weight:900; cursor:pointer; margin-top:10px; }
-.btn-secundario { background: transparent; border:2px solid #ff0040; color:#ff0040; }
+.sub { font-size:12px; color:#ff0040; letter-spacing:3px; margin-bottom:25px; }
+.caixa { background: rgba(10,10,10,0.8); padding:25px; border-radius:15px; border:1px solid #ff0040; box-shadow: 0 0 30px rgba(255,0,64,0.3); margin-bottom:20px; backdrop-filter: blur(5px); }
+input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:1px solid #333; border-radius:8px; color:#fff; font-size:15px; text-align:center; font-weight:600; appearance: none; }
+.btn { width:100%; padding:16px; background: linear-gradient(90deg, #ff0040, #cc0033); border:none; border-radius:10px; color:#fff; font-size:16px; font-weight:900; cursor:pointer; margin-top:10px; text-transform:uppercase; }
+.btn-insta { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); border: none; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration:none; }
+.btn-insta svg { width:20px; height:20px; fill:#fff; }
 #cadastro, #formulario, #resultado { display:none; }
 
-/* ETAPAS VOLTARAM */
-.etapas { text-align:left; font-size:13px; color:#aaa; margin-top:15px; }
-.etapas b { color:#ff0040; }
+.radar-box { width:220px; height:220px; margin:20px auto; position:relative; border-radius:50%; background: radial-gradient(circle, rgba(255,0,64,0.15) 0%, transparent 60%); }
+.radar-circle { position:absolute; top:50%; left:50%; border:1px solid rgba(255,0,64,0.3); border-radius:50%; transform:translate(-50%,-50%); }
+.radar-circle.c1 { width:220px; height:220px; }
+.radar-circle.c2 { width:160px; height:160px; }
+.radar-circle.c3 { width:100px; height:100px; }
+.radar-line { position:absolute; top:50%; left:50%; width:2px; height:110px; background: linear-gradient(transparent, #ff0040); transform-origin: bottom center; animation: scan 3s linear infinite; }
+.radar-dot { position:absolute; width:6px; height:6px; background:#00ff88; border-radius:50%; box-shadow:0 0 10px #00ff88; animation: blink 1.5s infinite; }
+@keyframes scan { from {transform: translateX(-50%) rotate(0deg);} to {transform: translateX(-50%) rotate(360deg);} }
+@keyframes blink { 0%,100%{opacity:0;} 50%{opacity:1;} }
 
-.grid-perfis { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:15px 0; }
-.card-perfil { background:#111; border-radius:12px; border:1px solid #333; overflow:hidden; }
-.card-foto { width:100%; height:140px; background-size:cover; background-position:center; filter: blur(6px); }
-.card-info { padding:10px; text-align:left; background:#0a0a0a; }
-.card-nome { font-size:15px; font-weight:900; }
-.card-idade { font-size:14px; color:#ccc; font-weight:600; }
-.card-cidade { font-size:12px; color:#00aaff; margin-top:3px; }
+.play-info { display:flex; justify-content:space-around; margin:20px 0; padding:15px; background:rgba(0,0,0,0.5); border-radius:10px; border:1px solid #333; }
+.play-num { font-size:18px; font-weight:900; color:#ff0040; }
+.stars { color:#ffb400; font-size:16px; }
 
-.fidelidade-box { background: linear-gradient(135deg, #00ff88, #00aaff); padding:20px; border-radius:15px; margin:15px 0; }
-.fidelidade-percent { font-size:48px; font-weight:900; color:#000; }
-.fidelidade-selo { background:#000; color:#00ff88; padding:8px 12px; border-radius:8px; font-size:13px; font-weight:900; display:inline-block; margin-top:10px; }
+.como-usar { background:#0a0a0a; padding:20px; border-radius:15px; border:1px solid #333; text-align:left; margin:20px 0; }
+.como-titulo { font-size:16px; font-weight:900; color:#ff0040; margin-bottom:15px; text-align:center; }
+.etapa { display:flex; gap:12px; margin-bottom:12px; align-items:flex-start; }
+.etapa-num { background:#ff0040; color:#000; font-weight:900; width:25px; height:25px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.etapa-txt { font-size:12px; color:#ccc; line-height:1.4; }
 
+.cidade-titulo { color:#ff0040; font-size:14px; font-weight:900; margin:15px 0 10px; }
+.tinder-area { position:relative; width:100%; height:420px; margin-bottom:15px; touch-action: none; }
+.tinder-card { position:absolute; width:100%; height:100%; background:#111; border-radius:15px; border:2px solid #ff0040; overflow:hidden; cursor: grab; }
+.tinder-card.dragging { cursor: grabbing; transition: none; }
+.tinder-foto { width:100%; height:100%; background-size:cover; background-position:center; filter: blur(12px); pointer-events: none; }
+.tinder-info { position:absolute; bottom:0; left:0; right:0; padding:20px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); text-align:left; pointer-events: none; }
+.tinder-nome { font-size:22px; font-weight:900; }
+.tinder-cidade { font-size:14px; color:#00aaff; margin-top:5px; }
+.tinder-contador { font-size:10px; color:#aaa; text-align:center; margin-bottom:10px; }
+.tinder-btns { display:flex; gap:10px; }
+.tinder-btn { flex:1; padding:14px; border-radius:10px; border:2px solid #ff0040; background:transparent; color:#ff0040; font-weight:900; font-size:14px; }
+.tinder-like { position:absolute; top:20px; right:20px; color:#00ff88; font-size:40px; font-weight:900; transform: rotate(20deg); opacity:0; }
+.tinder-nope { position:absolute; top:20px; left:20px; color:#ff0040; font-size:40px; font-weight:900; transform: rotate(-20deg); opacity:0; }
+
+.card { background: rgba(10,0,10,0.9); padding:20px; border-radius:15px; border:2px solid #ff0040; }
+.status-ok { color:#00ff88; font-size:18px; margin-bottom:10px; font-weight:900; }
+.contador { color:#00aaff; font-size:18px; margin:10px 0; font-weight:700; }
 .loading-bar { background:#111; border-radius:10px; margin:15px 0; border:1px solid #ff0040; }
 .progress { height:25px; background: linear-gradient(90deg, #ff0040, #00aaff); width:0%; border-radius:10px; }
+.classificacao { display:inline-block; background:#ff0040; color:#000; padding:3px 8px; border-radius:5px; font-size:10px; font-weight:900; }
+.rodape { font-size:10px; color:#444; margin-top:20px; }
 </style>
 </head>
 <body>
 <div class="overlay">
 <div class="container">
-    <div class="logo"><h1>SECRETTO<span>.YOU</span></h1><p class="sub">TESTE DE COMPATIBILIDADE</p></div>
+    <div class="logo">
+        <svg viewBox="0 0 24 24"><path fill="#ff0040" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <h1>SECRETTO<span>.YOU</span></h1>
+        <p class="sub">TESTE DE COMPATIBILIDADE</p>
+    </div>
+
+    <div class="play-info">
+        <div><div class="stars">★★★ 4.8</div><div style="font-size:9px; color:#aaa;">1.2M Avaliações</div></div>
+        <div><div class="play-num">1B+</div><div style="font-size:9px; color:#aaa;">Usuários</div></div>
+        <div><div class="classificacao">+16</div><div style="font-size:9px; color:#aaa;">Classificação</div></div>
+    </div>
 
     <div class="caixa" id="cadastro">
-        <div class="radar"></div>
         <p style="color:#ff0040; font-size:20px; font-weight:900;">CRIAR PERFIL</p>
         <input type="text" id="cad_nome" placeholder="SEU PRIMEIRO NOME">
         <input type="number" id="cad_idade" placeholder="SUA IDADE" min="16" max="99">
         <button class="btn" onclick="salvarCadastro()">COMEÇAR BUSCA 🔎</button>
-        
-        <div class="etapas">
-            <b>COMO USAR:</b><br>
-            1. Crie seu perfil<br>
-            2. Digite nome, idade e cidade<br>
-            3. Selecione o app<br>
-            4. Veja o resultado
-        </div>
     </div>
 
     <div class="caixa" id="formulario">
-        <div class="radar"></div>
         <input type="text" id="nome" placeholder="NOME DA PESSOA">
-        <input type="number" id="idade" placeholder="IDADE BASE - Ex: 22" min="16" max="99">
+        <input type="number" id="idade" placeholder="IDADE DA PESSOA" min="16" max="99">
         <input type="text" id="cidade" placeholder="CIDADE - Ex: Rio de Janeiro">
+
+        <p style="margin:15px 0 5px; font-size:12px; color:#aaa;">ESCOLHA A REDE SOCIAL</p>
         <select id="app">
             <option value="">SELECIONE O APP</option>
-            <option value="Tinder">Tinder</option>
             <option value="WhatsApp">WhatsApp</option>
             <option value="Instagram">Instagram</option>
             <option value="Facebook">Facebook</option>
             <option value="Facebook Messenger">Facebook Messenger</option>
             <option value="Telegram">Telegram</option>
             <option value="TikTok">TikTok</option>
-            <option value="X (Twitter)">X (Twitter)</option>
+            <option value="X">X (Twitter)</option>
             <option value="LinkedIn">LinkedIn</option>
             <option value="Snapchat">Snapchat</option>
-            <option value="Discord">Discord</option>
-            <option value="Reddit">Reddit</option>
-            <option value="Threads">Threads</option>
-            <option value="Kwai">Kwai</option>
-            <option value="Pinterest">Pinterest</option>
-            <option value="Signal">Signal</option>
-            <option value="Skype">Skype</option>
-            <option value="WeChat">WeChat</option>
-            <option value="Viber">Viber</option>
-            <option value="LINE">LINE</option>
-            <option value="Bluesky">Bluesky</option>
-            <option value="Mastodon">Mastodon</option>
-            <option value="Tumblr">Tumblr</option>
-            <option value="Twitch">Twitch</option>
-            <option value="Steam">Steam</option>
-            <option value="Amino">Amino</option>
-            <option value="Meetup">Meetup</option>
-            <option value="Nextdoor">Nextdoor</option>
-        </select>
-        <select id="sexo">
-            <option value="mulher">BUSCAR MULHERES</option>
-            <option value="homem">BUSCAR HOMENS</option>
-        </select>
-        <button class="btn" onclick="detectar()">[ INICIAR BUSCA ]</button>
-    </div>
-
-    <div id="resultado"></div>
-</div>
-</div>
-
-<script>
-let cidadeAlvo = '';
-let perfis = [];
-let nomeBuscado = '';
-
-const nomesHomem = ["Pedro","Lucas","Rafael","Gustavo","Felipe","Bruno","Matheus","Gabriel","Daniel","Thiago"];
-const nomesMulher = ["Mariana","Julia","Amanda","Beatriz","Camila","Larissa","Fernanda","Juliana","Patricia","Aline"];
-
-function salvarCadastro(){
-    let nome = document.getElementById('cad_nome').value;
-    if(nome.length < 2){ alert('Preencha seu nome'); return; }
-    localStorage.setItem('secretto_user', nome);
-    document.getElementById('cadastro').style.display='none';
-    document.getElementById('formulario').style.display='block';
-}
-
-function detectar(){
-    let app = document.getElementById('app').value;
-    nomeBuscado = document.getElementById('nome').value || 'Pessoa';
-    if(app === ''){ alert('Selecione uma rede social'); return; }
-    cidadeAlvo = document.getElementById('cidade').value || 'Sua Cidade';
-    gerarPerfis();
-    document.getElementById('formulario').style.display='none';
-    document.getElementById('resultado').style.display='block';
-    document.getElementById('resultado').innerHTML = `
-    <div class="caixa">
-        <div class="radar"></div>
-        <p style="color:#00aaff; font-size:12px;">ANALISANDO ${nomeBuscado.toUpperCase()} EM ${app}...</p>
-        <div class="loading-bar"><div class="progress" id="progress"></div></div>
-        <button class="btn" onclick="mostrarResultado()">VER PERFIS</button>
-    </div>`;
-    simularProgresso();
-}
-
-function simularProgresso(){
-    let p = 0; let el = document.getElementById('progress');
-    let i = setInterval(()=>{ p+=5; el.style.width=p+'%'; if(p>=100) clearInterval(i); }, 120);
-}
-
-function gerarPerfis(){
-    let sexo = document.getElementById('sexo').value;
-    let idadeBase = parseInt(document.getElementById('idade').value) || 22;
-    perfis = [];
-    for(let i=0; i<6; i++){
-        let idadeVariada = idadeBase + Math.floor(Math.random() * 9) - 4;
-        if(idadeVariada < 16) idadeVariada = 16;
-        
-        if(sexo === 'mulher'){
-            perfis.push({ nome: nomesMulher[Math.floor(Math.random() * nomesMulher.length)], idade: idadeVariada, foto: Math.floor(Math.random()*35) + 1 });
-        } else {
-            perfis.push({ nome: nomesHomem[Math.floor(Math.random() * nomesHomem.length)], idade: idadeVariada, foto: Math.floor(Math.random()*35) + 36 });
-        }
-    }
-}
-
-function mostrarResultado(){
-    let htmlPerfis = '';
-    perfis.forEach(p => {
-        htmlPerfis += `
-        <div class="card-perfil">
-            <div class="card-foto" style="background-image:url(https://i.pravatar.cc/300?img=${p.foto})"></div>
-            <div class="card-info">
-                <div class="card-nome">${p.nome}, <span class="card-idade">${p.idade}</span></div>
-                <div class="card-cidade">📍 ${cidadeAlvo}</div>
-            </div>
-        </div>`;
-    });
-
-    document.getElementById('resultado').innerHTML = `
-    <div class="fidelidade-box">
-        <div style="font-size:14px; color:#000;">ÍNDICE DE FIDELIDADE</div>
-        <div class="fidelidade-percent">0%</div>
-        <div style="font-size:12px; color:#000;">CHANCE DE TRAIÇÃO</div>
-        <div class="fidelidade-selo">✓ PESSOA 100% CONFIÁVEL</div>
-    </div>
-    <div class="grid-perfis">${htmlPerfis}</div>
-    <button class="btn btn-secundario" onclick="novaConsulta()">🔄 NOVA CONSULTA</button>`;
-}
-
-function novaConsulta(){
-    document.getElementById('resultado').style.display='none';
-    document.getElementById('formulario').style.display='block';
-}
-
-window.onload = () => {
-    if(localStorage.getItem('secretto_user')){ document.getElementById('formulario').style.display='block'; }
-    else{ document.getElementById('cadastro').style.display='block'; }
-}
-</script>
-</body>
-</html>
