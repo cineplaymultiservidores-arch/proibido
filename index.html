@@ -13,18 +13,25 @@ body { font-family: 'Montserrat', sans-serif; background: #000; color:#fff; text
 .logo h1 { font-size:28px; font-weight:900; letter-spacing:2px; }
 .logo h1 span { color:#ff0040; }
 .sub { font-size:12px; color:#ff0040; letter-spacing:3px; margin-bottom:15px; }
+
+/* RADAR VOLTOU */
+.radar { width:120px; height:120px; border:2px solid #ff0040; border-radius:50%; margin:15px auto; position:relative; }
+.radar::before { content:''; position:absolute; width:100%; height:100%; border-radius:50%; border:2px solid #ff0040; animation:pulse 2s infinite; }
+@keyframes pulse { 0% {transform:scale(0.8); opacity:1;} 100% {transform:scale(1.4); opacity:0;} }
+
 .caixa { background: rgba(10,10,10,0.8); padding:25px; border-radius:15px; border:1px solid #ff0040; margin-bottom:20px; }
 input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:1px solid #333; border-radius:8px; color:#fff; font-size:15px; text-align:center; font-weight:600; }
 .btn { width:100%; padding:16px; background: linear-gradient(90deg, #ff0040, #cc0033); border:none; border-radius:10px; color:#fff; font-size:16px; font-weight:900; cursor:pointer; margin-top:10px; }
 .btn-secundario { background: transparent; border:2px solid #ff0040; color:#ff0040; }
 #cadastro, #formulario, #resultado { display:none; }
 
-/* SEU GRID ORIGINAL */
+/* ETAPAS VOLTARAM */
+.etapas { text-align:left; font-size:13px; color:#aaa; margin-top:15px; }
+.etapas b { color:#ff0040; }
+
 .grid-perfis { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:15px 0; }
 .card-perfil { background:#111; border-radius:12px; border:1px solid #333; overflow:hidden; }
 .card-foto { width:100%; height:140px; background-size:cover; background-position:center; filter: blur(6px); }
-
-/* RODAPÉ NOVO IGUAL TINDER */
 .card-info { padding:10px; text-align:left; background:#0a0a0a; }
 .card-nome { font-size:15px; font-weight:900; }
 .card-idade { font-size:14px; color:#ccc; font-weight:600; }
@@ -44,22 +51,56 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
     <div class="logo"><h1>SECRETTO<span>.YOU</span></h1><p class="sub">TESTE DE COMPATIBILIDADE</p></div>
 
     <div class="caixa" id="cadastro">
+        <div class="radar"></div>
         <p style="color:#ff0040; font-size:20px; font-weight:900;">CRIAR PERFIL</p>
         <input type="text" id="cad_nome" placeholder="SEU PRIMEIRO NOME">
         <input type="number" id="cad_idade" placeholder="SUA IDADE" min="16" max="99">
         <button class="btn" onclick="salvarCadastro()">COMEÇAR BUSCA 🔎</button>
+        
+        <div class="etapas">
+            <b>COMO USAR:</b><br>
+            1. Crie seu perfil<br>
+            2. Digite nome, idade e cidade<br>
+            3. Selecione o app<br>
+            4. Veja o resultado
+        </div>
     </div>
 
     <div class="caixa" id="formulario">
+        <div class="radar"></div>
         <input type="text" id="nome" placeholder="NOME DA PESSOA">
         <input type="number" id="idade" placeholder="IDADE BASE - Ex: 22" min="16" max="99">
         <input type="text" id="cidade" placeholder="CIDADE - Ex: Rio de Janeiro">
         <select id="app">
             <option value="">SELECIONE O APP</option>
             <option value="Tinder">Tinder</option>
-            <option value="Instagram">Instagram</option>
             <option value="WhatsApp">WhatsApp</option>
+            <option value="Instagram">Instagram</option>
             <option value="Facebook">Facebook</option>
+            <option value="Facebook Messenger">Facebook Messenger</option>
+            <option value="Telegram">Telegram</option>
+            <option value="TikTok">TikTok</option>
+            <option value="X (Twitter)">X (Twitter)</option>
+            <option value="LinkedIn">LinkedIn</option>
+            <option value="Snapchat">Snapchat</option>
+            <option value="Discord">Discord</option>
+            <option value="Reddit">Reddit</option>
+            <option value="Threads">Threads</option>
+            <option value="Kwai">Kwai</option>
+            <option value="Pinterest">Pinterest</option>
+            <option value="Signal">Signal</option>
+            <option value="Skype">Skype</option>
+            <option value="WeChat">WeChat</option>
+            <option value="Viber">Viber</option>
+            <option value="LINE">LINE</option>
+            <option value="Bluesky">Bluesky</option>
+            <option value="Mastodon">Mastodon</option>
+            <option value="Tumblr">Tumblr</option>
+            <option value="Twitch">Twitch</option>
+            <option value="Steam">Steam</option>
+            <option value="Amino">Amino</option>
+            <option value="Meetup">Meetup</option>
+            <option value="Nextdoor">Nextdoor</option>
         </select>
         <select id="sexo">
             <option value="mulher">BUSCAR MULHERES</option>
@@ -98,6 +139,7 @@ function detectar(){
     document.getElementById('resultado').style.display='block';
     document.getElementById('resultado').innerHTML = `
     <div class="caixa">
+        <div class="radar"></div>
         <p style="color:#00aaff; font-size:12px;">ANALISANDO ${nomeBuscado.toUpperCase()} EM ${app}...</p>
         <div class="loading-bar"><div class="progress" id="progress"></div></div>
         <button class="btn" onclick="mostrarResultado()">VER PERFIS</button>
@@ -115,22 +157,13 @@ function gerarPerfis(){
     let idadeBase = parseInt(document.getElementById('idade').value) || 22;
     perfis = [];
     for(let i=0; i<6; i++){
-        // AQUI A IDADE VARIA: +/- 4 anos
         let idadeVariada = idadeBase + Math.floor(Math.random() * 9) - 4;
         if(idadeVariada < 16) idadeVariada = 16;
         
         if(sexo === 'mulher'){
-            perfis.push({
-                nome: nomesMulher[Math.floor(Math.random() * nomesMulher.length)],
-                idade: idadeVariada,
-                foto: Math.floor(Math.random()*35) + 1
-            });
+            perfis.push({ nome: nomesMulher[Math.floor(Math.random() * nomesMulher.length)], idade: idadeVariada, foto: Math.floor(Math.random()*35) + 1 });
         } else {
-            perfis.push({
-                nome: nomesHomem[Math.floor(Math.random() * nomesHomem.length)],
-                idade: idadeVariada,
-                foto: Math.floor(Math.random()*35) + 36
-            });
+            perfis.push({ nome: nomesHomem[Math.floor(Math.random() * nomesHomem.length)], idade: idadeVariada, foto: Math.floor(Math.random()*35) + 36 });
         }
     }
 }
