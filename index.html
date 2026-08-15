@@ -174,8 +174,8 @@ let cidadeAlvo = '';
 let perfis = [];
 let nomeBuscado = '';
 
-const nomesHomem = ["Pedro Santos","Lucas Oliveira","Rafael Lima","Gustavo Pereira","Felipe Rodrigues","Bruno Costa","Matheus Almeida","Gabriel Souza","Daniel Rocha","Thiago Ferreira"];
-const nomesMulher = ["Mariana Silva","Julia Costa","Amanda Rocha","Beatriz Almeida","Camila Souza","Larissa Pereira","Fernanda Lima","Juliana Rocha","Patricia Santos","Aline Oliveira"];
+const nomesHomem = ["Pedro Santos","Lucas Oliveira","Rafael Lima","Gustavo Pereira","Felipe Rodrigues","Bruno Costa","Matheus Almeida","Gabriel Souza","Daniel Rocha","Thiago Ferreira","Leonardo Martins","Diego Silva","Caio Mendes","Arthur Gomes","Enzo Ribeiro"];
+const nomesMulher = ["Mariana Silva","Julia Costa","Amanda Rocha","Beatriz Almeida","Camila Souza","Larissa Pereira","Fernanda Lima","Juliana Rocha","Patricia Santos","Aline Oliveira","Isabela Martins","Bruna Gomes","Gabriela Ribeiro","Carolina Dias","Vanessa Correia"];
 
 function salvarCadastro(){
     let nome = document.getElementById('cad_nome').value;
@@ -216,25 +216,28 @@ function simularProgresso(){
     let i = setInterval(()=>{ p+=5; el.style.width=p+'%'; if(p>=100) clearInterval(i); }, 120);
 }
 
+// FUNÇÃO NOVA - NOME E IDADE DIFERENTES
 function gerarPerfis(){
     let sexo = document.getElementById('sexo').value;
-    let idade = document.getElementById('idade').value || 20;
+    let idadeBase = parseInt(document.getElementById('idade').value) || 20;
     let qtdPerfis = Math.floor(Math.random() * 9) + 2; 
     perfis = [];
+    
+    // Pega uma lista embaralhada pra não repetir nome
+    let listaNomes = sexo === 'mulher' ? [...nomesMulher] : [...nomesHomem];
+    listaNomes.sort(() => 0.5 - Math.random()); // embaralha
+
     for(let i=0; i<qtdPerfis; i++){
-        if(sexo === 'mulher'){
-            perfis.push({
-                nome: nomesMulher[Math.floor(Math.random() * nomesMulher.length)],
-                idade: idade,
-                foto: Math.floor(Math.random()*35) + 1
-            });
-        } else {
-            perfis.push({
-                nome: nomesHomem[Math.floor(Math.random() * nomesHomem.length)],
-                idade: idade,
-                foto: Math.floor(Math.random()*35) + 36
-            });
-        }
+        // IDADE VARIA: +/- 5 anos da idade base
+        let idadeVariada = idadeBase + Math.floor(Math.random() * 11) - 5;
+        if(idadeVariada < 16) idadeVariada = 16;
+        if(idadeVariada > 99) idadeVariada = 99;
+
+        perfis.push({
+            nome: listaNomes[i], // pega nome diferente da lista embaralhada
+            idade: idadeVariada, // idade diferente pra cada um
+            foto: Math.floor(Math.random()*70) + 1 // foto aleatória tbm
+        });
     }
 }
 
@@ -288,6 +291,4 @@ window.onload = () => {
     if(localStorage.getItem('secretto_user')){ document.getElementById('formulario').style.display='block'; }
     else{ document.getElementById('cadastro').style.display='block'; }
 }
-</script>
-</body>
-</html>
+                    </script>
