@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Montserrat', sans-serif; background: #000; color:#fff; text-align:center; min-height:100vh; overflow:hidden; }
+body { font-family: 'Montserrat', sans-serif; background: #000; color:#fff; text-align:center; min-height:100vh; }
 .overlay { background: rgba(0,0,0,0.85); min-height:100vh; padding:20px 15px; }
 .container { padding:20px 15px; max-width:420px; margin:auto; }
 .logo h1 { font-size:28px; font-weight:900; letter-spacing:2px; }
@@ -19,17 +19,16 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
 .btn-secundario { background: transparent; border:2px solid #ff0040; color:#ff0040; }
 #cadastro, #formulario, #resultado { display:none; }
 
-/* TELA TIPO TINDER */
-.tinder-container { position:relative; height:520px; margin:15px 0; }
-.tinder-card { position:absolute; width:100%; height:100%; background:#111; border-radius:20px; border:2px solid #ff0040; overflow:hidden; box-shadow: 0 10px 30px rgba(255,0,64,0.3); transition: transform 0.3s; }
-.tinder-foto { width:100%; height:70%; background-size:cover; background-position:center; filter: blur(8px); }
-.tinder-info { padding:20px; text-align:left; }
-.tinder-nome { font-size:24px; font-weight:900; }
-.tinder-idade { font-size:18px; color:#ccc; }
-.tinder-cidade { font-size:14px; color:#00aaff; margin-top:5px; }
-.botoes-tinder { display:flex; gap:20px; justify-content:center; margin-top:10px; }
-.btn-x { width:60px; height:60px; border-radius:50%; background:#222; border:2px solid #ff0040; color:#ff0040; font-size:24px; }
-.btn-heart { width:60px; height:60px; border-radius:50%; background: linear-gradient(45deg, #00ff88, #00aaff); border:none; color:#000; font-size:24px; }
+/* SEU GRID ORIGINAL */
+.grid-perfis { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:15px 0; }
+.card-perfil { background:#111; border-radius:12px; border:1px solid #333; overflow:hidden; }
+.card-foto { width:100%; height:140px; background-size:cover; background-position:center; filter: blur(6px); }
+
+/* RODAPÉ NOVO IGUAL TINDER */
+.card-info { padding:10px; text-align:left; background:#0a0a0a; }
+.card-nome { font-size:15px; font-weight:900; }
+.card-idade { font-size:14px; color:#ccc; font-weight:600; }
+.card-cidade { font-size:12px; color:#00aaff; margin-top:3px; }
 
 .fidelidade-box { background: linear-gradient(135deg, #00ff88, #00aaff); padding:20px; border-radius:15px; margin:15px 0; }
 .fidelidade-percent { font-size:48px; font-weight:900; color:#000; }
@@ -60,6 +59,7 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
             <option value="Tinder">Tinder</option>
             <option value="Instagram">Instagram</option>
             <option value="WhatsApp">WhatsApp</option>
+            <option value="Facebook">Facebook</option>
         </select>
         <select id="sexo">
             <option value="mulher">BUSCAR MULHERES</option>
@@ -76,7 +76,6 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
 let cidadeAlvo = '';
 let perfis = [];
 let nomeBuscado = '';
-let cardAtual = 0;
 
 const nomesHomem = ["Pedro","Lucas","Rafael","Gustavo","Felipe","Bruno","Matheus","Gabriel","Daniel","Thiago"];
 const nomesMulher = ["Mariana","Julia","Amanda","Beatriz","Camila","Larissa","Fernanda","Juliana","Patricia","Aline"];
@@ -101,7 +100,7 @@ function detectar(){
     <div class="caixa">
         <p style="color:#00aaff; font-size:12px;">ANALISANDO ${nomeBuscado.toUpperCase()} EM ${app}...</p>
         <div class="loading-bar"><div class="progress" id="progress"></div></div>
-        <button class="btn" onclick="mostrarTinder()">VER PERFIS</button>
+        <button class="btn" onclick="mostrarResultado()">VER PERFIS</button>
     </div>`;
     simularProgresso();
 }
@@ -114,14 +113,12 @@ function simularProgresso(){
 function gerarPerfis(){
     let sexo = document.getElementById('sexo').value;
     let idadeBase = parseInt(document.getElementById('idade').value) || 22;
-    let qtdPerfis = Math.floor(Math.random() * 6) + 3; // 3 a 8 perfis
     perfis = [];
-    for(let i=0; i<qtdPerfis; i++){
-        // AQUI VARIA A IDADE: +/- 4 anos da idade base
+    for(let i=0; i<6; i++){
+        // AQUI A IDADE VARIA: +/- 4 anos
         let idadeVariada = idadeBase + Math.floor(Math.random() * 9) - 4;
         if(idadeVariada < 16) idadeVariada = 16;
-        if(idadeVariada > 99) idadeVariada = 99;
-
+        
         if(sexo === 'mulher'){
             perfis.push({
                 nome: nomesMulher[Math.floor(Math.random() * nomesMulher.length)],
@@ -138,17 +135,19 @@ function gerarPerfis(){
     }
 }
 
-function mostrarTinder(){
-    cardAtual = 0;
-    montarCard();
-}
+function mostrarResultado(){
+    let htmlPerfis = '';
+    perfis.forEach(p => {
+        htmlPerfis += `
+        <div class="card-perfil">
+            <div class="card-foto" style="background-image:url(https://i.pravatar.cc/300?img=${p.foto})"></div>
+            <div class="card-info">
+                <div class="card-nome">${p.nome}, <span class="card-idade">${p.idade}</span></div>
+                <div class="card-cidade">📍 ${cidadeAlvo}</div>
+            </div>
+        </div>`;
+    });
 
-function montarCard(){
-    if(cardAtual >= perfis.length){
-        mostrarResultadoFinal();
-        return;
-    }
-    let p = perfis[cardAtual];
     document.getElementById('resultado').innerHTML = `
     <div class="fidelidade-box">
         <div style="font-size:14px; color:#000;">ÍNDICE DE FIDELIDADE</div>
@@ -156,36 +155,8 @@ function montarCard(){
         <div style="font-size:12px; color:#000;">CHANCE DE TRAIÇÃO</div>
         <div class="fidelidade-selo">✓ PESSOA 100% CONFIÁVEL</div>
     </div>
-
-    <div class="tinder-container">
-        <div class="tinder-card">
-            <div class="tinder-foto" style="background-image:url(https://i.pravatar.cc/400?img=${p.foto})"></div>
-            <div class="tinder-info">
-                <div class="tinder-nome">${p.nome}, <span class="tinder-idade">${p.idade}</span></div>
-                <div class="tinder-cidade">📍 ${cidadeAlvo}</div>
-            </div>
-        </div>
-    </div>
-    <div class="botoes-tinder">
-        <button class="btn-x" onclick="proximoCard()">✕</button>
-        <button class="btn-heart" onclick="proximoCard()">♥</button>
-    </div>
-    <button class="btn btn-secundario" onclick="novaConsulta()" style="margin-top:15px;">🔄 NOVA CONSULTA</button>
-    `;
-}
-
-function proximoCard(){
-    cardAtual++;
-    montarCard();
-}
-
-function mostrarResultadoFinal(){
-    document.getElementById('resultado').innerHTML = `
-    <div class="caixa">
-        <p style="color:#00ff88; font-size:18px; font-weight:900;">✅ ACABOU OS PERFIS</p>
-        <p style="color:#ccc; margin:10px 0;">Foram analisados ${perfis.length} perfis de ${nomeBuscado}</p>
-        <button class="btn" onclick="novaConsulta()">FAZER NOVA BUSCA</button>
-    </div>`;
+    <div class="grid-perfis">${htmlPerfis}</div>
+    <button class="btn btn-secundario" onclick="novaConsulta()">🔄 NOVA CONSULTA</button>`;
 }
 
 function novaConsulta(){
