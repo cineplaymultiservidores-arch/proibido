@@ -44,13 +44,19 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
 .etapa-txt { font-size:12px; color:#ccc; line-height:1.4; }
 
 .cidade-titulo { color:#ff0040; font-size:14px; font-weight:900; margin:15px 0 10px; }
-.tinder-area { position:relative; width:100%; height:420px; margin-bottom:15px; }
-.tinder-card { position:absolute; width:100%; height:100%; background:#111; border-radius:15px; border:2px solid #ff0040; overflow:hidden; }
-.tinder-foto { width:100%; height:100%; background-size:cover; background-position:center; filter: blur(12px); }
-.tinder-info { position:absolute; bottom:0; left:0; right:0; padding:20px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); text-align:left; }
-.tinder-nome { font-size:22px; font-weight:900; }
-.tinder-cidade { font-size:14px; color:#00aaff; margin-top:5px; }
-.tinder-contador { font-size:10px; color:#aaa; text-align:center; margin-bottom:10px; }
+
+.grid-perfis { display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:15px 0; }
+.perfil-card { background:#111; border-radius:12px; border:1px solid #ff0040; overflow:hidden; }
+.perfil-foto { width:100%; height:140px; background-size:cover; background-position:center; filter: blur(10px); }
+.perfil-info { padding:8px; text-align:left; }
+.perfil-nome { font-size:12px; font-weight:900; }
+.perfil-cidade { font-size:10px; color:#00aaff; }
+
+.fidelidade-box { background: linear-gradient(135deg, #00ff88, #00aaff); padding:20px; border-radius:15px; margin:15px 0; border:2px solid #00ff88; box-shadow: 0 0 20px rgba(0,255,136,0.3); }
+.fidelidade-titulo { font-size:14px; font-weight:900; color:#000; margin-bottom:5px; }
+.fidelidade-percent { font-size:48px; font-weight:900; color:#000; line-height:1; }
+.fidelidade-texto { font-size:12px; color:#000; font-weight:700; margin-bottom:10px; }
+.fidelidade-selo { background:#000; color:#00ff88; padding:8px 12px; border-radius:8px; font-size:13px; font-weight:900; display:inline-block; }
 
 .card { background: rgba(10,0,10,0.9); padding:20px; border-radius:15px; border:2px solid #ff0040; }
 .status-ok { color:#00ff88; font-size:18px; margin-bottom:10px; font-weight:900; }
@@ -91,7 +97,7 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
         <p style="margin:15px 0 5px; font-size:12px; color:#aaa;">ESCOLHA A REDE SOCIAL</p>
         <select id="app">
             <option value="">SELECIONE O APP</option>
-            <option value="Tinder">Tinder</option> <!-- TINDER PRIMEIRO -->
+            <option value="Tinder">Tinder</option>
             <option value="WhatsApp">WhatsApp</option>
             <option value="Instagram">Instagram</option>
             <option value="Facebook">Facebook</option>
@@ -134,19 +140,19 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
         <p class="como-titulo">COMO USAR O SITE</p>
         <div class="etapa">
             <div class="etapa-num">1</div>
-            <div class="etapa-txt"><b>Preencha os dados:</b> Nome, idade e cidade da pessoa que você quer buscar</div>
+            <div class="etapa-txt"><b>Preencha os dados:</b> Nome, idade e cidade da pessoa</div>
         </div>
         <div class="etapa">
             <div class="etapa-num">2</div>
-            <div class="etapa-txt"><b>Escolha a rede social:</b> Selecione na aba qual app você quer</div>
+            <div class="etapa-txt"><b>Escolha a rede social:</b> Selecione qual app você quer</div>
         </div>
         <div class="etapa">
             <div class="etapa-num">3</div>
-            <div class="etapa-txt"><b>Escolha o sexo:</b> Buscar por homens ou mulheres</div>
+            <div class="etapa-txt"><b>Veja o resultado:</b> Índice de fidelidade + perfis</div>
         </div>
         <div class="etapa">
             <div class="etapa-num">4</div>
-            <div class="etapa-txt"><b>Nova Consulta:</b> Clique no botão pra buscar outra pessoa</div>
+            <div class="etapa-txt"><b>Nova Consulta:</b> Clique pra buscar outra pessoa</div>
         </div>
     </div>
 
@@ -154,14 +160,14 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
         <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 9.2v5.6c0 4.6-2.6 7.2-6.8 7.2H7.8C4.6 22 2 19.4 2 14.8V9.2C2 4.6 4.6 2 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 20.39 5.61 22 7.6 22h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
         NOSSO INSTAGRAM
     </a>
-    <p class="rodape">SECRETTO.YOU v4.9</p>
+    <p class="rodape">SECRETTO.YOU v5.2</p>
 </div>
 </div>
 
 <script>
 let cidadeAlvo = '';
-let perfilAtual = 0;
 let perfis = [];
+let nomeBuscado = '';
 
 const nomesHomem = ["Pedro Santos","Lucas Oliveira","Rafael Lima","Gustavo Pereira","Felipe Rodrigues","Bruno Costa","Matheus Almeida","Gabriel Souza","Daniel Rocha","Thiago Ferreira"];
 const nomesMulher = ["Mariana Silva","Julia Costa","Amanda Rocha","Beatriz Almeida","Camila Souza","Larissa Pereira","Fernanda Lima","Juliana Rocha","Patricia Santos","Aline Oliveira"];
@@ -176,6 +182,7 @@ function salvarCadastro(){
 
 function detectar(){
     let app = document.getElementById('app').value;
+    nomeBuscado = document.getElementById('nome').value || 'Pessoa';
     if(app === ''){ alert('Selecione uma rede social'); return; }
     cidadeAlvo = document.getElementById('cidade').value || 'Sua Cidade';
     gerarPerfis();
@@ -184,7 +191,7 @@ function detectar(){
     document.getElementById('resultado').style.display='block';
     document.getElementById('resultado').innerHTML = `
     <div class="caixa">
-        <p style="color:#00aaff; font-size:12px; font-weight:700;">BUSCANDO EM ${app} - ${cidadeAlvo}...</p>
+        <p style="color:#00aaff; font-size:12px; font-weight:700;">ANALISANDO ${nomeBuscado.toUpperCase()} EM ${app} - ${cidadeAlvo}...</p>
         <div class="radar-box">
             <div class="radar-circle c1"></div>
             <div class="radar-circle c2"></div>
@@ -207,8 +214,9 @@ function simularProgresso(){
 function gerarPerfis(){
     let sexo = document.getElementById('sexo').value;
     let idade = document.getElementById('idade').value || 20;
+    let qtdPerfis = Math.floor(Math.random() * 9) + 2; 
     perfis = [];
-    for(let i=0; i<5; i++){
+    for(let i=0; i<qtdPerfis; i++){
         if(sexo === 'mulher'){
             perfis.push({
                 nome: nomesMulher[Math.floor(Math.random() * nomesMulher.length)],
@@ -226,28 +234,37 @@ function gerarPerfis(){
 }
 
 function mostrarResultado(){
-    perfilAtual = Math.floor(Math.random() * 5); // mostra 1 aleatório dos 5
     let app = document.getElementById('app').value;
+    let qtdEncontrados = Math.floor(Math.random() * 200) + 50;
+    let qtdCidade = Math.floor(Math.random() * 50) + 20;
+    
+    let gridHTML = '';
+    perfis.forEach(p => {
+        gridHTML += `
+        <div class="perfil-card">
+            <div class="perfil-foto" style="background-image:url(https://i.pravatar.cc/300?img=${p.foto})"></div>
+            <div class="perfil-info">
+                <div class="perfil-nome">${p.nome}, ${p.idade}</div>
+                <div class="perfil-cidade">📍 ${cidadeAlvo}</div>
+            </div>
+        </div>`;
+    });
+
     document.getElementById('resultado').innerHTML = `
     <div class="card">
-        <p class="status-ok">✅ PERFIS ENCONTRADOS EM ${cidadeAlvo.toUpperCase()}</p>
-        <p class="contador">${Math.floor(Math.random() * 200) + 50} Pessoas compatíveis no ${app}</p>
-        <p class="cidade-titulo">${Math.floor(Math.random() * 50) + 20} PESSOAS DE ${cidadeAlvo.toUpperCase()} USARAM O APP</p>
-        <div class="tinder-area" id="tinderArea"></div>
-        <button class="btn btn-secundario" onclick="novaConsulta()">🔄 NOVA CONSULTA</button>
-    </div>`;
-    mostrarPerfil();
-}
-
-function mostrarPerfil(){
-    let p = perfis[perfilAtual];
-    document.getElementById('tinderArea').innerHTML = `
-    <div class="tinder-card">
-        <div class="tinder-foto" style="background-image:url(https://i.pravatar.cc/400?img=${p.foto})"></div>
-        <div class="tinder-info">
-            <div class="tinder-nome">${p.nome}, ${p.idade}</div>
-            <div class="tinder-cidade">📍 ${cidadeAlvo}</div>
+        <p class="status-ok">✅ ANÁLISE COMPLETA: ${nomeBuscado.toUpperCase()}</p>
+        
+        <div class="fidelidade-box">
+            <div class="fidelidade-titulo">ÍNDICE DE FIDELIDADE</div>
+            <div class="fidelidade-percent">0%</div>
+            <div class="fidelidade-texto">CHANCE DE TRAIÇÃO</div>
+            <div class="fidelidade-selo">✓ PESSOA 100% CONFIÁVEL</div>
         </div>
+
+        <p class="contador">${qtdEncontrados} Pessoas compatíveis no ${app}</p>
+        <p class="cidade-titulo">${qtdCidade} PESSOAS DE ${cidadeAlvo.toUpperCase()} USARAM O APP</p>
+        <div class="grid-perfis" id="gridPerfis">${gridHTML}</div>
+        <button class="btn btn-secundario" onclick="novaConsulta()">🔄 NOVA CONSULTA</button>
     </div>`;
 }
 
@@ -263,4 +280,4 @@ window.onload = () => {
 }
 </script>
 </body>
-                </html>
+        </html>
