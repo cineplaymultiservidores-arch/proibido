@@ -18,6 +18,7 @@ body { font-family: 'Montserrat', sans-serif; background: #000 url('https://i.im
 .caixa { background: rgba(10,10,10,0.8); padding:25px; border-radius:15px; border:1px solid #ff0040; box-shadow: 0 0 30px rgba(255,0,64,0.3); margin-bottom:20px; backdrop-filter: blur(5px); }
 input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:1px solid #333; border-radius:8px; color:#fff; font-size:15px; text-align:center; font-weight:600; appearance: none; }
 .btn { width:100%; padding:16px; background: linear-gradient(90deg, #ff0040, #cc0033); border:none; border-radius:10px; color:#fff; font-size:16px; font-weight:900; cursor:pointer; margin-top:10px; text-transform:uppercase; }
+.btn-secundario { background: transparent; border:2px solid #ff0040; color:#ff0040; }
 .btn-insta { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); border: none; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration:none; }
 .btn-insta svg { width:20px; height:20px; fill:#fff; }
 #cadastro, #formulario, #resultado { display:none; }
@@ -43,18 +44,23 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
 .etapa-txt { font-size:12px; color:#ccc; line-height:1.4; }
 
 .cidade-titulo { color:#ff0040; font-size:14px; font-weight:900; margin:15px 0 10px; }
-.tinder-area { position:relative; width:100%; height:420px; margin-bottom:15px; touch-action: none; }
-.tinder-card { position:absolute; width:100%; height:100%; background:#111; border-radius:15px; border:2px solid #ff0040; overflow:hidden; cursor: grab; }
-.tinder-card.dragging { cursor: grabbing; transition: none; }
-.tinder-foto { width:100%; height:100%; background-size:cover; background-position:center; filter: blur(12px); pointer-events: none; }
-.tinder-info { position:absolute; bottom:0; left:0; right:0; padding:20px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); text-align:left; pointer-events: none; }
-.tinder-nome { font-size:22px; font-weight:900; }
-.tinder-cidade { font-size:14px; color:#00aaff; margin-top:5px; }
-.tinder-contador { font-size:10px; color:#aaa; text-align:center; margin-bottom:10px; }
-.tinder-btns { display:flex; gap:10px; }
-.tinder-btn { flex:1; padding:14px; border-radius:10px; border:2px solid #ff0040; background:transparent; color:#ff0040; font-weight:900; font-size:14px; }
-.tinder-like { position:absolute; top:20px; right:20px; color:#00ff88; font-size:40px; font-weight:900; transform: rotate(20deg); opacity:0; }
-.tinder-nope { position:absolute; top:20px; left:20px; color:#ff0040; font-size:40px; font-weight:900; transform: rotate(-20deg); opacity:0; }
+
+/* CARROSSEL NOVO */
+.carrossel-container { position:relative; margin:15px 0; }
+.carrossel { display:flex; gap:12px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom:10px; }
+.carrossel::-webkit-scrollbar { height:6px; }
+.carrossel::-webkit-scrollbar-thumb { background:#ff0040; border-radius:10px; }
+.perfil-card { min-width:160px; background:#111; border-radius:12px; border:2px solid #ff0040; overflow:hidden; scroll-snap-align: start; flex-shrink:0; }
+.perfil-foto { width:100%; height:200px; background-size:cover; background-position:center; filter: blur(10px); }
+.perfil-info { padding:10px; text-align:left; }
+.perfil-nome { font-size:13px; font-weight:900; }
+.perfil-cidade { font-size:11px; color:#00aaff; }
+
+.fidelidade-box { background: linear-gradient(135deg, #00ff88, #00aaff); padding:20px; border-radius:15px; margin:15px 0; border:2px solid #00ff88; box-shadow: 0 0 20px rgba(0,255,136,0.3); }
+.fidelidade-titulo { font-size:14px; font-weight:900; color:#000; margin-bottom:5px; }
+.fidelidade-percent { font-size:48px; font-weight:900; color:#000; line-height:1; }
+.fidelidade-texto { font-size:12px; color:#000; font-weight:700; margin-bottom:10px; }
+.fidelidade-selo { background:#000; color:#00ff88; padding:8px 12px; border-radius:8px; font-size:13px; font-weight:900; display:inline-block; }
 
 .card { background: rgba(10,0,10,0.9); padding:20px; border-radius:15px; border:2px solid #ff0040; }
 .status-ok { color:#00ff88; font-size:18px; margin-bottom:10px; font-weight:900; }
@@ -63,6 +69,7 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
 .progress { height:25px; background: linear-gradient(90deg, #ff0040, #00aaff); width:0%; border-radius:10px; }
 .classificacao { display:inline-block; background:#ff0040; color:#000; padding:3px 8px; border-radius:5px; font-size:10px; font-weight:900; }
 .rodape { font-size:10px; color:#444; margin-top:20px; }
+.arraste { font-size:10px; color:#aaa; margin-top:5px; }
 </style>
 </head>
 <body>
@@ -95,6 +102,7 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
         <p style="margin:15px 0 5px; font-size:12px; color:#aaa;">ESCOLHA A REDE SOCIAL</p>
         <select id="app">
             <option value="">SELECIONE O APP</option>
+            <option value="Tinder">Tinder</option>
             <option value="WhatsApp">WhatsApp</option>
             <option value="Instagram">Instagram</option>
             <option value="Facebook">Facebook</option>
@@ -104,3 +112,182 @@ input, select { width:100%; padding:14px; margin:8px 0; background:#111; border:
             <option value="X">X (Twitter)</option>
             <option value="LinkedIn">LinkedIn</option>
             <option value="Snapchat">Snapchat</option>
+            <option value="Discord">Discord</option>
+            <option value="Reddit">Reddit</option>
+            <option value="Threads">Threads</option>
+            <option value="Kwai">Kwai</option>
+            <option value="Pinterest">Pinterest</option>
+            <option value="Signal">Signal</option>
+            <option value="Skype">Skype</option>
+            <option value="WeChat">WeChat</option>
+            <option value="Viber">Viber</option>
+            <option value="LINE">LINE</option>
+            <option value="Bluesky">Bluesky</option>
+            <option value="Mastodon">Mastodon</option>
+            <option value="Tumblr">Tumblr</option>
+            <option value="Twitch">Twitch</option>
+            <option value="Steam">Steam</option>
+            <option value="Amino">Amino</option>
+            <option value="Meetup">Meetup</option>
+            <option value="Nextdoor">Nextdoor</option>
+        </select>
+
+        <select id="sexo">
+            <option value="mulher">BUSCAR MULHERES</option>
+            <option value="homem">BUSCAR HOMENS</option>
+        </select>
+        <button class="btn" onclick="detectar()">[ INICIAR BUSCA ]</button>
+    </div>
+
+    <div id="resultado"></div>
+
+    <div class="como-usar" id="comoUsar">
+        <p class="como-titulo">COMO USAR O SITE</p>
+        <div class="etapa">
+            <div class="etapa-num">1</div>
+            <div class="etapa-txt"><b>Preencha os dados:</b> Nome, idade e cidade da pessoa</div>
+        </div>
+        <div class="etapa">
+            <div class="etapa-num">2</div>
+            <div class="etapa-txt"><b>Escolha a rede social:</b> Selecione qual app você quer</div>
+        </div>
+        <div class="etapa">
+            <div class="etapa-num">3</div>
+            <div class="etapa-txt"><b>Arraste pro lado:</b> Veja todos os perfis encontrados</div>
+        </div>
+        <div class="etapa">
+            <div class="etapa-num">4</div>
+            <div class="etapa-txt"><b>Nova Consulta:</b> Clique pra buscar outra pessoa</div>
+        </div>
+    </div>
+
+    <a href="https://www.instagram.com/secretto.yo?igsh=bzRpYWwwbGo2cDRl&utm_source=qr" target="_blank" class="btn btn-insta">
+        <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 9.2v5.6c0 4.6-2.6 7.2-6.8 7.2H7.8C4.6 22 2 19.4 2 14.8V9.2C2 4.6 4.6 2 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 20.39 5.61 22 7.6 22h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+        NOSSO INSTAGRAM
+    </a>
+    <p class="rodape">SECRETTO.YOU v5.3</p>
+</div>
+</div>
+
+<script>
+let cidadeAlvo = '';
+let perfis = [];
+let nomeBuscado = '';
+
+const nomesHomem = ["Pedro Santos","Lucas Oliveira","Rafael Lima","Gustavo Pereira","Felipe Rodrigues","Bruno Costa","Matheus Almeida","Gabriel Souza","Daniel Rocha","Thiago Ferreira"];
+const nomesMulher = ["Mariana Silva","Julia Costa","Amanda Rocha","Beatriz Almeida","Camila Souza","Larissa Pereira","Fernanda Lima","Juliana Rocha","Patricia Santos","Aline Oliveira"];
+
+function salvarCadastro(){
+    let nome = document.getElementById('cad_nome').value;
+    if(nome.length < 2){ alert('Preencha seu nome'); return; }
+    localStorage.setItem('secretto_user', nome);
+    document.getElementById('cadastro').style.display='none';
+    document.getElementById('formulario').style.display='block';
+}
+
+function detectar(){
+    let app = document.getElementById('app').value;
+    nomeBuscado = document.getElementById('nome').value || 'Pessoa';
+    if(app === ''){ alert('Selecione uma rede social'); return; }
+    cidadeAlvo = document.getElementById('cidade').value || 'Sua Cidade';
+    gerarPerfis();
+    document.getElementById('formulario').style.display='none';
+    document.getElementById('comoUsar').style.display='none';
+    document.getElementById('resultado').style.display='block';
+    document.getElementById('resultado').innerHTML = `
+    <div class="caixa">
+        <p style="color:#00aaff; font-size:12px; font-weight:700;">ANALISANDO ${nomeBuscado.toUpperCase()} EM ${app} - ${cidadeAlvo}...</p>
+        <div class="radar-box">
+            <div class="radar-circle c1"></div>
+            <div class="radar-circle c2"></div>
+            <div class="radar-circle c3"></div>
+            <div class="radar-line"></div>
+            <div class="radar-dot" style="top:30%; left:60%;"></div>
+            <div class="radar-dot" style="top:70%; left:40%;"></div>
+        </div>
+        <div class="loading-bar"><div class="progress" id="progress"></div></div>
+        <button class="btn" onclick="mostrarResultado()">VER RESULTADO</button>
+    </div>`;
+    simularProgresso();
+}
+
+function simularProgresso(){
+    let p = 0; let el = document.getElementById('progress');
+    let i = setInterval(()=>{ p+=5; el.style.width=p+'%'; if(p>=100) clearInterval(i); }, 120);
+}
+
+function gerarPerfis(){
+    let sexo = document.getElementById('sexo').value;
+    let idade = document.getElementById('idade').value || 20;
+    let qtdPerfis = Math.floor(Math.random() * 9) + 2; 
+    perfis = [];
+    for(let i=0; i<qtdPerfis; i++){
+        if(sexo === 'mulher'){
+            perfis.push({
+                nome: nomesMulher[Math.floor(Math.random() * nomesMulher.length)],
+                idade: idade,
+                foto: Math.floor(Math.random()*35) + 1
+            });
+        } else {
+            perfis.push({
+                nome: nomesHomem[Math.floor(Math.random() * nomesHomem.length)],
+                idade: idade,
+                foto: Math.floor(Math.random()*35) + 36
+            });
+        }
+    }
+}
+
+function mostrarResultado(){
+    let app = document.getElementById('app').value;
+    let qtdEncontrados = Math.floor(Math.random() * 200) + 50;
+    let qtdCidade = Math.floor(Math.random() * 50) + 20;
+    
+    let carrosselHTML = '';
+    perfis.forEach(p => {
+        carrosselHTML += `
+        <div class="perfil-card">
+            <div class="perfil-foto" style="background-image:url(https://i.pravatar.cc/300?img=${p.foto})"></div>
+            <div class="perfil-info">
+                <div class="perfil-nome">${p.nome}, ${p.idade}</div>
+                <div class="perfil-cidade">📍 ${cidadeAlvo}</div>
+            </div>
+        </div>`;
+    });
+
+    document.getElementById('resultado').innerHTML = `
+    <div class="card">
+        <p class="status-ok">✅ ANÁLISE COMPLETA: ${nomeBuscado.toUpperCase()}</p>
+        
+        <div class="fidelidade-box">
+            <div class="fidelidade-titulo">ÍNDICE DE FIDELIDADE</div>
+            <div class="fidelidade-percent">0%</div>
+            <div class="fidelidade-texto">CHANCE DE TRAIÇÃO</div>
+            <div class="fidelidade-selo">✓ PESSOA 100% CONFIÁVEL</div>
+        </div>
+
+        <p class="contador">${qtdEncontrados} Pessoas compatíveis no ${app}</p>
+        <p class="cidade-titulo">${qtdCidade} PESSOAS DE ${cidadeAlvo.toUpperCase()} USARAM O APP</p>
+        
+        <div class="carrossel-container">
+            <div class="carrossel" id="carrossel">${carrosselHTML}</div>
+            <p class="arraste">👈 ARRASTE PRO LADO 👉</p>
+        </div>
+        
+        <button class="btn btn-secundario" onclick="novaConsulta()">🔄 NOVA CONSULTA</button>
+    </div>`;
+}
+
+function novaConsulta(){
+    document.getElementById('resultado').style.display='none';
+    document.getElementById('formulario').style.display='block';
+    document.getElementById('comoUsar').style.display='block';
+}
+
+window.onload = () => {
+    if(localStorage.getItem('secretto_user')){ document.getElementById('formulario').style.display='block'; }
+    else{ document.getElementById('cadastro').style.display='block'; }
+}
+</script>
+</body>
+</html>
